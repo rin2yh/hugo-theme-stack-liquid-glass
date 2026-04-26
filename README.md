@@ -157,6 +157,11 @@ cd exampleSite && hugo server
 The `exampleSite/themes/stack-liquid-glass` entry is a symlink back to the
 repository root, so Hugo can resolve the theme without any extra flags.
 
+## Contributing & releases
+
+Developer-facing documentation — local setup, Conventional Commits, the SemVer
+policy, and the release-please flow — lives in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 ## Credits
 
 - Based on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) by Jimmy Cai (MIT).
