@@ -29,7 +29,7 @@ _Screenshot placeholder — see the demo site._
 
 ## Requirements
 
-- Hugo **extended** `>= 0.146.0`
+- Hugo **extended** `>= 0.160.1`
 
 ## Installation
 

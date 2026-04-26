@@ -6,7 +6,7 @@ homepage = "https://github.com/rin2yh/hugo-theme-stack-liquid-glass"
 demosite = "https://rin2yh.github.io/blog/"
 tags = ["blog", "glassmorphism", "dark-mode", "minimal", "japanese", "responsive"]
 features = ["dark-mode", "search", "toc", "mermaid", "external-url", "related-posts", "i18n"]
-min_version = "0.146.0"
+min_version = "0.160.1"
 
 [author]
 name = "rin2yh"
