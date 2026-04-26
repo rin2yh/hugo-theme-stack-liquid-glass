@@ -59,6 +59,12 @@ theme = "stack-liquid-glass"
 
 If you do not provide these, the corresponding `<link>` tags in `<head>` will 404 — the rest of the site still works.
 
+### Icons for `[[menu]]` / `[[social]]` entries
+
+Icons referenced from `[[menu]]` or `[[social]]` entries (via `params.icon`) are resolved from `assets/icons/<name>.svg`. The theme ships a generic icon set (`home`, `search`, `archives`, `rss`, `tag`, `folder`, `user`, `clock`, `date`, `external`, `link`, `list`, `moon`, `sun`, `language`, `copyright`, `clipboard`, `donate-heart`, `qr-code`). Service-specific icons (e.g. for GitHub, Twitter, Zenn, Speaker Deck) are intentionally not bundled — place the corresponding SVG in your own site's `assets/icons/<name>.svg` and reference it from the menu entry. Hugo's asset pipeline resolves the project's `assets/` before the theme's, so site-provided icons take precedence and supplement the theme set.
+
+If an icon name resolves to no file, the icon slot renders empty but the link itself still works.
+
 ## Configuration
 
 A minimal `hugo.toml` for a site using this theme:

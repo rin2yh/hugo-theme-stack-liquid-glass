@@ -6,8 +6,12 @@
   {{- $twitterUrl := printf "https://twitter.com/intent/tweet?text=%s" $text -}}
   <aside class="widget twitter-share">
     <span class="twitter-share__title">{{ T "shareTo" }}</span>
+    {{- $icon := partial "helper/icon" "brand-twitter" -}}
+    {{- if not $icon -}}
+      {{- $icon = partial "helper/icon" "external" -}}
+    {{- end -}}
     <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
-      {{ partial "helper/icon" "brand-twitter" }}
+      {{ $icon }}
     </a>
   </aside>
 {{- end -}}
