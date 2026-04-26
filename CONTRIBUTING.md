@@ -31,6 +31,7 @@ generate the changelog, so accurate types and scopes matter.
 | `perf:`     | patch bump                          | Listed under "Performance Improvements".  |
 | `docs:`     | no version bump on its own          | Listed under "Documentation".             |
 | `refactor:` | no version bump on its own          | Listed under "Code Refactoring".          |
+| `revert:`   | follows the reverted commit's bump  | Listed under "Reverts".                   |
 | `ci:`, `build:`, `chore:`, `test:`, `style:` | no version bump | Hidden from the changelog. |
 
 A breaking change is signalled by either a `!` after the type/scope or a
@@ -59,7 +60,7 @@ that the version number guarantees stability for is:
 The following are explicitly **not** part of the public API and may change in
 patch or minor releases without a breaking-change marker:
 
-- CSS class names and design tokens (`assets/scss/`).
+- CSS class names and design tokens (`assets/css/`).
 - JavaScript globals (e.g. `window.lgI18n`) and inline script internals.
 - Internal partial helpers under `layouts/partials/helper/`.
 - File names of bundled icons under `assets/icons/`.
