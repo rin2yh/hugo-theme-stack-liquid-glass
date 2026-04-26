@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
   <head>
-    {{- partial "head/color-scheme.html" . -}}
+    {{- partialCached "head/color-scheme.html" . .Language.Lang -}}
     {{- partial "head/head.html" . -}}
     {{- block "head" . -}}{{ end -}}
   </head>
