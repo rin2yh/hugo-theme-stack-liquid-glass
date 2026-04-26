@@ -1,0 +1,94 @@
+baseURL = "/"
+languageCode = "en"
+title = "Stack Liquid Glass — Demo"
+theme = "stack-liquid-glass"
+hasCJKLanguage = true
+defaultContentLanguage = "en"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[permalinks]
+post = "/post/:contentbasename/"
+
+[markup.goldmark.renderer]
+unsafe = true
+[markup.tableOfContents]
+ordered = true
+startLevel = 2
+endLevel = 4
+[markup.highlight]
+noClasses = false
+codeFences = true
+guessSyntax = true
+lineNos = false
+tabWidth = 2
+
+[params]
+mainSections = ["post"]
+rssFullContent = true
+description = "Demo site for the Stack Liquid Glass Hugo theme."
+[params.dateFormat]
+published = "2006/01/02"
+lastUpdated = "2006/01/02 15:04 MST"
+[params.footer]
+since = 2026
+customText = ""
+[params.sidebar.avatar]
+enabled = false
+local = false
+src = ""
+[[params.widgets.homepage]]
+type = "search"
+[[params.widgets.homepage]]
+type = "archives"
+[[params.widgets.homepage]]
+type = "categories"
+[params.widgets.homepage.params]
+limit = 10
+[[params.widgets.homepage]]
+type = "tag-cloud"
+[params.widgets.homepage.params]
+limit = 10
+[[params.widgets.page]]
+type = "toc"
+
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = 1
+[menu.main.params]
+icon = "home"
+
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/page/about/"
+weight = 2
+[menu.main.params]
+icon = "user"
+
+[[menu.main]]
+identifier = "archives"
+name = "Archives"
+url = "/page/archives/"
+weight = 3
+[menu.main.params]
+icon = "archives"
+
+[[menu.main]]
+identifier = "search"
+name = "Search"
+url = "/page/search/"
+weight = 4
+[menu.main.params]
+icon = "search"
+
+[[social]]
+identifier = "rss"
+name = "RSS"
+url = "/index.xml"
+weight = 1
+[social.params]
+icon = "rss"

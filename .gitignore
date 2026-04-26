@@ -1,0 +1,15 @@
+# Hugo build artifacts
+/exampleSite/public/
+/exampleSite/resources/
+/exampleSite/.hugo_build.lock
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Node (for future tooling)
+node_modules/
+package-lock.json
