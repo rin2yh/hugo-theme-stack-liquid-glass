@@ -1,0 +1,30 @@
+{{- /*
+  Image processing wrapper that passes SVG through unchanged.
+  Hugo's .Resize / .Fill / .Fit are raster-only and fail the build on SVG.
+
+  Input  dict: { Resource: Resource, Action: "Resize"|"Fill"|"Fit", Spec: string }
+  Output dict: { src: string, width: int, height: int }
+    - For SVG, width/height are 0 and src is the original RelPermalink.
+*/ -}}
+{{- $resource := .Resource -}}
+{{- $action := .Action | default "Resize" -}}
+{{- $spec := .Spec -}}
+{{- $src := $resource.RelPermalink -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+
+{{- if ne $resource.MediaType.SubType "svg" -}}
+  {{- $thumb := "" -}}
+  {{- if eq $action "Fill" -}}
+    {{- $thumb = $resource.Fill $spec -}}
+  {{- else if eq $action "Fit" -}}
+    {{- $thumb = $resource.Fit $spec -}}
+  {{- else -}}
+    {{- $thumb = $resource.Resize $spec -}}
+  {{- end -}}
+  {{- $src = $thumb.RelPermalink -}}
+  {{- $width = $thumb.Width -}}
+  {{- $height = $thumb.Height -}}
+{{- end -}}
+
+{{- return dict "src" $src "width" $width "height" $height -}}
