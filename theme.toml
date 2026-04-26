@@ -1,0 +1,19 @@
+name = "Stack Liquid Glass"
+license = "GPL-3.0-or-later"
+licenselink = "https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE"
+description = "Glassmorphism / Liquid Glass theme for Hugo. Derived from hugo-theme-stack with light/dark mode and a near-zero-JS pipeline."
+homepage = "https://github.com/rin2yh/hugo-theme-stack-liquid-glass"
+demosite = "https://rin2yh.github.io/blog/"
+tags = ["blog", "glassmorphism", "dark-mode", "minimal", "japanese", "responsive"]
+features = ["dark-mode", "search", "toc", "mermaid", "external-url", "related-posts", "i18n"]
+min_version = "0.146.0"
+
+[author]
+name = "rin2yh"
+homepage = "https://github.com/rin2yh"
+
+[original]
+name = "Hugo Theme Stack"
+author = "Jimmy Cai"
+homepage = "https://github.com/CaiJimmy/hugo-theme-stack"
+repo = "https://github.com/CaiJimmy/hugo-theme-stack"
