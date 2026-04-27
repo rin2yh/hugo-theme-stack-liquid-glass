@@ -4,7 +4,7 @@
 # release PR and tag created by release-please trigger downstream workflows
 # (the default token suppresses workflow_run events by design).
 #
-# Required repository secrets (see CONTRIBUTING.md → "Release automation setup"):
+# Required repository secrets (see docs/releasing.md → "Release automation setup"):
 #   RELEASE_PLEASE_APP_ID       App id of a GitHub App installed on this repo
 #   RELEASE_PLEASE_PRIVATE_KEY  The App's private key (.pem contents)
 # The App must grant: Contents = read & write, Pull requests = read & write.

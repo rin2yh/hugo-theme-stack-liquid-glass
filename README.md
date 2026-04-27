@@ -157,10 +157,27 @@ cd exampleSite && hugo server
 The `exampleSite/themes/stack-liquid-glass` entry is a symlink back to the
 repository root, so Hugo can resolve the theme without any extra flags.
 
-## Contributing & releases
+## Versioning
 
-Developer-facing documentation — local setup, Conventional Commits, the SemVer
-policy, and the release-please flow — lives in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+The theme follows [Semantic Versioning](https://semver.org/). The "public API"
+that the version number guarantees stability for is:
+
+- **`params.*` keys** read by the theme's templates.
+- **Layout files** that downstream sites are expected to override under
+  `layouts/` (e.g. `partials/article/header.html`, `_default/baseof.html`).
+- **i18n keys** under `i18n/*.toml`.
+
+The following are explicitly **not** part of the public API and may change in
+patch or minor releases without a breaking-change marker:
+
+- CSS class names and design tokens (`assets/css/`).
+- JavaScript globals (e.g. `window.lgI18n`) and inline script internals.
+- Internal partial helpers under `layouts/partials/helper/`.
+- File names of bundled icons under `assets/icons/`.
+
+While in `0.x`, breaking changes to the public API bump the **minor** version
+rather than jumping to `1.0.0`. Sites that depend on internals should pin to
+a specific tag rather than tracking `main`.
 
 ## Credits
 
