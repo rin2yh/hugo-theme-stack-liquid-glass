@@ -81,6 +81,6 @@ workflows — that would skip CI on the release PR. Setup steps:
    (Subscribe to no events; the App is only used as a token issuer.)
 2. Install the App on this repository.
 3. Add two repository secrets:
-   - `RELEASE_PLEASE_APP_ID` — the App's numeric id.
+   - `RELEASE_PLEASE_APP_ID` — the App's Client ID (passed to the action's `client-id` input).
    - `RELEASE_PLEASE_PRIVATE_KEY` — the contents of the `.pem` private key.
 4. Push to `main`. The first run will open the initial release PR.
