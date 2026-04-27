@@ -189,9 +189,9 @@ a specific tag rather than tracking `main`.
 
 ## License
 
-GPL-3.0-or-later.
+MIT License.
 
-- Copyright (C) 2026 rin2yh
-- Copyright (C) 2020 Jimmy Cai (original Hugo Theme Stack)
+- Copyright (c) 2026 rin2yh
+- Copyright (c) 2020 Jimmy Cai (original Hugo Theme Stack)
 
 See [LICENSE](LICENSE) for details.
