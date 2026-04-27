@@ -10,6 +10,14 @@ A glassmorphism-flavored Hugo theme — a liquid-glass redesign of [Hugo Theme S
 
 _Screenshot placeholder — see the demo site._
 
+## Documentation
+
+Full usage documentation (English / 日本語) is published at:
+
+<https://rin2yh.github.io/hugo-theme-stack-liquid-glass/>
+
+The docs site is built from `website/` in this repository. See [`website/content/`](website/content/) for the source.
+
 ## Features
 
 - Glassmorphism / liquid-glass design tokens
