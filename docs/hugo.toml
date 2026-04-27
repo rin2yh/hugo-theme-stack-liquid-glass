@@ -8,7 +8,7 @@ hasCJKLanguage = true
 home = ["HTML", "RSS", "JSON"]
 
 [permalinks]
-docs = "/:slug/"
+docs = "/:filename/"
 
 [markup.goldmark.renderer]
 unsafe = true
@@ -28,10 +28,6 @@ description = "Usage documentation for the Stack Liquid Glass Hugo theme."
 [params.dateFormat]
 published = "2006/01/02"
 lastUpdated = "2006/01/02 15:04 MST"
-[params.sidebar.avatar]
-enabled = false
-local = false
-src = ""
 [[params.widgets.homepage]]
 type = "search"
 [[params.widgets.homepage]]

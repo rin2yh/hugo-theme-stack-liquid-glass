@@ -34,7 +34,7 @@
   {{- with $site.Menus.main }}
   <nav class="left-sidebar__nav" aria-label="Main navigation">
     {{- range . -}}
-      {{- $url := cond (eq .URL "/") $.Site.Home.RelPermalink (.URL | relLangURL) -}}
+      {{- $url := cond (eq .URL "/") $.Site.Home.RelPermalink .URL -}}
       {{- $active := or (eq $url $currentURL) (and (ne $url $.Site.Home.RelPermalink) (hasPrefix $currentURL $url)) -}}
       <a class="left-sidebar__nav-item{{ if $active }} left-sidebar__nav-item--active{{ end }}"
          href="{{ $url }}">
