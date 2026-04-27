@@ -50,6 +50,6 @@ Yes — `[outputs] home = ["HTML", "RSS", "JSON"]` produces `/index.json` contai
 
 ## What's the license?
 
-GPL-3.0-or-later. See [LICENSE](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE) in the repository for the full text.
+MIT. See [LICENSE](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE) in the repository for the full text.
 
-The theme is based on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) by Jimmy Cai (MIT-licensed).
+The theme is based on [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack) by Jimmy Cai (also MIT-licensed).

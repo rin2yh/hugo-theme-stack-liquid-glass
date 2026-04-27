@@ -1,5 +1,5 @@
 name = "Stack Liquid Glass"
-license = "GPL-3.0-or-later"
+license = "MIT"
 licenselink = "https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE"
 description = "Glassmorphism / Liquid Glass theme for Hugo. Derived from hugo-theme-stack with light/dark mode and a near-zero-JS pipeline."
 homepage = "https://github.com/rin2yh/hugo-theme-stack-liquid-glass"

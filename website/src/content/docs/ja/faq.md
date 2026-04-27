@@ -50,6 +50,6 @@ description: よくある質問と注意点。
 
 ## ライセンスは？
 
-GPL-3.0-or-later です。完全な条文はリポジトリの [LICENSE](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE) を参照してください。
+MIT ライセンスです。完全な条文はリポジトリの [LICENSE](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/LICENSE) を参照してください。
 
-このテーマは Jimmy Cai 氏の [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)（MIT ライセンス）をベースにしています。
+このテーマは Jimmy Cai 氏の [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack)（こちらも MIT ライセンス）をベースにしています。
