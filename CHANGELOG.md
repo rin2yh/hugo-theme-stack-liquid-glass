@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.0...hugo-theme-stack-liquid-glass-v0.1.1) (2026-04-27)
+
+
+### Bug Fixes
+
+* **website:** add missing archives page so docs archive widget links resolve ([2bf1133](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/2bf11339cbd89f26cd9b5f47e2ff157254f863e6))
+* **website:** add missing archives page so docs site archive widget links resolve ([6d9c792](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/6d9c79287df3d141b8404027039a040b285b7dc0))
+
 ## 0.1.0 (2026-04-27)
 
 
