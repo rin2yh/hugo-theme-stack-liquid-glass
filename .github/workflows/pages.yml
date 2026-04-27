@@ -1,4 +1,4 @@
-name: deploy-docs
+name: deploy-website
 on:
   push:
     branches: [main]
@@ -27,7 +27,7 @@ jobs:
           hugo-version: '0.146.0'
           extended: true
 
-      - name: Build docs
+      - name: Build website
         working-directory: website
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
