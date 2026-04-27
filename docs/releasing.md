@@ -31,9 +31,7 @@ BREAKING CHANGE: sites that set params.sidebar.avatar.local must rename the key.
 
 While the project is in `0.x`, breaking changes bump the **minor** version
 (e.g. `0.2.0` → `0.3.0`) rather than jumping to `1.0.0`. After `1.0.0`,
-breaking changes will bump the major version per standard SemVer. The
-boundary of what counts as a breaking change is documented in the README's
-"Versioning" section.
+breaking changes will bump the major version per standard SemVer.
 
 ## Cutting a release
 
