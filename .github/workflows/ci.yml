@@ -14,6 +14,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        site: [exampleSite, website]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -22,6 +26,6 @@ jobs:
           hugo-version: '0.146.0'
           extended: true
 
-      - name: Build exampleSite
-        working-directory: exampleSite
+      - name: Build ${{ matrix.site }}
+        working-directory: ${{ matrix.site }}
         run: hugo --gc --minify
