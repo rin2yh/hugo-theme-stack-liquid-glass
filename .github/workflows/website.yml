@@ -1,3 +1,5 @@
+name: website
+
 on:
   push:
     branches: [main]

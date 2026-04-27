@@ -1,3 +1,5 @@
+name: example-site
+
 on:
   push:
     branches: [main]
