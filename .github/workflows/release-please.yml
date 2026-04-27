@@ -1,12 +1,21 @@
+# Release automation.
+#
+# Uses a GitHub App token instead of the default GITHUB_TOKEN so that the
+# release PR and tag created by release-please trigger downstream workflows
+# (the default token suppresses workflow_run events by design).
+#
+# Required repository secrets (see CONTRIBUTING.md → "Release automation setup"):
+#   RELEASE_PLEASE_APP_ID       App id of a GitHub App installed on this repo
+#   RELEASE_PLEASE_PRIVATE_KEY  The App's private key (.pem contents)
+# The App must grant: Contents = read & write, Pull requests = read & write.
+
 name: release-please
 
 on:
   push:
     branches: [main]
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,8 +25,14 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        id: app-token
+        with:
+          app-id: ${{ secrets.RELEASE_PLEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}
+
       - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
+          token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-          token: ${{ secrets.GITHUB_TOKEN }}

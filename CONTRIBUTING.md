@@ -90,6 +90,21 @@ The maintainer's role is to merge that PR when ready to cut a release:
 
 No manual tagging or `gh release create` is required.
 
+### Release automation setup (one-time)
+
+The workflow runs as a GitHub App rather than with the default `GITHUB_TOKEN`,
+because PRs and tags created by the default token do not trigger downstream
+workflows — that would skip CI on the release PR. Setup steps:
+
+1. Create a GitHub App at <https://github.com/settings/apps/new> with
+   permissions: **Contents: Read & write**, **Pull requests: Read & write**.
+   (Subscribe to no events; the App is only used as a token issuer.)
+2. Install the App on this repository.
+3. Add two repository secrets:
+   - `RELEASE_PLEASE_APP_ID` — the App's numeric id.
+   - `RELEASE_PLEASE_PRIVATE_KEY` — the contents of the `.pem` private key.
+4. Push to `main`. The first run will open the initial release PR.
+
 ### Forcing a specific version
 
 To override the auto-computed version (e.g. graduate `0.x` → `1.0.0`), add a
