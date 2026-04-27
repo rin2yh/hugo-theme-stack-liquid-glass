@@ -1,9 +1,6 @@
 ---
-title: "Configuration"
-description: "Reference for params, menus, and social links."
-date: 2026-04-27
-weight: 20
-categories: ["Docs"]
+title: Configuration
+description: Reference for params, menus, and social links.
 ---
 
 This page lists the configuration knobs the theme understands. All keys are optional unless marked otherwise.

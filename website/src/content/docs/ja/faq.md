@@ -1,9 +1,6 @@
 ---
-title: "FAQ"
-description: "よくある質問と注意点。"
-date: 2026-04-27
-weight: 50
-categories: ["ドキュメント"]
+title: FAQ
+description: よくある質問と注意点。
 ---
 
 ## favicon のリンクが 404 になります

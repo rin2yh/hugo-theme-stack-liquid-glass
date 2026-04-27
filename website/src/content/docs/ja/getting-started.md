@@ -1,9 +1,6 @@
 ---
-title: "はじめに"
-description: "Stack Liquid Glass をインストールし、最小構成の Hugo サイトを動かすまで。"
-date: 2026-04-27
-weight: 10
-categories: ["ドキュメント"]
+title: はじめに
+description: Stack Liquid Glass をインストールし、最小構成の Hugo サイトを動かすまで。
 ---
 
 このページではテーマのインストール手順と、サイトを動かすための最小限の `hugo.toml` を解説します。

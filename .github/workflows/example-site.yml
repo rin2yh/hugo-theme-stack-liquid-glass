@@ -1,0 +1,48 @@
+name: example-site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'archetypes/**'
+      - 'assets/**'
+      - 'i18n/**'
+      - 'images/**'
+      - 'layouts/**'
+      - 'exampleSite/**'
+      - 'theme.toml'
+      - '.github/workflows/example-site.yml'
+  pull_request:
+    paths:
+      - 'archetypes/**'
+      - 'assets/**'
+      - 'i18n/**'
+      - 'images/**'
+      - 'layouts/**'
+      - 'exampleSite/**'
+      - 'theme.toml'
+      - '.github/workflows/example-site.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: exampleSite
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3.0.0
+        with:
+          hugo-version: '0.146.0'
+          extended: true
+
+      - run: hugo --gc --minify

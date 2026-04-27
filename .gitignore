@@ -1,10 +1,14 @@
-# Hugo build artifacts
+# Hugo build artifacts (exampleSite still uses Hugo)
 /exampleSite/public/
 /exampleSite/resources/
 /exampleSite/.hugo_build.lock
-/website/public/
-/website/resources/
-/website/.hugo_build.lock
+
+# Astro build artifacts (website uses Astro Starlight)
+/website/dist/
+/website/.astro/
+
+# Node
+node_modules/
 
 # OS / IDE
 .DS_Store
@@ -12,7 +16,3 @@
 .vscode/
 *.swp
 *~
-
-# Node (for future tooling)
-node_modules/
-package-lock.json

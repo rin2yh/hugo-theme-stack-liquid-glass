@@ -1,9 +1,6 @@
 ---
-title: "ショートコード"
-description: "テーマが提供するカスタムショートコード。"
-date: 2026-04-27
-weight: 40
-categories: ["ドキュメント"]
+title: ショートコード
+description: テーマが提供するカスタムショートコード。
 ---
 
 Hugo 組み込みのショートコードに加え、テーマは以下を追加します。
@@ -23,9 +20,9 @@ Hugo 組み込みのショートコードに加え、テーマは以下を追加
 ### 使い方
 
 ```markdown
-{{</* qr text="https://example.com/" */>}}
+{{< qr text="https://example.com/" >}}
 
-{{</* qr text="https://example.com/" alt="example.com の QR" title="読み取って訪問" */>}}
+{{< qr text="https://example.com/" alt="example.com の QR" title="読み取って訪問" >}}
 ```
 
 ショートコードは `figure.qr-card.glass` 要素内に描画されるため、QR 画像にもサイト全体と同じガラス質感のスタイルが適用されます。

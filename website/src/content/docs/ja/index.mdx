@@ -1,0 +1,30 @@
+---
+title: Stack Liquid Glass — ドキュメント
+description: Stack Liquid Glass Hugo テーマの使い方ドキュメント。
+template: splash
+hero:
+  tagline: ガラス質感の Hugo テーマ — Hugo Theme Stack のリキッドグラス再デザイン版。
+  actions:
+    - text: はじめに
+      link: getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub
+      link: https://github.com/rin2yh/hugo-theme-stack-liquid-glass
+      icon: external
+      variant: minimal
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+**Stack Liquid Glass** は、ほぼ JS なしの配信パイプラインに作り変えた Hugo テーマです。ライト/ダーク切替、`/index.json` ベースの全文検索、TOC、Mermaid、外部 URL 投稿、日本語 i18n に対応しています。
+
+## セクション
+
+<CardGrid>
+  <LinkCard title="はじめに" description="テーマのインストールと最小 hugo.toml。" href="getting-started/" />
+  <LinkCard title="設定" description="[params]、メニュー、ソーシャルリンクの完全リファレンス。" href="configuration/" />
+  <LinkCard title="ウィジェット" description="ホームページとページに配置できるサイドバーウィジェット。" href="widgets/" />
+  <LinkCard title="ショートコード" description="テーマが提供する追加のショートコード。" href="shortcodes/" />
+  <LinkCard title="FAQ" description="よくある質問と注意点。" href="faq/" />
+</CardGrid>
