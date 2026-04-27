@@ -16,8 +16,7 @@
   ],
   "packages": {
     ".": {
-      "package-name": "hugo-theme-stack-liquid-glass",
-      "release-as": "0.1.0"
+      "package-name": "hugo-theme-stack-liquid-glass"
     }
   }
 }

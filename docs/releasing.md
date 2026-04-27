@@ -61,14 +61,15 @@ in `release-please-config.json` for a one-off bump. See the
 [release-please docs](https://github.com/googleapis/release-please) for
 details.
 
-> **Note (first release).** While the manifest is bootstrapped at `0.0.0`,
-> release-please treats the next release as a "graduation" and proposes
+> **Historical note.** When the manifest was first bootstrapped at `0.0.0`,
+> release-please treated the next release as a "graduation" and proposed
 > `1.0.0`, even with `bump-minor-pre-major: true` (which only governs
-> breaking-change behaviour _within_ `0.x`). To pin the first release to
-> `0.1.0`, `release-as: "0.1.0"` is set on the package in
-> `release-please-config.json`. **Remove that field immediately after the
-> `v0.1.0` release PR is merged** — otherwise every subsequent release-please
-> PR will keep proposing `0.1.0` and the version will never advance.
+> breaking-change behaviour _within_ `0.x`). The first release was pinned
+> to `0.1.0` via a one-off `release-as: "0.1.0"` on the package, and that
+> override was removed once `v0.1.0` shipped. Future bootstraps of similar
+> projects can use the same workaround — and must remove `release-as`
+> immediately after the override release, or every subsequent release-please
+> PR will keep proposing the pinned version.
 
 ## Release automation setup (one-time)
 
