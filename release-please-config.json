@@ -16,7 +16,8 @@
   ],
   "packages": {
     ".": {
-      "package-name": "hugo-theme-stack-liquid-glass"
+      "package-name": "hugo-theme-stack-liquid-glass",
+      "exclude-paths": ["website"]
     }
   }
 }
