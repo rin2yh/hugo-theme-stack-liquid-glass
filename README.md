@@ -14,6 +14,14 @@ _Screenshot placeholder — see the demo site._
 
 <https://rin2yh.github.io/blog/>
 
+## Documentation
+
+Full usage documentation (English / 日本語) is published at:
+
+<https://rin2yh.github.io/hugo-theme-stack-liquid-glass/>
+
+The docs site is built from `docs/` in this repository. See [`docs/content/`](docs/content/) for the source.
+
 ## Features
 
 - Glassmorphism / liquid-glass design tokens

@@ -1,0 +1,145 @@
+baseURL = "/"
+title = "Stack Liquid Glass — Docs"
+theme = "stack-liquid-glass"
+defaultContentLanguage = "en"
+hasCJKLanguage = true
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[permalinks]
+docs = "/:slug/"
+
+[markup.goldmark.renderer]
+unsafe = true
+[markup.tableOfContents]
+ordered = true
+startLevel = 2
+endLevel = 4
+[markup.highlight]
+noClasses = false
+codeFences = true
+guessSyntax = true
+tabWidth = 2
+
+[params]
+mainSections = ["docs"]
+description = "Usage documentation for the Stack Liquid Glass Hugo theme."
+[params.dateFormat]
+published = "2006/01/02"
+lastUpdated = "2006/01/02 15:04 MST"
+[params.sidebar.avatar]
+enabled = false
+local = false
+src = ""
+[[params.widgets.homepage]]
+type = "search"
+[[params.widgets.homepage]]
+type = "archives"
+[params.widgets.homepage.params]
+limit = 10
+[[params.widgets.page]]
+type = "toc"
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    title = "Stack Liquid Glass — Docs"
+    [[languages.en.menu.main]]
+      identifier = "home"
+      name = "Home"
+      url = "/"
+      weight = 1
+      [languages.en.menu.main.params]
+        icon = "home"
+    [[languages.en.menu.main]]
+      identifier = "getting-started"
+      name = "Getting Started"
+      url = "/getting-started/"
+      weight = 2
+      [languages.en.menu.main.params]
+        icon = "list"
+    [[languages.en.menu.main]]
+      identifier = "configuration"
+      name = "Configuration"
+      url = "/configuration/"
+      weight = 3
+      [languages.en.menu.main.params]
+        icon = "list"
+    [[languages.en.menu.main]]
+      identifier = "widgets"
+      name = "Widgets"
+      url = "/widgets/"
+      weight = 4
+      [languages.en.menu.main.params]
+        icon = "list"
+    [[languages.en.menu.main]]
+      identifier = "shortcodes"
+      name = "Shortcodes"
+      url = "/shortcodes/"
+      weight = 5
+      [languages.en.menu.main.params]
+        icon = "list"
+    [[languages.en.menu.main]]
+      identifier = "faq"
+      name = "FAQ"
+      url = "/faq/"
+      weight = 6
+      [languages.en.menu.main.params]
+        icon = "list"
+
+  [languages.ja]
+    languageName = "日本語"
+    weight = 2
+    title = "Stack Liquid Glass — ドキュメント"
+    [[languages.ja.menu.main]]
+      identifier = "home"
+      name = "ホーム"
+      url = "/ja/"
+      weight = 1
+      [languages.ja.menu.main.params]
+        icon = "home"
+    [[languages.ja.menu.main]]
+      identifier = "getting-started"
+      name = "はじめに"
+      url = "/ja/getting-started/"
+      weight = 2
+      [languages.ja.menu.main.params]
+        icon = "list"
+    [[languages.ja.menu.main]]
+      identifier = "configuration"
+      name = "設定"
+      url = "/ja/configuration/"
+      weight = 3
+      [languages.ja.menu.main.params]
+        icon = "list"
+    [[languages.ja.menu.main]]
+      identifier = "widgets"
+      name = "ウィジェット"
+      url = "/ja/widgets/"
+      weight = 4
+      [languages.ja.menu.main.params]
+        icon = "list"
+    [[languages.ja.menu.main]]
+      identifier = "shortcodes"
+      name = "ショートコード"
+      url = "/ja/shortcodes/"
+      weight = 5
+      [languages.ja.menu.main.params]
+        icon = "list"
+    [[languages.ja.menu.main]]
+      identifier = "faq"
+      name = "FAQ"
+      url = "/ja/faq/"
+      weight = 6
+      [languages.ja.menu.main.params]
+        icon = "list"
+
+[[social]]
+identifier = "rss"
+name = "RSS"
+url = "/index.xml"
+weight = 1
+[social.params]
+icon = "rss"

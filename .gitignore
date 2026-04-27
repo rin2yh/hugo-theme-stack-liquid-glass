@@ -2,6 +2,9 @@
 /exampleSite/public/
 /exampleSite/resources/
 /exampleSite/.hugo_build.lock
+/docs/public/
+/docs/resources/
+/docs/.hugo_build.lock
 
 # OS / IDE
 .DS_Store
