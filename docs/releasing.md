@@ -20,6 +20,13 @@ every commit on `main` must follow
 | `refactor:` | no version bump on its own          | Code Refactoring          |
 | `ci:`, `build:`, `chore:`, `test:`, `style:` | no version bump | hidden       |
 
+Commits that touch only `website/` (the Astro Starlight docs site) are
+ignored by release-please via `exclude-paths` in `release-please-config.json`.
+The docs site is shipped separately to GitHub Pages and is not part of the
+theme that consumers vendor, so its changes should not bump the theme version.
+A commit that touches both `website/` and theme files still counts as a
+theme-affecting commit.
+
 A breaking change is signalled by either a `!` after the type/scope or a
 `BREAKING CHANGE:` footer:
 
