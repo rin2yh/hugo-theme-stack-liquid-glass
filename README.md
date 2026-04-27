@@ -2,7 +2,7 @@
 
 A glassmorphism-flavored Hugo theme — a liquid-glass redesign of [Hugo Theme Stack](https://github.com/CaiJimmy/hugo-theme-stack), with a near-zero JavaScript pipeline, light/dark mode, and built-in JSON search.
 
-> 日本語: Hugo Theme Stack をベースに、ガラス質感（glassmorphism）の UI とほぼ JS なしの配信パイプラインに作り変えたテーマです。
+> 日本語: Hugo Theme Stack をベースに、ガラス質感（glassmorphism）の UI とほぼ JS なしの配信パイプラインに作り変えたテーマです。ライト/ダーク切替、`/index.json` ベースの全文検索、TOC、Mermaid、外部 URL 投稿、日本語 i18n に対応しています。
 
 ![Stack Liquid Glass](images/screenshot.png)
 
