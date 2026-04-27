@@ -6,7 +6,7 @@ hero:
   tagline: A glassmorphism-flavored Hugo theme — a liquid-glass redesign of Hugo Theme Stack.
   actions:
     - text: Getting Started
-      link: /getting-started/
+      link: /hugo-theme-stack-liquid-glass/getting-started/
       icon: right-arrow
       variant: primary
     - text: GitHub
@@ -22,9 +22,9 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 ## Sections
 
 <CardGrid>
-  <LinkCard title="Getting Started" description="Install the theme and write your first hugo.toml." href="/getting-started/" />
-  <LinkCard title="Configuration" description="Full reference for [params], menus, and social links." href="/configuration/" />
-  <LinkCard title="Widgets" description="Sidebar widgets for the homepage and pages." href="/widgets/" />
-  <LinkCard title="Shortcodes" description="Extra shortcodes the theme provides." href="/shortcodes/" />
-  <LinkCard title="FAQ" description="Common questions and gotchas." href="/faq/" />
+  <LinkCard title="Getting Started" description="Install the theme and write your first hugo.toml." href={`${import.meta.env.BASE_URL}getting-started/`} />
+  <LinkCard title="Configuration" description="Full reference for [params], menus, and social links." href={`${import.meta.env.BASE_URL}configuration/`} />
+  <LinkCard title="Widgets" description="Sidebar widgets for the homepage and pages." href={`${import.meta.env.BASE_URL}widgets/`} />
+  <LinkCard title="Shortcodes" description="Extra shortcodes the theme provides." href={`${import.meta.env.BASE_URL}shortcodes/`} />
+  <LinkCard title="FAQ" description="Common questions and gotchas." href={`${import.meta.env.BASE_URL}faq/`} />
 </CardGrid>
