@@ -12,7 +12,7 @@
 {{- with $site.GetPage "/page/archives" -}}
   {{- $archivesURL = .RelPermalink -}}
 {{- else -}}
-  {{- $archivesURL = "/page/archives/" | relLangURL -}}
+  {{- $archivesURL = strings.TrimPrefix "/" (printf "%s/page/archives/" $site.LanguagePrefix) | relURL -}}
 {{- end -}}
 <aside class="glass widget widget--archives">
   <h3 class="widget__title">
