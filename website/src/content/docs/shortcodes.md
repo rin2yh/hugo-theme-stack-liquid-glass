@@ -1,9 +1,6 @@
 ---
-title: "Shortcodes"
-description: "Custom shortcodes the theme provides."
-date: 2026-04-27
-weight: 40
-categories: ["Docs"]
+title: Shortcodes
+description: Custom shortcodes the theme provides.
 ---
 
 Beyond Hugo's built-in shortcodes, the theme adds the following:
@@ -23,9 +20,9 @@ Renders a QR code for arbitrary text. The image is fetched from `https://api.qrs
 ### Usage
 
 ```markdown
-{{</* qr text="https://example.com/" */>}}
+{{< qr text="https://example.com/" >}}
 
-{{</* qr text="https://example.com/" alt="QR for example.com" title="Scan to visit" */>}}
+{{< qr text="https://example.com/" alt="QR for example.com" title="Scan to visit" >}}
 ```
 
 The shortcode renders inside a `figure.qr-card.glass` element so the QR image picks up the same glass surface treatment as the rest of the site.

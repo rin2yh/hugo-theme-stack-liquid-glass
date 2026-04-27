@@ -1,9 +1,6 @@
 ---
-title: "Widgets"
-description: "Sidebar widgets available on the homepage and on single pages."
-date: 2026-04-27
-weight: 30
-categories: ["Docs"]
+title: Widgets
+description: Sidebar widgets available on the homepage and on single pages.
 ---
 
 The theme exposes two widget slots: `[[params.widgets.homepage]]` for the homepage sidebar, and `[[params.widgets.page]]` for single page sidebars. Each widget is added as a TOML array entry with a `type` and an optional `params` table.

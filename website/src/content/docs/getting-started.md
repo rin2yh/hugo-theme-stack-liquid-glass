@@ -1,9 +1,6 @@
 ---
-title: "Getting Started"
-description: "Install Stack Liquid Glass and configure a minimal Hugo site."
-date: 2026-04-27
-weight: 10
-categories: ["Docs"]
+title: Getting Started
+description: Install Stack Liquid Glass and configure a minimal Hugo site.
 ---
 
 This page walks through installing the theme and writing the smallest possible `hugo.toml` to get a site running.

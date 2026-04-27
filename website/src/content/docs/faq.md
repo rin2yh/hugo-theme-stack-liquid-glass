@@ -1,9 +1,6 @@
 ---
-title: "FAQ"
-description: "Common questions and gotchas."
-date: 2026-04-27
-weight: 50
-categories: ["Docs"]
+title: FAQ
+description: Common questions and gotchas.
 ---
 
 ## Why are my favicon links 404?
