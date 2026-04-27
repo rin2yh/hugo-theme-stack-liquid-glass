@@ -20,7 +20,7 @@ Full usage documentation (English / 日本語) is published at:
 
 <https://rin2yh.github.io/hugo-theme-stack-liquid-glass/>
 
-The docs site is built from `docs/` in this repository. See [`docs/content/`](docs/content/) for the source.
+The docs site is built from `website/` in this repository. See [`website/content/`](website/content/) for the source.
 
 ## Features
 

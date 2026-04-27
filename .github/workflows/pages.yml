@@ -28,12 +28,12 @@ jobs:
           extended: true
 
       - name: Build docs
-        working-directory: docs
+        working-directory: website
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: docs/public
+          path: website/public
 
   deploy:
     needs: build
