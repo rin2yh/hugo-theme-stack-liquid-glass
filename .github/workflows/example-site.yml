@@ -1,7 +1,25 @@
 on:
   push:
     branches: [main]
+    paths:
+      - 'archetypes/**'
+      - 'assets/**'
+      - 'i18n/**'
+      - 'images/**'
+      - 'layouts/**'
+      - 'exampleSite/**'
+      - 'theme.toml'
+      - '.github/workflows/example-site.yml'
   pull_request:
+    paths:
+      - 'archetypes/**'
+      - 'assets/**'
+      - 'i18n/**'
+      - 'images/**'
+      - 'layouts/**'
+      - 'exampleSite/**'
+      - 'theme.toml'
+      - '.github/workflows/example-site.yml'
 
 permissions:
   contents: read
