@@ -10,10 +10,6 @@ A glassmorphism-flavored Hugo theme — a liquid-glass redesign of [Hugo Theme S
 
 _Screenshot placeholder — see the demo site._
 
-## Demo
-
-<https://rin2yh.github.io/blog/>
-
 ## Documentation
 
 Full usage documentation (English / 日本語) is published at:
