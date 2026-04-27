@@ -61,6 +61,15 @@ in `release-please-config.json` for a one-off bump. See the
 [release-please docs](https://github.com/googleapis/release-please) for
 details.
 
+> **Note (first release).** While the manifest is bootstrapped at `0.0.0`,
+> release-please treats the next release as a "graduation" and proposes
+> `1.0.0`, even with `bump-minor-pre-major: true` (which only governs
+> breaking-change behaviour _within_ `0.x`). To pin the first release to
+> `0.1.0`, `release-as: "0.1.0"` is set on the package in
+> `release-please-config.json`. **Remove that field immediately after the
+> `v0.1.0` release PR is merged** — otherwise every subsequent release-please
+> PR will keep proposing `0.1.0` and the version will never advance.
+
 ## Release automation setup (one-time)
 
 The workflow runs as a GitHub App rather than with the default `GITHUB_TOKEN`,
