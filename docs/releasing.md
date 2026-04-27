@@ -91,3 +91,27 @@ workflows — that would skip CI on the release PR. Setup steps:
    - `RELEASE_PLEASE_APP_ID` — the App's Client ID (passed to the action's `client-id` input).
    - `RELEASE_PLEASE_PRIVATE_KEY` — the contents of the `.pem` private key.
 4. Push to `main`. The first run will open the initial release PR.
+
+### Branch rulesets and force-push
+
+release-please rewrites the head commit of its release branch
+(`release-please--branches--main--components--…`) on every run — each new
+run regenerates `CHANGELOG.md` and `.release-please-manifest.json` against
+the current `main` and force-updates the branch to the new commit. This is
+a non-fast-forward update by design.
+
+A repository ruleset that includes a `non_fast_forward` rule covering this
+branch will block every release-please run after the initial one (the
+first run only creates the ref, which is allowed; subsequent runs need
+the force-update). Symptom: the workflow fails with
+
+```
+release-please failed: Error updating ref heads/release-please--branches--main--components--<package> to <sha>
+```
+
+If you want to keep `non_fast_forward` enforced for human-maintained
+branches, exclude release-please's own branch from the rule. In the
+ruleset's branch targeting, add an exclusion such as
+`refs/heads/release-please--*` (fnmatch). Alternatively, add the
+release-please GitHub App to the ruleset's `bypass_actors` so the bot can
+force-update while humans still cannot.
