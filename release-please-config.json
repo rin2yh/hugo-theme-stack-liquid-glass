@@ -17,7 +17,14 @@
   "packages": {
     ".": {
       "package-name": "hugo-theme-stack-liquid-glass",
-      "exclude-paths": ["website"]
+      "include-paths": [
+        "archetypes",
+        "assets",
+        "i18n",
+        "layouts",
+        "theme.toml",
+        "LICENSE"
+      ]
     }
   }
 }
