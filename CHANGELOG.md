@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.2.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.1...hugo-theme-stack-liquid-glass-v0.2.0) (2026-04-28)
+
+
+### Features
+
+* **website:** migrate docs site from Hugo to Astro Starlight ([075db96](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/075db960164617c6d1307274acfe9f4cb1f6caf5))
+* **website:** migrate docs site from Hugo to Astro Starlight ([962c2c6](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/962c2c6b6fde5021d4feb3023f7974257d1ccd18))
+
+
+### Bug Fixes
+
+* **ci:** pin actions/setup-node to v6.4.0 (v5.0.0 SHA was invalid) ([d0e4a63](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/d0e4a63b17a15f746e408d77a9e3f35dff753771))
+* **ci:** use Node 22 for website job (Astro 6 requires &gt;=22.12.0) ([6df7b58](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/6df7b58b13fc0f1e1ac0b242ca9249eaf9fb195c))
+* **release-please:** exclude website/ so docs-only changes don't bump theme version ([297efad](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/297efad9eed89b4d12176a74561765b6a4f263be))
+* **release-please:** exclude website/ so docs-only changes don't bump theme version ([aa9370d](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/aa9370df87c644b7ee508c7c8e53dc6a4fef9c72))
+
+
+### Documentation
+
+* **releasing:** tighten website-exclusion paragraph ([ea3289f](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/ea3289f6ac9b56dee2428701dc20407ed30f26af))
+* relicense from GPL-3.0-or-later to MIT ([dc5ad56](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/dc5ad56516c9cf81025920a194b5fe0fc0f2356f))
+* restore full Japanese feature summary in README ([2563026](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/2563026635e2d3eb887c57ab041a6db1d65d7151))
+* trim README to typical Hugo theme scope ([0181f0b](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/0181f0bf02850ee5d8c8274bb86c5e500963c2f5))
+* trim README to typical Hugo theme scope ([0e88b59](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/0e88b599b7a0968b586a7be0e27bfe9c4a4b9892))
+
+
+### Code Refactoring
+
+* **website:** split CI per workflow, prune deps, fix base-prefix on hero links ([af23e22](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/af23e2253c555a10396396d23248a126a453620b))
+
 ## [0.1.1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.0...hugo-theme-stack-liquid-glass-v0.1.1) (2026-04-27)
 
 
