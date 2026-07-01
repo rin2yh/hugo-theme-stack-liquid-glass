@@ -16,3 +16,6 @@ node_modules/
 .vscode/
 *.swp
 *~
+
+# Go build output for the OGP background generator
+/cmd/ogp/ogp

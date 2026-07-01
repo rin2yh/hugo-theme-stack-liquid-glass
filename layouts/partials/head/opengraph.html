@@ -12,6 +12,12 @@
   {{- end -}}
 {{- end -}}
 {{- if not $image -}}
+  {{- /* Generate a title-on-themed-background OGP image for content pages. */ -}}
+  {{- with partial "ogp-image.html" . -}}
+    {{- $image = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $image -}}
   {{- with .Site.Params.defaultImage.opengraph.src -}}
     {{- $image = . | absURL -}}
   {{- end -}}
