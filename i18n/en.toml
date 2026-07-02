@@ -105,6 +105,12 @@ other = "Copy code"
 [shareOnTwitter]
 other = "Share on Twitter"
 
+[copyLink]
+other = "Copy link"
+
+[linkCopied]
+other = "Link copied to clipboard"
+
 [copySuccess]
 other = "Copied to clipboard"
 

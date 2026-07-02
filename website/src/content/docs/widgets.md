@@ -74,14 +74,14 @@ The TOC level range is taken from `[markup.tableOfContents]` in your `hugo.toml`
 
 ## `twitter-share`
 
-A "Share on Twitter" button rendered next to the article. Best used as a per-page widget.
+Share buttons rendered next to the article. Best used as a per-page widget.
 
 ```toml
 [[params.widgets.page]]
 type = "twitter-share"
 ```
 
-The share URL pre-fills the page title and absolute URL.
+Alongside the "Share on Twitter" button, a "Copy link" button copies the page URL to the clipboard. The Twitter share URL pre-fills the page title and absolute URL.
 
 ## `profile`
 

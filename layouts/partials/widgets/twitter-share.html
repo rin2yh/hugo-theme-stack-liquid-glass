@@ -13,5 +13,12 @@
     <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
       {{ $icon }}
     </a>
+    <button type="button" class="twitter-share__btn twitter-share__btn--link"
+      data-copy="{{ $url }}"
+      data-copy-success="{{ T "linkCopied" }}"
+      data-copy-error="{{ T "copyError" }}"
+      aria-label="{{ T "copyLink" }}">
+      {{ partial "helper/icon" "link" }}
+    </button>
   </aside>
 {{- end -}}
