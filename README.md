@@ -19,6 +19,7 @@ Full usage documentation (English / 日本語) is published at:
 - Near-zero JS pipeline via Hugo Pipes
 - `/index.json` powered full-text search
 - TOC, Mermaid, related posts, external URL posts
+- Open Graph link cards — bare URLs in content become rich previews
 - Japanese i18n out of the box
 
 ## Requirements
@@ -40,6 +41,33 @@ theme = "stack-liquid-glass"
 ```
 
 See the [documentation](https://rin2yh.github.io/hugo-theme-stack-liquid-glass/) for configuration, widgets, shortcodes, and required static assets.
+
+## Link cards (Open Graph)
+
+A bare URL on its own line in article content is turned into a rich preview
+card. The theme fetches the target page's Open Graph tags (`og:title`,
+`og:description`, `og:image`, `og:site_name`) at build time via
+`resources.GetRemote`:
+
+```markdown
+https://gohugo.io/
+```
+
+You can also insert one explicitly with the `ogp` shortcode:
+
+```markdown
+{{< ogp "https://gohugo.io/" >}}
+```
+
+Labelled links such as `[Hugo](https://gohugo.io/)` stay as ordinary links.
+When a target exposes no Open Graph data (or is unreachable at build time),
+the URL falls back to a plain link, so builds never break. Disable the feature
+site-wide in `hugo.toml`:
+
+```toml
+[params.ogpCard]
+enabled = false
+```
 
 ## Credits
 

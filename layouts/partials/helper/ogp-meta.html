@@ -1,0 +1,22 @@
+{{- /*
+  Extract a single <meta> content value from an HTML fragment.
+  Handles both attribute orders (property→content and content→property) and
+  matches `property=` or `name=` (Open Graph uses property, Twitter uses name).
+
+  Input : dict { head, prop }   prop e.g. "og:title", "description"
+  Output: string (empty when not found)
+*/ -}}
+{{- $head := .head -}}
+{{- $prop := .prop -}}
+{{- $val := "" -}}
+{{- $re1 := printf `(?is)<meta[^>]+(?:property|name)\s*=\s*["']%s["'][^>]*?content\s*=\s*["']([^"']*)["']` $prop -}}
+{{- with findRESubmatch $re1 $head 1 -}}
+  {{- $val = index (index . 0) 1 -}}
+{{- end -}}
+{{- if not $val -}}
+  {{- $re2 := printf `(?is)<meta[^>]+content\s*=\s*["']([^"']*)["'][^>]*?(?:property|name)\s*=\s*["']%s["']` $prop -}}
+  {{- with findRESubmatch $re2 $head 1 -}}
+    {{- $val = index (index . 0) 1 -}}
+  {{- end -}}
+{{- end -}}
+{{- return $val -}}

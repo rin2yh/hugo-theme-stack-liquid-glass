@@ -1,0 +1,42 @@
+{{- /*
+  Render an Open Graph link-preview card for a URL.
+
+  Falls back to a plain anchor when OGP fetching is disabled or the target
+  exposes no usable metadata, so content always renders something clickable.
+
+  Input: dict { url, text }
+         text = anchor label used for the fallback link (defaults to url)
+*/ -}}
+{{- $url := .url -}}
+{{- $text := or .text $url -}}
+{{- $external := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
+
+{{- $enabled := true -}}
+{{- with site.Params.ogpCard -}}
+  {{- if eq .enabled false -}}{{- $enabled = false -}}{{- end -}}
+{{- end -}}
+
+{{- $ogp := dict "ok" false -}}
+{{- if and $enabled $external -}}
+  {{- $ogp = partialCached "helper/ogp.html" (dict "url" $url) $url -}}
+{{- end -}}
+
+{{- if $ogp.ok -}}
+<a class="ogp-card" href="{{ $url }}" target="_blank" rel="noopener noreferrer">
+  {{- with $ogp.image }}
+  <span class="ogp-card__image">
+    <img src="{{ . }}" loading="lazy" decoding="async" alt="">
+  </span>
+  {{- end }}
+  <span class="ogp-card__body">
+    <span class="ogp-card__title">{{ $ogp.title }}</span>
+    {{- with $ogp.description }}<span class="ogp-card__desc">{{ . }}</span>{{ end }}
+    <span class="ogp-card__site">
+      <span class="ogp-card__site-icon icon-frame">{{ partial "helper/icon" "link" }}</span>
+      <span class="ogp-card__site-name">{{ $ogp.siteName }}</span>
+    </span>
+  </span>
+</a>
+{{- else -}}
+<a href="{{ $url | safeURL }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ $text | safeHTML }}</a>
+{{- end -}}
