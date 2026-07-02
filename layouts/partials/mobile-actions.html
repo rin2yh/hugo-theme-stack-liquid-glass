@@ -1,0 +1,37 @@
+{{- /* Mobile floating actions — TOC bottom sheet + share.
+  Rendered on single pages only; hidden on desktop via CSS. */ -}}
+{{- if .IsPage -}}
+  {{- $title := .Title -}}
+  {{- $url := .Permalink -}}
+  {{- $text := printf "%s\n%s" $title $url | urlquery -}}
+  {{- $fallback := printf "https://twitter.com/intent/tweet?text=%s" $text -}}
+  {{- $hasToc := and .Fragments (gt (len .Fragments.Headings) 0) -}}
+  <div class="mobile-actions" data-share-title="{{ $title }}" data-share-url="{{ $url }}" data-share-fallback="{{ $fallback }}">
+    {{- if $hasToc -}}
+      <button type="button" class="mobile-actions__btn glass" data-mobile-toc-toggle aria-label="{{ T "tableOfContents" }}" aria-expanded="false" aria-controls="mobile-toc-sheet">
+        {{ partial "helper/icon" "list" }}
+      </button>
+    {{- end -}}
+    <button type="button" class="mobile-actions__btn glass" data-mobile-share aria-label="{{ T "shareTo" }}">
+      {{ partial "helper/icon" "share" }}
+    </button>
+  </div>
+
+  {{- if $hasToc -}}
+    <div class="mobile-toc" id="mobile-toc-sheet" hidden>
+      <div class="mobile-toc__overlay" data-mobile-toc-close></div>
+      <div class="mobile-toc__sheet glass" role="dialog" aria-modal="true" aria-label="{{ T "tableOfContents" }}">
+        <div class="mobile-toc__header">
+          <span class="mobile-toc__title">
+            {{ partial "helper/icon" "list" }}
+            {{ T "tableOfContents" }}
+          </span>
+          <button type="button" class="mobile-toc__close" data-mobile-toc-close aria-label="{{ T "close" }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="mobile-toc__inner toc__inner">{{ .TableOfContents }}</div>
+      </div>
+    </div>
+  {{- end -}}
+{{- end -}}

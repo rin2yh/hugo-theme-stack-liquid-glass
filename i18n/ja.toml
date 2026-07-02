@@ -99,6 +99,9 @@ other = "次へ"
 [toggleMenu]
 other = "メニューを開閉"
 
+[close]
+other = "閉じる"
+
 [copyCode]
 other = "コードをコピー"
 
