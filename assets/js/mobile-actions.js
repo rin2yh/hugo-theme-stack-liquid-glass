@@ -1,7 +1,7 @@
 /**
  * mobile-actions.js — speed-dial FAB (TOC + share) for small screens.
- *   Tapping the FAB fans out the actions. Share mirrors the desktop sidebar:
- *   an "X" tweet-intent link and a copy-link button (copy handled by the
+ *   Tapping the FAB fans out the actions. The share actions mirror the desktop
+ *   sidebar widget — a share link and a copy-link button (copy handled by the
  *   global clipboard delegate in liquid-glass.js). TOC opens as a sheet.
  */
 (function () {
