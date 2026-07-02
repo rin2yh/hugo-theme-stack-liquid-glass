@@ -108,56 +108,71 @@ func TestRunWithSiteName(t *testing.T) {
 }
 
 func TestClamp(t *testing.T) {
-	cases := []struct{ v, lo, hi, want float64 }{
-		{-1, 0, 1, 0},
-		{2, 0, 1, 1},
-		{0.5, 0, 1, 0.5},
-		{0, 0, 1, 0},
-		{1, 0, 1, 1},
+	cases := []struct {
+		name      string
+		v, lo, hi float64
+		want      float64
+	}{
+		{"below", -1, 0, 1, 0},
+		{"above", 2, 0, 1, 1},
+		{"inside", 0.5, 0, 1, 0.5},
+		{"at-low", 0, 0, 1, 0},
+		{"at-high", 1, 0, 1, 1},
 	}
 	for _, c := range cases {
-		if got := clamp(c.v, c.lo, c.hi); got != c.want {
-			t.Errorf("clamp(%v,%v,%v)=%v, want %v", c.v, c.lo, c.hi, got, c.want)
-		}
+		t.Run(c.name, func(t *testing.T) {
+			if got := clamp(c.v, c.lo, c.hi); got != c.want {
+				t.Errorf("clamp(%v,%v,%v)=%v, want %v", c.v, c.lo, c.hi, got, c.want)
+			}
+		})
 	}
 }
 
 func TestSmoothstep(t *testing.T) {
-	if got := smoothstep(0, 1, 0); got != 0 {
-		t.Errorf("smoothstep at low edge = %v, want 0", got)
+	// All cases interpolate over [0,1]; the result is smooth and clamped.
+	cases := []struct {
+		name string
+		x    float64
+		want float64
+	}{
+		{"low-edge", 0, 0},
+		{"high-edge", 1, 1},
+		{"midpoint", 0.5, 0.5},
+		{"quarter", 0.25, 0.15625},
+		{"below-clamped", -5, 0},
+		{"above-clamped", 5, 1},
 	}
-	if got := smoothstep(0, 1, 1); got != 1 {
-		t.Errorf("smoothstep at high edge = %v, want 1", got)
-	}
-	if got := smoothstep(0, 1, 0.5); math.Abs(got-0.5) > 1e-9 {
-		t.Errorf("smoothstep midpoint = %v, want 0.5", got)
-	}
-	if got := smoothstep(0, 1, -5); got != 0 {
-		t.Errorf("smoothstep below range = %v, want 0 (clamped)", got)
-	}
-	if got := smoothstep(0, 1, 5); got != 1 {
-		t.Errorf("smoothstep above range = %v, want 1 (clamped)", got)
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := smoothstep(0, 1, c.x); math.Abs(got-c.want) > 1e-9 {
+				t.Errorf("smoothstep(0,1,%v)=%v, want %v", c.x, got, c.want)
+			}
+		})
 	}
 }
 
-func TestLerpBounds(t *testing.T) {
+func TestLerp(t *testing.T) {
+	// Interpolating black->white; out-of-range t is clamped, so channels
+	// never wrap around uint8.
 	black := color.RGBA{0, 0, 0, 0xff}
 	white := color.RGBA{0xff, 0xff, 0xff, 0xff}
-	if got := lerp(black, white, 0); got != black {
-		t.Errorf("lerp t=0 = %v, want %v", got, black)
+	cases := []struct {
+		name string
+		t    float64
+		want color.RGBA
+	}{
+		{"at-0", 0, black},
+		{"at-1", 1, white},
+		{"midpoint", 0.5, color.RGBA{127, 127, 127, 0xff}},
+		{"below-clamped", -1, black},
+		{"above-clamped", 2, white},
 	}
-	if got := lerp(black, white, 1); got != white {
-		t.Errorf("lerp t=1 = %v, want %v", got, white)
-	}
-	if mid := lerp(black, white, 0.5); mid.R < 126 || mid.R > 129 {
-		t.Errorf("lerp midpoint R = %d, want ~127", mid.R)
-	}
-	// Out-of-range t must be clamped, so channels never wrap around uint8.
-	for _, tt := range []float64{-1, 2} {
-		got := lerp(black, white, tt)
-		if got.R > 0xff || got.A != 0xff {
-			t.Errorf("lerp t=%v produced %v (wrapped?)", tt, got)
-		}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if got := lerp(black, white, c.t); got != c.want {
+				t.Errorf("lerp(black,white,%v)=%v, want %v", c.t, got, c.want)
+			}
+		})
 	}
 }
 
@@ -165,45 +180,74 @@ func TestScreenNoOverflow(t *testing.T) {
 	// screen brightens; with alpha in [0,1] no channel may wrap below the
 	// background (a uint8 overflow would show up as a dark pixel).
 	bg := color.RGBA{200, 200, 200, 0xff}
-	for _, a := range []float64{0, 0.25, 0.55, 1} {
-		got := screen(bg, color.RGBA{0xff, 0xff, 0xff, 0xff}, a)
-		if got.R < bg.R || got.G < bg.G || got.B < bg.B {
-			t.Errorf("screen(a=%v) darkened background: %v", a, got)
-		}
+	cases := []struct {
+		name string
+		a    float64
+	}{
+		{"zero", 0},
+		{"quarter", 0.25},
+		{"blob-max", 0.55},
+		{"full", 1},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			got := screen(bg, color.RGBA{0xff, 0xff, 0xff, 0xff}, c.a)
+			if got.R < bg.R || got.G < bg.G || got.B < bg.B {
+				t.Errorf("screen(a=%v) darkened background: %v", c.a, got)
+			}
+		})
 	}
 }
 
 func TestInRoundRectCoverageRange(t *testing.T) {
+	// Coverage must always land in [lo,hi]; interior is ~1, far exterior 0,
+	// and every point stays within the anti-aliased [0,1] range.
 	r := image.Rect(10, 10, 110, 60)
-	pts := []struct{ x, y float64 }{
-		{0, 0}, {60, 35}, {10.5, 10.5}, {109.5, 59.5}, {200, 200}, {10, 35},
+	cases := []struct {
+		name   string
+		x, y   float64
+		lo, hi float64
+	}{
+		{"interior", 60, 35, 0.99, 1},
+		{"far-exterior", 500, 500, 0, 0},
+		{"corner-outside", 0, 0, 0, 1},
+		{"near-min-corner", 10.5, 10.5, 0, 1},
+		{"near-max-corner", 109.5, 59.5, 0, 1},
+		{"left-edge", 10, 35, 0, 1},
 	}
-	for _, p := range pts {
-		if cov := inRoundRect(p.x, p.y, r, 12); cov < 0 || cov > 1 {
-			t.Errorf("inRoundRect(%v,%v) = %v, out of [0,1]", p.x, p.y, cov)
-		}
-	}
-	if cov := inRoundRect(60, 35, r, 12); cov < 0.99 {
-		t.Errorf("deep interior coverage = %v, want ~1", cov)
-	}
-	if cov := inRoundRect(500, 500, r, 12); cov != 0 {
-		t.Errorf("far exterior coverage = %v, want 0", cov)
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			if cov := inRoundRect(c.x, c.y, r, 12); cov < c.lo || cov > c.hi {
+				t.Errorf("inRoundRect(%v,%v)=%v, want in [%v,%v]", c.x, c.y, cov, c.lo, c.hi)
+			}
+		})
 	}
 }
 
 func TestBlendPixelOutOfBounds(t *testing.T) {
 	dst := image.NewRGBA(image.Rect(0, 0, 4, 4))
 	red := color.RGBA{0xff, 0, 0, 0xff}
-	// Out-of-bounds coordinates must be a no-op, not a panic.
-	blendPixel(dst, -1, -1, red, 1)
-	blendPixel(dst, 100, 100, red, 1)
-	// In-bounds fully-opaque blend replaces the pixel.
-	blendPixel(dst, 1, 1, red, 1)
-	if got := dst.RGBAAt(1, 1); got.R != 0xff || got.G != 0 {
-		t.Errorf("in-bounds blend = %v, want opaque red", got)
+	// Every out-of-bounds coordinate must be a no-op, not a panic.
+	oob := []struct {
+		name string
+		x, y int
+	}{
+		{"both-negative", -1, -1},
+		{"both-beyond", 100, 100},
+		{"x-negative", -1, 2},
+		{"y-beyond", 2, 100},
 	}
-	// The out-of-bounds calls left the origin untouched.
+	for _, c := range oob {
+		t.Run(c.name, func(t *testing.T) {
+			blendPixel(dst, c.x, c.y, red, 1)
+		})
+	}
 	if got := dst.RGBAAt(0, 0); got != (color.RGBA{}) {
-		t.Errorf("origin modified by out-of-bounds blend: %v", got)
+		t.Errorf("out-of-bounds blend modified in-bounds pixel: %v", got)
+	}
+	// A fully-opaque in-bounds blend replaces the target pixel.
+	blendPixel(dst, 1, 1, red, 1)
+	if got := dst.RGBAAt(1, 1); got != red {
+		t.Errorf("in-bounds blend = %v, want %v", got, red)
 	}
 }
