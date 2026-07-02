@@ -1,9 +1,6 @@
 {{- $page := .page -}}
 {{- if $page.IsPage -}}
-  {{- $title := $page.Title -}}
-  {{- $url := $page.Permalink -}}
-  {{- $text := printf "%s\n%s" $title $url | urlquery -}}
-  {{- $twitterUrl := printf "https://twitter.com/intent/tweet?text=%s" $text -}}
+  {{- $twitterUrl := partial "helper/share-url" $page -}}
   <aside class="widget twitter-share">
     <span class="twitter-share__title">{{ T "shareTo" }}</span>
     {{- $icon := partial "helper/icon" "brand-twitter" -}}

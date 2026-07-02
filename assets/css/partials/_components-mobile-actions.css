@@ -27,7 +27,10 @@
     z-index: var(--z-overlay);
   }
 
-  /* Round glass buttons — shared base for the main FAB and the action icons */
+  /* Round buttons — shared base for the main FAB and the action icons.
+     Deliberately NOT .glass: these are fixed and always on screen, so a
+     backdrop blur would repaint every scroll frame; a near-opaque surface
+     keeps the icons legible over any content for far less cost. */
   .mobile-actions__fab,
   .mobile-actions__btn {
     border-radius: var(--radius-full);
@@ -35,9 +38,7 @@
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    /* More opaque than plain .glass so the icons stay legible over any
-       article content (code blocks, images) while scrolling */
-    background: rgba(18, 24, 44, 0.72);
+    background: var(--glass-opaque);
     border: 1px solid var(--glass-border-bright);
     box-shadow: var(--shadow-float);
   }
@@ -66,7 +67,7 @@
   .mobile-actions__fab svg {
     transition: transform var(--dur-mid) var(--ease-glass);
   }
-  .mobile-actions--menu.is-open .mobile-actions__fab svg {
+  .mobile-actions.is-open .mobile-actions__fab svg {
     transform: rotate(135deg);
   }
 
@@ -107,7 +108,7 @@
     padding: 7px 12px;
     border-radius: var(--radius-full);
     color: var(--color-text);
-    background: rgba(18, 24, 44, 0.78);
+    background: var(--glass-opaque);
     border: 1px solid var(--glass-border-bright);
     box-shadow: var(--shadow-float);
   }
@@ -163,19 +164,10 @@
     justify-content: space-between;
     margin-bottom: var(--space-sm);
   }
-  .mobile-toc__title {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-display);
-    font-size: var(--text-md);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
-  .mobile-toc__title svg {
-    width: 14px;
-    height: 14px;
+  /* Reuse the sidebar TOC title styling; only drop its bottom margin so it
+     centers against the close button in the flex header. */
+  .mobile-toc__header .toc__title {
+    margin-bottom: 0;
   }
   .mobile-toc__close {
     display: inline-flex;
@@ -209,13 +201,9 @@
   }
 }
 
-[data-theme="light"] .mobile-actions__fab,
-[data-theme="light"] .mobile-actions__btn,
-[data-theme="light"] .mobile-actions__label,
+/* The FAB / action / label surfaces theme themselves via --glass-opaque;
+   only the .glass-based sheet needs a light-theme background bump. */
 [data-theme="light"] .mobile-toc__sheet {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(15, 23, 42, 0.1);
-}
-[data-theme="light"] .mobile-toc__title {
-  opacity: 1;
 }
