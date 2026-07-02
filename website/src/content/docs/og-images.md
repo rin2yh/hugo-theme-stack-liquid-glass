@@ -65,6 +65,31 @@ See the theme's [`assets/ogp/README.md`](https://github.com/rin2yh/hugo-theme-st
 for details. Regenerating is optional — replacing `base.png` directly is enough
 for most sites.
 
+## Deployment (CI)
+
+No extra CI steps are needed. The images are produced by Hugo during the normal
+`hugo` build — there is no separate generation step, and the Go toolchain is
+**not** required at deploy time (the default `base.png` and font ship with the
+theme). Any workflow that already builds the theme (Hugo extended `>= 0.146.0`)
+generates the OG images automatically.
+
+The only requirement is that the theme's files — including its bundled
+`assets/ogp/` — are checked out. For a git submodule install, set
+`submodules: true` on `actions/checkout`; with Hugo Modules the module fetch
+already includes them.
+
+```yaml
+# .github/workflows/deploy.yml (excerpt)
+- uses: actions/checkout@v4
+  with:
+    submodules: true          # pulls the theme + its assets/ogp/ files
+- uses: peaceiris/actions-hugo@v3
+  with:
+    hugo-version: '0.146.0'
+    extended: true
+- run: hugo --gc --minify      # OG images are generated here, no extra step
+```
+
 ## Related config
 
 ```toml

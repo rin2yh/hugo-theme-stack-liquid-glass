@@ -63,6 +63,29 @@ go run . -site "My Blog" -avatar /path/avatar.png  # アバターも入れる（
 を参照してください。再生成は任意で、多くのサイトでは `base.png` を直接差し替えるだけで
 十分です。
 
+## デプロイ（CI）
+
+追加の CI ステップは不要です。画像は通常の `hugo` ビルド中に Hugo が生成するため、
+別の生成ステップはなく、デプロイ時に Go ツールチェインも **不要** です（デフォルトの
+`base.png` とフォントはテーマに同梱されています）。テーマをビルドする既存のワークフロー
+（Hugo extended `>= 0.146.0`）であれば、OGP 画像は自動的に生成されます。
+
+唯一の要件は、テーマのファイル（同梱の `assets/ogp/` を含む）がチェックアウトされて
+いることです。git submodule で導入している場合は `actions/checkout` に
+`submodules: true` を指定してください。Hugo Modules の場合はモジュール取得に含まれます。
+
+```yaml
+# .github/workflows/deploy.yml（抜粋）
+- uses: actions/checkout@v4
+  with:
+    submodules: true          # テーマ本体と assets/ogp/ を取得
+- uses: peaceiris/actions-hugo@v3
+  with:
+    hugo-version: '0.146.0'
+    extended: true
+- run: hugo --gc --minify      # ここで OGP 画像が生成される（追加ステップ不要）
+```
+
 ## 関連設定
 
 ```toml
