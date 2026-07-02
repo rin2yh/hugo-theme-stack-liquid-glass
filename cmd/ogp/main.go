@@ -23,6 +23,7 @@ import (
 	"flag"
 	"image"
 	"image/color"
+	_ "image/jpeg" // register JPEG decoder for -avatar (see flag help: png/jpg/webp)
 	"image/png"
 	"log"
 	"math"
