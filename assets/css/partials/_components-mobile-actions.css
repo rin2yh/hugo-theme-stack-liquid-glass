@@ -35,6 +35,10 @@
     align-items: center;
     justify-content: center;
     color: var(--color-text);
+    /* More opaque than plain .glass so the icons stay legible over any
+       article content (code blocks, images) while scrolling */
+    background: rgba(18, 24, 44, 0.72);
+    border: 1px solid var(--glass-border-bright);
     box-shadow: var(--shadow-float);
   }
   .mobile-actions__fab {
@@ -103,9 +107,9 @@
     padding: 7px 12px;
     border-radius: var(--radius-full);
     color: var(--color-text);
-    background: var(--glass-white-md);
-    border: 1px solid var(--glass-border-subtle);
-    box-shadow: var(--shadow-glass);
+    background: rgba(18, 24, 44, 0.78);
+    border: 1px solid var(--glass-border-bright);
+    box-shadow: var(--shadow-float);
   }
 
   /* TOC bottom sheet — visibility driven purely by the .is-open class */
