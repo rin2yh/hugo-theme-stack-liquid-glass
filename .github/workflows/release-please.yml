@@ -8,6 +8,9 @@ name: release-please
 on:
   push:
     branches: [main]
+  # Allows re-running release-please by hand (e.g. after clearing a stale
+  # snoozed release PR) without pushing a throwaway commit to main.
+  workflow_dispatch:
 
 permissions: {}
 

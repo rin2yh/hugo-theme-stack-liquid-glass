@@ -77,6 +77,44 @@ details.
 > immediately after the override release, or every subsequent release-please
 > PR will keep proposing the pinned version.
 
+## Troubleshooting
+
+### `state cannot be changed. There is already an open pull request…`
+
+If a release-please run fails at the end with a log like:
+
+```
+✔ Successfully opened pull request: <new-PR>.
+⚠ updated code for <new-PR>, but update requested for <old-PR>
+##[error]release-please failed: Validation Failed: …"state cannot be changed.
+There is already an open pull request from
+release-please--branches--main--… to main."
+```
+
+the run actually created a valid release PR (`<new-PR>`) but then tried to
+reconcile an **older release PR that was closed without merging** and still
+carries release-please's tracking labels (`autorelease: pending`,
+`autorelease: snooze`). release-please treats such a PR as "snoozed" and
+attempts to reopen it on the shared release branch, which GitHub rejects
+because the new PR already occupies that branch — failing the whole job.
+
+The commit-parsing warnings earlier in the log
+(`❯ commit could not be parsed: … Merge pull request …`) are harmless:
+release-please always skips non–Conventional-Commit merge commits.
+
+**Recovery:**
+
+1. Find the stale closed (not merged) release PR — it will be titled
+   `chore(main): release …` and still show the `autorelease: pending` /
+   `autorelease: snooze` labels.
+2. Remove those labels from it.
+3. Re-run the workflow (Actions → **release-please** → **Run workflow**, or
+   push any commit to `main`). It will now update the existing open release
+   PR without the conflict.
+
+The freshly created release PR from the failed run is valid — merge it as
+usual to cut the release.
+
 ## Release automation setup (one-time)
 
 The workflow runs as a GitHub App rather than with the default `GITHUB_TOKEN`,
