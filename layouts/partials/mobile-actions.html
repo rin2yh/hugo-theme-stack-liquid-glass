@@ -1,30 +1,39 @@
 {{- /* Mobile floating actions — speed-dial FAB (TOC + share).
-  Rendered on single pages only; hidden on desktop via CSS. */ -}}
+  Rendered on single pages only; hidden on desktop via CSS. The share actions
+  mirror the desktop sidebar widget (widgets/twitter-share.html): share on X
+  plus copy-link, so the two layouts offer the same choices. */ -}}
 {{- if .IsPage -}}
-  {{- $title := .Title -}}
   {{- $url := .Permalink -}}
-  {{- $fallback := partial "helper/share-url" . -}}
+  {{- $twitterUrl := partial "helper/share-url" . -}}
   {{- $hasToc := gt (len .Fragments.Headings) 0 -}}
-  <div class="mobile-actions" data-share-title="{{ $title }}" data-share-url="{{ $url }}" data-share-fallback="{{ $fallback }}">
-    {{- if $hasToc -}}
-      <div class="mobile-actions__menu" role="menu">
+  {{- $shareIcon := partial "helper/icon" "brand-twitter" -}}
+  {{- if not $shareIcon -}}
+    {{- $shareIcon = partial "helper/icon" "external" -}}
+  {{- end -}}
+  <div class="mobile-actions">
+    <div class="mobile-actions__menu" role="menu">
+      {{- if $hasToc -}}
         <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-toc-toggle aria-controls="mobile-toc-sheet" aria-expanded="false">
           <span class="mobile-actions__label">{{ T "tableOfContents" }}</span>
           <span class="mobile-actions__btn">{{ partial "helper/icon" "hash" }}</span>
         </button>
-        <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-share>
-          <span class="mobile-actions__label">{{ T "shareTo" }}</span>
-          <span class="mobile-actions__btn">{{ partial "helper/icon" "share" }}</span>
-        </button>
-      </div>
-      <button type="button" class="mobile-actions__fab" data-mobile-actions-toggle aria-expanded="false" aria-label="{{ T "toggleMenu" }}">
-        {{ partial "helper/icon" "plus" }}
+      {{- end -}}
+      <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="mobile-actions__action" role="menuitem" data-mobile-action aria-label="{{ T "shareOnTwitter" }}">
+        <span class="mobile-actions__label">{{ T "shareOnTwitter" }}</span>
+        <span class="mobile-actions__btn">{{ $shareIcon }}</span>
+      </a>
+      <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-action
+        data-copy="{{ $url }}"
+        data-copy-success="{{ T "linkCopied" }}"
+        data-copy-error="{{ T "copyError" }}"
+        aria-label="{{ T "copyLink" }}">
+        <span class="mobile-actions__label">{{ T "copyLink" }}</span>
+        <span class="mobile-actions__btn">{{ partial "helper/icon" "link" }}</span>
       </button>
-    {{- else -}}
-      <button type="button" class="mobile-actions__fab" data-mobile-share aria-label="{{ T "shareTo" }}">
-        {{ partial "helper/icon" "share" }}
-      </button>
-    {{- end -}}
+    </div>
+    <button type="button" class="mobile-actions__fab" data-mobile-actions-toggle aria-expanded="false" aria-label="{{ T "toggleMenu" }}">
+      {{ partial "helper/icon" "plus" }}
+    </button>
   </div>
 
   {{- if $hasToc -}}
