@@ -105,9 +105,6 @@ other = "Close"
 [copyCode]
 other = "Copy code"
 
-[shareOnTwitter]
-other = "Share"
-
 [copyLink]
 other = "Copy link"
 
