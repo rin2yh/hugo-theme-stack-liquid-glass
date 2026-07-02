@@ -2,11 +2,11 @@
 {{- if $page.IsPage -}}
   {{- $twitterUrl := partial "helper/share-url" $page -}}
   <aside class="widget twitter-share">
-    <span class="twitter-share__title">{{ T "shareTo" }}</span>
+    <span class="twitter-share__title">
+      {{ partial "helper/icon" "share" }}
+      {{ T "shareTo" }}
+    </span>
     <div class="twitter-share__actions">
-      <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareTo" }}">
-        {{ partial "helper/share-icon" . }}
-      </a>
       <button type="button" class="twitter-share__btn twitter-share__btn--link"
         data-copy="{{ $page.Permalink }}"
         data-copy-success="{{ T "linkCopied" }}"
@@ -14,6 +14,9 @@
         aria-label="{{ T "copyLink" }}">
         {{ partial "helper/icon" "link" }}
       </button>
+      <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareTo" }}">
+        {{ partial "helper/share-icon" . }}
+      </a>
     </div>
   </aside>
 {{- end -}}

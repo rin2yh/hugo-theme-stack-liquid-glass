@@ -527,7 +527,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-md);
-  padding: var(--space-md);
+  /* Match the sidebar `.widget` padding (space-md block / space-lg inline) so
+     the share card lines up with the TOC, which inherits it from `.widget`.
+     The two-class selector out-specifies `.widget`, so we restate it here. */
+  padding: var(--space-md) var(--space-lg);
   border-radius: var(--radius-lg);
   background: var(--glass-white);
   border: 1px solid var(--glass-border-subtle);
@@ -542,6 +545,14 @@
   font-size: var(--text-sm);
   font-weight: 500;
   letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.twitter-share__title svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
 }
 [data-theme="light"] .twitter-share__title {
   color: #020617;
@@ -553,9 +564,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(29, 161, 242, 0.18);
-  border: 1px solid rgba(29, 161, 242, 0.4);
-  color: #1da1f2;
+  background: var(--glass-white);
+  border: 1px solid var(--glass-border-subtle);
+  color: inherit;
   transition: transform var(--dur-fast) var(--ease-liquid);
 }
 .twitter-share__btn:hover {
@@ -566,9 +577,6 @@
   height: 18px;
 }
 .twitter-share__btn--link {
-  background: var(--glass-white);
-  border: 1px solid var(--glass-border-subtle);
-  color: inherit;
   cursor: pointer;
 }
 
