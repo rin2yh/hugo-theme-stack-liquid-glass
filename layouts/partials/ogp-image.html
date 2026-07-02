@@ -27,10 +27,11 @@
     {{- $line := "" -}}
     {{- $w := 0 -}}
     {{- range $tok := (findRE `[A-Za-z0-9]+|.` .Title) -}}
-      {{- /* ASCII word -> byte length == rune count; otherwise a single
-             (usually full-width) rune counted as 2 units. */ -}}
-      {{- $tw := cond (eq (len $tok) (len (split $tok ""))) (len $tok) 2 -}}
-      {{- $isSpace := gt (len (findRE `^[\s　]$` $tok)) 0 -}}
+      {{- /* An ASCII word has byte length == rune count; any other token is a
+             single (usually full-width) rune counted as 2 units. */ -}}
+      {{- $ascii := eq (len $tok) (len (split $tok "")) -}}
+      {{- $tw := cond $ascii (len $tok) 2 -}}
+      {{- $isSpace := in (slice " " "　") $tok -}}
       {{- if and (gt (add $w $tw) $maxUnits) (gt (len $line) 0) -}}
         {{- $lines = $lines | append (trim $line " 　") -}}
         {{- $line = "" -}}
@@ -42,12 +43,11 @@
       {{- end -}}
     {{- end -}}
     {{- with (trim $line " 　") }}{{ $lines = $lines | append . }}{{- end -}}
-    {{- $text := "" -}}
-    {{- if gt (len $lines) $maxLines -}}
-      {{- $text = printf "%s…" (delimit (first $maxLines $lines) "\n") -}}
-    {{- else -}}
-      {{- $text = delimit $lines "\n" -}}
-    {{- end -}}
+    {{- /* first caps safely when len <= maxLines, so this covers both cases;
+           the ellipsis is only appended when lines were actually dropped. */ -}}
+    {{- $text := delimit (first $maxLines $lines) "\n" -}}
+    {{- if gt (len $lines) $maxLines }}{{ $text = printf "%s…" $text }}{{ end -}}
+    {{- /* x = cmd/ogp margin+pad (72+48); y sits just below the accent bar. */ -}}
     {{- $opts := dict
       "color" "#ffffff"
       "size" 60

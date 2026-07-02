@@ -132,11 +132,7 @@ func run(outPath, fontPath, siteName, avatarPath string) error {
 // is used to reject pixels outside its radius before taking a square root.
 func drawScene(dst *image.RGBA) {
 	bounds := dst.Bounds()
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			dst.SetRGBA(x, y, baseBG)
-		}
-	}
+	draw.Draw(dst, bounds, image.NewUniform(baseBG), image.Point{}, draw.Src)
 	for _, b := range blobs {
 		minX := max(bounds.Min.X, int(math.Floor(b.cx-b.r)))
 		maxX := min(bounds.Max.X, int(math.Ceil(b.cx+b.r)))
@@ -276,18 +272,17 @@ func blendPixel(dst *image.RGBA, x, y int, c color.RGBA, k float64) {
 func inRoundRect(px, py float64, r image.Rectangle, rad float64) float64 {
 	minX, minY := float64(r.Min.X), float64(r.Min.Y)
 	maxX, maxY := float64(r.Max.X), float64(r.Max.Y)
-	// Nearest point on the inner rounded box.
-	cx := clamp(px, minX+rad, maxX-rad)
-	cy := clamp(py, minY+rad, maxY-rad)
-	dx, dy := px-cx, py-cy
-	// In the straight (non-corner) zones one of dx/dy is zero, so distance
-	// reduces to edge distance and AA still works.
+	// In the straight (non-corner) zones the distance reduces to edge distance
+	// and AA still works, so handle them first without the corner math.
 	if (px >= minX+rad && px <= maxX-rad) || (py >= minY+rad && py <= maxY-rad) {
 		// Simple inside test for edges, with 1px AA on the outer border.
 		edge := math.Min(math.Min(px-minX, maxX-px), math.Min(py-minY, maxY-py))
 		return clamp(edge, 0, 1)
 	}
-	d := math.Hypot(dx, dy)
+	// Corner zone: distance to the nearest inner corner centre.
+	cx := clamp(px, minX+rad, maxX-rad)
+	cy := clamp(py, minY+rad, maxY-rad)
+	d := math.Hypot(px-cx, py-cy)
 	return clamp(rad-d, 0, 1)
 }
 
@@ -333,11 +328,5 @@ func strokeRoundRect(dst *image.RGBA, r image.Rectangle, rad int, c color.RGBA, 
 }
 
 func clamp(v, lo, hi float64) float64 {
-	if v < lo {
-		return lo
-	}
-	if v > hi {
-		return hi
-	}
-	return v
+	return min(max(v, lo), hi)
 }
