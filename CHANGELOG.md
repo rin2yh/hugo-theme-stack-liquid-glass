@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.2.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.1...hugo-theme-stack-liquid-glass-v0.2.0) (2026-07-02)
+
+
+### Features
+
+* **ogp:** 記事タイトル入り OGP 画像をテーマ側で自動生成 ([ecd071a](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/ecd071a65e9ec533e6e16f691faedc3cd8f57f8b)), closes [#48](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/issues/48)
+* **website:** migrate docs site from Hugo to Astro Starlight ([075db96](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/075db960164617c6d1307274acfe9f4cb1f6caf5))
+* **website:** migrate docs site from Hugo to Astro Starlight ([962c2c6](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/962c2c6b6fde5021d4feb3023f7974257d1ccd18))
+
+
+### Bug Fixes
+
+* **ci:** pin actions/setup-node to v6.4.0 (v5.0.0 SHA was invalid) ([d0e4a63](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/d0e4a63b17a15f746e408d77a9e3f35dff753771))
+* **ci:** use Node 22 for website job (Astro 6 requires &gt;=22.12.0) ([6df7b58](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/6df7b58b13fc0f1e1ac0b242ca9249eaf9fb195c))
+* **release-please:** exclude website/ so docs-only changes don't bump theme version ([297efad](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/297efad9eed89b4d12176a74561765b6a4f263be))
+* **release-please:** exclude website/ so docs-only changes don't bump theme version ([aa9370d](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/aa9370df87c644b7ee508c7c8e53dc6a4fef9c72))
+* **release-please:** track theme paths only via include-paths allowlist ([5e89c31](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/5e89c31c5baf359e0ed831c7cc1606532feb254a))
+
+
+### Documentation
+
+* **ogp:** rewrite OGP README in English and register JPEG decoder ([d7281f0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/d7281f096e632220fd57bb78e830a1b70e612b2b))
+* **releasing:** tighten website-exclusion paragraph ([ea3289f](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/ea3289f6ac9b56dee2428701dc20407ed30f26af))
+* relicense from GPL-3.0-or-later to MIT ([dc5ad56](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/dc5ad56516c9cf81025920a194b5fe0fc0f2356f))
+* restore full Japanese feature summary in README ([2563026](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/2563026635e2d3eb887c57ab041a6db1d65d7151))
+* trim README to typical Hugo theme scope ([0181f0b](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/0181f0bf02850ee5d8c8274bb86c5e500963c2f5))
+* trim README to typical Hugo theme scope ([0e88b59](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/0e88b599b7a0968b586a7be0e27bfe9c4a4b9892))
+* **website:** document OGP image generation ([3dcac5f](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/3dcac5fccc1c428cbfd5dbf8a5b7962a7a97fd9f))
+* **website:** note that OGP images need no extra consumer CI steps ([9f93ebe](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/9f93ebe8871cda413261f454b9948cf6a390cb15))
+
+
+### Code Refactoring
+
+* **ogp:** simplify generator and title-wrapping partial ([a8e3664](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/a8e3664cea71879316b81e1e594198259a9cd1e6))
+* **website:** split CI per workflow, prune deps, fix base-prefix on hero links ([af23e22](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/af23e2253c555a10396396d23248a126a453620b))
+* **website:** unify hero/LinkCard hrefs as relative paths ([7a10431](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/7a10431b684f615f264a28ef6704ec3353bbda4e))
+
 ## [0.1.1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.0...hugo-theme-stack-liquid-glass-v0.1.1) (2026-04-27)
 
 
