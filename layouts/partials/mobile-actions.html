@@ -6,10 +6,6 @@
   {{- $url := .Permalink -}}
   {{- $twitterUrl := partial "helper/share-url" . -}}
   {{- $hasToc := gt (len .Fragments.Headings) 0 -}}
-  {{- $shareIcon := partial "helper/icon" "brand-twitter" -}}
-  {{- if not $shareIcon -}}
-    {{- $shareIcon = partial "helper/icon" "external" -}}
-  {{- end -}}
   <div class="mobile-actions">
     <div class="mobile-actions__menu" role="menu">
       {{- if $hasToc -}}
@@ -20,7 +16,7 @@
       {{- end -}}
       <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="mobile-actions__action" role="menuitem" data-mobile-action aria-label="{{ T "shareOnTwitter" }}">
         <span class="mobile-actions__label">{{ T "shareOnTwitter" }}</span>
-        <span class="mobile-actions__btn">{{ $shareIcon }}</span>
+        <span class="mobile-actions__btn">{{ partial "helper/share-icon" . }}</span>
       </a>
       <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-action
         data-copy="{{ $url }}"

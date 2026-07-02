@@ -3,13 +3,9 @@
   {{- $twitterUrl := partial "helper/share-url" $page -}}
   <aside class="widget twitter-share">
     <span class="twitter-share__title">{{ T "shareTo" }}</span>
-    {{- $icon := partial "helper/icon" "brand-twitter" -}}
-    {{- if not $icon -}}
-      {{- $icon = partial "helper/icon" "external" -}}
-    {{- end -}}
     <div class="twitter-share__actions">
       <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
-        {{ $icon }}
+        {{ partial "helper/share-icon" . }}
       </a>
       <button type="button" class="twitter-share__btn twitter-share__btn--link"
         data-copy="{{ $page.Permalink }}"
