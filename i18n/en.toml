@@ -99,6 +99,9 @@ other = "Next"
 [toggleMenu]
 other = "Toggle menu"
 
+[close]
+other = "Close"
+
 [copyCode]
 other = "Copy code"
 

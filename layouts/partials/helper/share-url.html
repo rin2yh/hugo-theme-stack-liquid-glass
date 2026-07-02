@@ -1,0 +1,6 @@
+{{- /*
+  Build the X/Twitter share-intent URL for a page.
+  Usage: {{ partial "helper/share-url" . }} where . is a Page.
+*/ -}}
+{{- $text := printf "%s\n%s" .Title .Permalink | urlquery -}}
+{{- printf "https://twitter.com/intent/tweet?text=%s" $text -}}
