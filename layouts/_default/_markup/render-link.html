@@ -1,0 +1,20 @@
+{{- /*
+  Link render hook.
+
+  A bare external URL (an autolink, where the visible text equals the
+  destination) is rendered as an Open Graph preview card. Every other link —
+  labelled markdown links, relative/internal links, anchors, mailto — renders
+  as a normal anchor, matching Hugo's default output.
+
+  Set `params.ogpCard.enabled = false` in site config to fall back to plain
+  links everywhere.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $plain := .PlainText | default "" -}}
+{{- $external := or (hasPrefix $dest "http://") (hasPrefix $dest "https://") -}}
+{{- $isBareURL := and $external (eq (trim $plain " ") (trim $dest " ")) -}}
+{{- if $isBareURL -}}
+  {{- partial "helper/ogp-card.html" (dict "url" $dest "text" .Text) -}}
+{{- else -}}
+  <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}}

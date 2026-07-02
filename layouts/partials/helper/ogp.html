@@ -1,0 +1,70 @@
+{{- /*
+  Fetch Open Graph metadata for a remote URL at build time.
+
+  Uses resources.GetRemote so the request happens once per unique URL during
+  the build (callers wrap this in partialCached). Failures degrade to
+  ok=false so callers can fall back to a plain link — a build is never broken
+  by an unreachable or non-HTML target.
+
+  Input : dict { url }
+  Output: dict { ok, url, title, description, image, siteName }
+*/ -}}
+{{- $url := .url -}}
+{{- $data := dict "ok" false -}}
+
+{{- if and $url (or (hasPrefix $url "http://") (hasPrefix $url "https://")) -}}
+  {{- $res := try (resources.GetRemote $url) -}}
+  {{- if $res.Err -}}
+    {{- warnf "ogp: could not fetch %q: %s" $url $res.Err -}}
+  {{- else -}}
+    {{- with $res.Value -}}
+      {{- if hasPrefix (string .MediaType.Type) "text/html" -}}
+        {{- $html := .Content -}}
+        {{- /* Restrict parsing to <head> when present to skip the body. */ -}}
+        {{- $head := $html -}}
+        {{- with findRE `(?is)<head[^>]*>.*?</head>` $html 1 -}}
+          {{- $head = index . 0 -}}
+        {{- end -}}
+
+        {{- $title := partial "helper/ogp-meta.html" (dict "head" $head "prop" "og:title") -}}
+        {{- $desc := partial "helper/ogp-meta.html" (dict "head" $head "prop" "og:description") -}}
+        {{- $image := partial "helper/ogp-meta.html" (dict "head" $head "prop" "og:image") -}}
+        {{- $siteName := partial "helper/ogp-meta.html" (dict "head" $head "prop" "og:site_name") -}}
+
+        {{- /* Fallbacks when Open Graph tags are absent. */ -}}
+        {{- if not $title -}}
+          {{- with findRESubmatch `(?is)<title[^>]*>(.*?)</title>` $head 1 -}}
+            {{- $title = index (index . 0) 1 -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if not $desc -}}
+          {{- $desc = partial "helper/ogp-meta.html" (dict "head" $head "prop" "description") -}}
+        {{- end -}}
+
+        {{- $title = $title | htmlUnescape | plainify | chomp -}}
+        {{- $desc = $desc | htmlUnescape | plainify | chomp | truncate 160 -}}
+        {{- $image = $image | htmlUnescape | chomp -}}
+
+        {{- /* Resolve protocol-relative and root/relative og:image URLs. */ -}}
+        {{- $base := urls.Parse $url -}}
+        {{- if and $image (not (hasPrefix $image "http")) -}}
+          {{- if hasPrefix $image "//" -}}
+            {{- $image = printf "%s:%s" $base.Scheme $image -}}
+          {{- else if hasPrefix $image "/" -}}
+            {{- $image = printf "%s://%s%s" $base.Scheme $base.Host $image -}}
+          {{- else -}}
+            {{- $image = printf "%s://%s/%s" $base.Scheme $base.Host $image -}}
+          {{- end -}}
+        {{- end -}}
+
+        {{- if not $siteName -}}{{- $siteName = $base.Host -}}{{- end -}}
+
+        {{- if $title -}}
+          {{- $data = dict "ok" true "url" $url "title" $title "description" $desc "image" $image "siteName" $siteName -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $data -}}

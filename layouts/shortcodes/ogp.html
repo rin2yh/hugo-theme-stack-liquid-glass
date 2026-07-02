@@ -1,0 +1,16 @@
+{{- /*
+  Open Graph card shortcode — explicit alternative to a bare URL.
+
+  Usage:
+    {{< ogp "https://example.com/" >}}
+    {{< ogp url="https://example.com/" >}}
+
+  Renders the same preview card as a standalone URL, falling back to a plain
+  link when no metadata is available.
+*/ -}}
+{{- $url := or (.Get "url") (.Get 0) -}}
+{{- with $url -}}
+  {{- partial "helper/ogp-card.html" (dict "url" (trim . " ")) -}}
+{{- else -}}
+  {{- errorf "ogp shortcode: a URL is required (%s)" .Position -}}
+{{- end -}}
