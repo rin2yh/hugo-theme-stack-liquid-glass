@@ -1,0 +1,47 @@
+{{- /* Mobile floating actions — speed-dial FAB (TOC + share).
+  Rendered on single pages only; hidden on desktop via CSS. */ -}}
+{{- if .IsPage -}}
+  {{- $title := .Title -}}
+  {{- $url := .Permalink -}}
+  {{- $fallback := partial "helper/share-url" . -}}
+  {{- $hasToc := gt (len .Fragments.Headings) 0 -}}
+  <div class="mobile-actions" data-share-title="{{ $title }}" data-share-url="{{ $url }}" data-share-fallback="{{ $fallback }}">
+    {{- if $hasToc -}}
+      <div class="mobile-actions__menu" role="menu">
+        <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-toc-toggle aria-controls="mobile-toc-sheet" aria-expanded="false">
+          <span class="mobile-actions__label">{{ T "tableOfContents" }}</span>
+          <span class="mobile-actions__btn">{{ partial "helper/icon" "hash" }}</span>
+        </button>
+        <button type="button" class="mobile-actions__action" role="menuitem" data-mobile-share>
+          <span class="mobile-actions__label">{{ T "shareTo" }}</span>
+          <span class="mobile-actions__btn">{{ partial "helper/icon" "share" }}</span>
+        </button>
+      </div>
+      <button type="button" class="mobile-actions__fab" data-mobile-actions-toggle aria-expanded="false" aria-label="{{ T "toggleMenu" }}">
+        {{ partial "helper/icon" "plus" }}
+      </button>
+    {{- else -}}
+      <button type="button" class="mobile-actions__fab" data-mobile-share aria-label="{{ T "shareTo" }}">
+        {{ partial "helper/icon" "share" }}
+      </button>
+    {{- end -}}
+  </div>
+
+  {{- if $hasToc -}}
+    <div class="mobile-toc" id="mobile-toc-sheet">
+      <div class="mobile-toc__overlay" data-mobile-toc-close></div>
+      <div class="mobile-toc__sheet glass" role="dialog" aria-modal="true" aria-label="{{ T "tableOfContents" }}">
+        <div class="mobile-toc__header">
+          <span class="toc__title">
+            {{ partial "helper/icon" "hash" }}
+            {{ T "tableOfContents" }}
+          </span>
+          <button type="button" class="mobile-toc__close" data-mobile-toc-close aria-label="{{ T "close" }}">
+            {{ partial "helper/icon" "x" }}
+          </button>
+        </div>
+        <div class="mobile-toc__inner toc__inner">{{ .TableOfContents }}</div>
+      </div>
+    </div>
+  {{- end -}}
+{{- end -}}

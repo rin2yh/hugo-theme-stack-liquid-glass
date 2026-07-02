@@ -21,6 +21,8 @@
       </div>
     </div>
 
+    {{ partial "mobile-actions.html" . }}
+
     {{- /* Mermaid lazy loader */ -}}
     {{- partial "mermaid.html" . -}}
     {{ if .Store.Get "hasMermaid" }}
