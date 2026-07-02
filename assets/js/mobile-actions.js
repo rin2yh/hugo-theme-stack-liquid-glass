@@ -1,7 +1,7 @@
 /**
- * mobile-actions.js — floating TOC + share buttons for small screens.
- *   Share uses the Web Share API when available, falling back to an X/Twitter
- *   intent URL. The TOC opens as a bottom sheet.
+ * mobile-actions.js — speed-dial FAB (TOC + share) for small screens.
+ *   Tapping the FAB fans out the actions. Share uses the Web Share API when
+ *   available, falling back to an X/Twitter intent URL. TOC opens as a sheet.
  */
 (function () {
   "use strict";
@@ -10,75 +10,82 @@
     var root = document.querySelector(".mobile-actions");
     if (!root) return;
 
-    // --- Share ---
-    var shareBtn = root.querySelector("[data-mobile-share]");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", function () {
-        var title = root.getAttribute("data-share-title") || document.title;
-        var url = root.getAttribute("data-share-url") || window.location.href;
-        var fallback = root.getAttribute("data-share-fallback");
-        if (navigator.share) {
-          navigator.share({ title: title, url: url }).catch(function () {});
-        } else if (fallback) {
-          window.open(fallback, "_blank", "noopener,noreferrer");
+    // --- Share (either the solo FAB or the speed-dial action) ---
+    function doShare() {
+      var title = root.getAttribute("data-share-title") || document.title;
+      var url = root.getAttribute("data-share-url") || window.location.href;
+      var fallback = root.getAttribute("data-share-fallback");
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(function () {});
+      } else if (fallback) {
+        window.open(fallback, "_blank", "noopener,noreferrer");
+      }
+    }
+
+    // --- Speed-dial menu ---
+    var fabToggle = root.querySelector("[data-mobile-actions-toggle]");
+    function closeMenu() {
+      root.classList.remove("is-open");
+      if (fabToggle) fabToggle.setAttribute("aria-expanded", "false");
+    }
+    if (fabToggle) {
+      fabToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var open = root.classList.toggle("is-open");
+        fabToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("click", function (e) {
+        if (root.classList.contains("is-open") && !root.contains(e.target)) {
+          closeMenu();
         }
       });
     }
 
+    Array.prototype.forEach.call(
+      root.querySelectorAll("[data-mobile-share]"),
+      function (btn) {
+        btn.addEventListener("click", function () {
+          closeMenu();
+          doShare();
+        });
+      }
+    );
+
     // --- TOC bottom sheet ---
     var sheet = document.getElementById("mobile-toc-sheet");
-    var toggle = root.querySelector("[data-mobile-toc-toggle]");
-    if (!sheet || !toggle) return;
+    var tocToggle = root.querySelector("[data-mobile-toc-toggle]");
+    if (!sheet || !tocToggle) return;
 
-    var closeTimer = null;
-
-    function open() {
-      if (closeTimer) {
-        clearTimeout(closeTimer);
-        closeTimer = null;
-      }
-      sheet.hidden = false;
-      // Force reflow so the slide-up transition runs from the hidden state.
-      void sheet.offsetWidth;
+    function openSheet() {
+      closeMenu();
       sheet.classList.add("is-open");
-      toggle.setAttribute("aria-expanded", "true");
+      tocToggle.setAttribute("aria-expanded", "true");
       document.body.classList.add("sheet-open");
-      document.addEventListener("keydown", onKey);
     }
-
-    function close() {
+    function closeSheet() {
       sheet.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
+      tocToggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("sheet-open");
-      document.removeEventListener("keydown", onKey);
-      closeTimer = setTimeout(function () {
-        sheet.hidden = true;
-      }, 400);
     }
 
-    function onKey(e) {
-      if (e.key === "Escape") close();
-    }
+    tocToggle.addEventListener("click", openSheet);
 
-    toggle.addEventListener("click", function () {
-      if (sheet.hidden) open();
-      else close();
+    // One delegated handler: close on the overlay/close button or a TOC link.
+    sheet.addEventListener("click", function (e) {
+      if (
+        e.target.closest("[data-mobile-toc-close]") ||
+        e.target.closest('.mobile-toc__inner a[href^="#"]')
+      ) {
+        closeSheet();
+      }
     });
 
-    Array.prototype.forEach.call(
-      sheet.querySelectorAll("[data-mobile-toc-close]"),
-      function (el) {
-        el.addEventListener("click", close);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeMenu();
+        closeSheet();
       }
-    );
-
-    // Dismiss the sheet once the reader jumps to a section.
-    Array.prototype.forEach.call(
-      sheet.querySelectorAll('.mobile-toc__inner a[href^="#"]'),
-      function (a) {
-        a.addEventListener("click", close);
-      }
-    );
+    });
   }
 
   if (document.readyState === "loading") {

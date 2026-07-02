@@ -1,9 +1,10 @@
-/* Mobile floating actions — TOC + share reachable at any scroll position.
-   Visible only on small screens; the desktop sidebar handles wide layouts. */
+/* Mobile floating actions — a speed-dial FAB (TOC + share) reachable at any
+   scroll position. Visible only on small screens; the desktop sidebar handles
+   wide layouts. */
 .mobile-actions {
   display: none;
 }
-.mobile-toc[hidden] {
+.mobile-toc {
   display: none;
 }
 
@@ -14,46 +15,112 @@
     display: none;
   }
 
-  /* Floating action buttons */
+  /* Speed-dial container: actions stack above the main FAB, right-aligned */
   .mobile-actions {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: var(--space-sm);
     position: fixed;
     right: max(var(--space-md), env(safe-area-inset-right));
     bottom: max(var(--space-lg), env(safe-area-inset-bottom));
     z-index: var(--z-overlay);
   }
+
+  /* Round glass buttons — shared base for the main FAB and the action icons */
+  .mobile-actions__fab,
   .mobile-actions__btn {
-    width: 52px;
-    height: 52px;
     border-radius: var(--radius-full);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    cursor: pointer;
     box-shadow: var(--shadow-float);
+  }
+  .mobile-actions__fab {
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
     transition: transform var(--dur-fast) var(--ease-glass),
       background var(--dur-fast);
   }
+  .mobile-actions__btn {
+    width: 48px;
+    height: 48px;
+  }
+  .mobile-actions__fab svg,
   .mobile-actions__btn svg {
     position: relative;
     z-index: 2;
     width: 22px;
     height: 22px;
   }
-  .mobile-actions__btn:active {
+  .mobile-actions__fab:active {
     transform: scale(0.92);
   }
+  /* The "+" trigger rotates into an "×" while the menu is open */
+  .mobile-actions__fab svg {
+    transition: transform var(--dur-mid) var(--ease-glass);
+  }
+  .mobile-actions--menu.is-open .mobile-actions__fab svg {
+    transform: rotate(135deg);
+  }
 
-  /* TOC bottom sheet */
+  /* Fan-out actions (label + icon), hidden until the FAB is tapped */
+  .mobile-actions__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-sm);
+  }
+  .mobile-actions__action {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-smooth),
+      transform var(--dur-fast) var(--ease-glass);
+  }
+  .mobile-actions.is-open .mobile-actions__action {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .mobile-actions.is-open .mobile-actions__action:nth-child(2) {
+    transition-delay: 45ms;
+  }
+  .mobile-actions__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    line-height: 1;
+    white-space: nowrap;
+    padding: 7px 12px;
+    border-radius: var(--radius-full);
+    color: var(--color-text);
+    background: var(--glass-white-md);
+    border: 1px solid var(--glass-border-subtle);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* TOC bottom sheet — visibility driven purely by the .is-open class */
   .mobile-toc {
+    display: flex;
     position: fixed;
     inset: 0;
     z-index: var(--z-modal);
-    display: flex;
     align-items: flex-end;
+    visibility: hidden;
+    transition: visibility 0s linear var(--dur-mid);
+  }
+  .mobile-toc.is-open {
+    visibility: visible;
+    transition-delay: 0s;
   }
   .mobile-toc__overlay {
     position: absolute;
@@ -63,6 +130,9 @@
     -webkit-backdrop-filter: blur(4px);
     opacity: 0;
     transition: opacity var(--dur-mid) var(--ease-smooth);
+  }
+  .mobile-toc.is-open .mobile-toc__overlay {
+    opacity: 1;
   }
   .mobile-toc__sheet {
     position: relative;
@@ -76,9 +146,6 @@
       max(var(--space-lg), env(safe-area-inset-bottom));
     transform: translateY(100%);
     transition: transform var(--dur-mid) var(--ease-glass);
-  }
-  .mobile-toc.is-open .mobile-toc__overlay {
-    opacity: 1;
   }
   .mobile-toc.is-open .mobile-toc__sheet {
     transform: translateY(0);
@@ -138,7 +205,9 @@
   }
 }
 
+[data-theme="light"] .mobile-actions__fab,
 [data-theme="light"] .mobile-actions__btn,
+[data-theme="light"] .mobile-actions__label,
 [data-theme="light"] .mobile-toc__sheet {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(15, 23, 42, 0.1);
