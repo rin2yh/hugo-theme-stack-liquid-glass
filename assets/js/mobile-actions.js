@@ -1,7 +1,8 @@
 /**
  * mobile-actions.js — speed-dial FAB (TOC + share) for small screens.
- *   Tapping the FAB fans out the actions. Share uses the Web Share API when
- *   available, falling back to an X/Twitter intent URL. TOC opens as a sheet.
+ *   Tapping the FAB fans out the actions. The share actions mirror the desktop
+ *   sidebar widget — a share link and a copy-link button (copy handled by the
+ *   global clipboard delegate in liquid-glass.js). TOC opens as a sheet.
  */
 (function () {
   "use strict";
@@ -9,18 +10,6 @@
   function init() {
     var root = document.querySelector(".mobile-actions");
     if (!root) return;
-
-    // --- Share (either the solo FAB or the speed-dial action) ---
-    function doShare() {
-      var title = root.getAttribute("data-share-title") || document.title;
-      var url = root.getAttribute("data-share-url") || window.location.href;
-      var fallback = root.getAttribute("data-share-fallback");
-      if (navigator.share) {
-        navigator.share({ title: title, url: url }).catch(function () {});
-      } else if (fallback) {
-        window.open(fallback, "_blank", "noopener,noreferrer");
-      }
-    }
 
     // --- Speed-dial menu ---
     var fabToggle = root.querySelector("[data-mobile-actions-toggle]");
@@ -41,13 +30,11 @@
       });
     }
 
+    // Tapping a share action (share / copy-link) collapses the speed-dial.
     Array.prototype.forEach.call(
-      root.querySelectorAll("[data-mobile-share]"),
+      root.querySelectorAll("[data-mobile-action]"),
       function (btn) {
-        btn.addEventListener("click", function () {
-          closeMenu();
-          doShare();
-        });
+        btn.addEventListener("click", closeMenu);
       }
     );
 

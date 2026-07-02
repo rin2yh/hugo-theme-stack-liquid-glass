@@ -1,0 +1,20 @@
+{{- /*
+  Share icon for the share action, shared by the desktop sidebar widget
+  (widgets/twitter-share.html) and the mobile FAB (mobile-actions.html) so both
+  render the same glyph.
+
+  The theme deliberately ships no brand-logo asset (trademarks). Sites pick the
+  icon via the `shareIcon` param, naming an SVG they place in their own
+  assets/icons/ dir:
+
+      [params]
+      shareIcon = "your-icon"   # -> assets/icons/your-icon.svg
+
+  When the param is unset (or the named icon is missing) it falls back to the
+  generic external-link icon that ships with the theme.
+*/ -}}
+{{- $icon := partial "helper/icon" (site.Params.shareIcon | default "external") -}}
+{{- if not $icon -}}
+  {{- $icon = partial "helper/icon" "external" -}}
+{{- end -}}
+{{- $icon -}}
