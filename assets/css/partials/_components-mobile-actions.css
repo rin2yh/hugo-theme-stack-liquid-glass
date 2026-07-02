@@ -175,6 +175,10 @@
   .mobile-toc__header .toc__title {
     margin-bottom: 0;
   }
+  /* Match the FAB/action surface: a near-opaque circle stays legible in either
+     theme (dark disc + white icon in dark mode, light disc + dark icon in
+     light mode). A transparent base let a light hover fill wash out the white
+     "×" against the sheet in dark mode. */
   .mobile-toc__close {
     display: inline-flex;
     align-items: center;
@@ -183,11 +187,13 @@
     height: 36px;
     border-radius: var(--radius-full);
     color: var(--color-text);
+    background: var(--glass-opaque);
+    border: 1px solid var(--glass-border-bright);
     cursor: pointer;
-    transition: background var(--dur-fast);
+    transition: border-color var(--dur-fast);
   }
   .mobile-toc__close:hover {
-    background: var(--glass-white);
+    border-color: var(--color-text);
   }
   .mobile-toc__close svg {
     width: 18px;
