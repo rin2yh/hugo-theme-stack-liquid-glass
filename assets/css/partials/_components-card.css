@@ -519,9 +519,12 @@
   height: 14px;
 }
 
-/* Twitter share button */
-.twitter-share {
+/* Share buttons — a horizontal row. `.widget` (loaded later) sets
+   flex-direction: column, so match both classes to win on specificity. */
+.twitter-share.widget {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   gap: var(--space-md);
