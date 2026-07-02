@@ -1,7 +1,8 @@
-/* Glass-styled Table of Contents — sidebar widget */
+/* Glass-styled Table of Contents — sidebar widget.
+   The sidebar wrapper is already `position: sticky`, so the TOC stays in flow
+   here. Making it sticky too shifted it down by `top` and overlapped any widget
+   stacked below it (e.g. the share widget). */
 .toc {
-  position: sticky;
-  top: 100px;
   border-radius: var(--radius-xl);
   padding: var(--space-md) var(--space-md) var(--space-lg);
   max-height: calc(100vh - 140px);
@@ -89,7 +90,6 @@
 
 @media (max-width: 1024px) {
   .toc {
-    position: static;
     max-height: none;
   }
 }

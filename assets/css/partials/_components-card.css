@@ -519,17 +519,24 @@
   height: 14px;
 }
 
-/* Twitter share button */
-.twitter-share {
+/* Share widget — title stacked above a row of share buttons.
+   Match both classes to out-specify `.widget` (loaded later), whose
+   padding/gap would otherwise win the tie. */
+.twitter-share.widget {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md);
   border-radius: var(--radius-lg);
   background: var(--glass-white);
   border: 1px solid var(--glass-border-subtle);
   margin-top: var(--space-lg);
+}
+.twitter-share__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
 }
 .twitter-share__title {
   font-size: var(--text-sm);
@@ -553,11 +560,16 @@
 }
 .twitter-share__btn:hover {
   transform: scale(1.08);
-  color: #1da1f2;
 }
 .twitter-share__btn svg {
   width: 18px;
   height: 18px;
+}
+.twitter-share__btn--link {
+  background: var(--glass-white);
+  border: 1px solid var(--glass-border-subtle);
+  color: inherit;
+  cursor: pointer;
 }
 
 /* Light-mode opacity overrides — keep text solid in light theme. */

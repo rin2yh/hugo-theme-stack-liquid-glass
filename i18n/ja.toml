@@ -108,6 +108,12 @@ other = "コードをコピー"
 [shareOnTwitter]
 other = "Twitterで共有"
 
+[copyLink]
+other = "リンクをコピー"
+
+[linkCopied]
+other = "リンクをコピーしました"
+
 [copySuccess]
 other = "メールアドレスをコピーしました"
 

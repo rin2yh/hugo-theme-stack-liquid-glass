@@ -52,6 +52,8 @@ type = "tag-cloud"
 limit = 10
 [[params.widgets.page]]
 type = "toc"
+[[params.widgets.page]]
+type = "twitter-share"
 
 [[menu.main]]
 identifier = "home"

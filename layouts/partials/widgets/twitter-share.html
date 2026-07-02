@@ -7,8 +7,17 @@
     {{- if not $icon -}}
       {{- $icon = partial "helper/icon" "external" -}}
     {{- end -}}
-    <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
-      {{ $icon }}
-    </a>
+    <div class="twitter-share__actions">
+      <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
+        {{ $icon }}
+      </a>
+      <button type="button" class="twitter-share__btn twitter-share__btn--link"
+        data-copy="{{ $page.Permalink }}"
+        data-copy-success="{{ T "linkCopied" }}"
+        data-copy-error="{{ T "copyError" }}"
+        aria-label="{{ T "copyLink" }}">
+        {{ partial "helper/icon" "link" }}
+      </button>
+    </div>
   </aside>
 {{- end -}}

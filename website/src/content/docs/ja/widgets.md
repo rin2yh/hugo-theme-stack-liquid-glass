@@ -74,14 +74,14 @@ TOC のレベル範囲は `hugo.toml` の `[markup.tableOfContents]` から取�
 
 ## `twitter-share`
 
-記事横に「Twitter で共有」ボタンを描画します。各ページのサイドバーで使うのが最適です。
+記事横に共有ボタンを描画します。各ページのサイドバーで使うのが最適です。
 
 ```toml
 [[params.widgets.page]]
 type = "twitter-share"
 ```
 
-共有 URL はページタイトルと絶対 URL を自動で埋め込みます。
+「Twitter で共有」ボタンに加えて、ページの URL をクリップボードにコピーする「リンクをコピー」ボタンも表示されます。共有 URL はページタイトルと絶対 URL を自動で埋め込みます。
 
 ## `profile`
 
