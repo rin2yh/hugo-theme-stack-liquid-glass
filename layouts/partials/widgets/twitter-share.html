@@ -2,7 +2,10 @@
 {{- if $page.IsPage -}}
   {{- $twitterUrl := partial "helper/share-url" $page -}}
   <aside class="widget twitter-share">
-    <span class="twitter-share__title">{{ T "shareTo" }}</span>
+    <span class="twitter-share__title">
+      {{ partial "helper/icon" "share" }}
+      {{ T "shareTo" }}
+    </span>
     <div class="twitter-share__actions">
       <a href="{{ $twitterUrl }}" target="_blank" rel="noopener noreferrer" class="twitter-share__btn" aria-label="{{ T "shareOnTwitter" }}">
         {{ partial "helper/share-icon" . }}
