@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.3.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.2.0...hugo-theme-stack-liquid-glass-v0.3.0) (2026-07-02)
+
+
+### Features
+
+* **mobile:** add floating TOC + share buttons for small screens ([bc6d731](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/bc6d7314bf644fae79972d91b816cc88633637dc))
+* **ogp:** render Open Graph link cards from URLs in content ([12ec11a](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/12ec11a82ecd69fa8189c351fcbc28191042d3a3))
+* **share:** add copy-link button to the share widget ([d503912](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/d503912431f6664e405898031b48d577ca500869))
+* **share:** lay share buttons out horizontally; showcase in demo ([9d460e9](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/9d460e9211ce480099a466c764813eec36e3b32e))
+* **share:** stack the title above a horizontal row of buttons ([4647085](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/46470852c7a1e1591e8b546f50c3b36cf389fa5e))
+
+
+### Bug Fixes
+
+* **mobile:** make floating action buttons more opaque for legibility ([a6ce8d1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/a6ce8d17b5e14ebc393ab15ef08120f671244bcb))
+* **share:** use page permalink for copy-link after share-url refactor ([de3cfcb](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/de3cfcb86746a8e9ab29cfbb812384bdd3b47a9c))
+* **sidebar:** stop sticky TOC from overlapping stacked widgets ([211c6e8](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/211c6e8bbb735cbccbdc49ba519955271c3cc968))
+
+
+### Documentation
+
+* **ogp:** document link cards on the docs site instead of the README ([fbe2e6c](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/fbe2e6cfe1e915aa820a7672157ee0bc462ba135))
+
+
+### Code Refactoring
+
+* **mobile:** dedup share URL, reuse TOC title, drop wasteful blur ([a8aa52f](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/a8aa52ffd751fb304ad613995d1c9695cc0bea10))
+* **mobile:** make floating actions a speed-dial with distinct TOC icon ([e5311a7](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/e5311a7996a52735546e13db5a96a89c9d55c097))
+* **ogp:** simplify link-card helpers per cleanup review ([1d2cdbc](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/1d2cdbc0cd9152c564b5bace7b1ab2e0cf2f1b2a))
+* **share:** drop dead CSS flagged by cleanup review ([7dbacf2](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/7dbacf279fec82e5ae5157ef9362ad865aa7dbe2))
+
 ## [0.2.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.1.1...hugo-theme-stack-liquid-glass-v0.2.0) (2026-07-02)
 
 
