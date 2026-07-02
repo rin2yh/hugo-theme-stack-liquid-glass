@@ -30,7 +30,7 @@
       });
     }
 
-    // Tapping a share action (X link / copy-link) collapses the speed-dial.
+    // Tapping a share action (share / copy-link) collapses the speed-dial.
     Array.prototype.forEach.call(
       root.querySelectorAll("[data-mobile-action]"),
       function (btn) {

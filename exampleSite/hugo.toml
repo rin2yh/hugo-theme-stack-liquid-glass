@@ -30,7 +30,7 @@ rssFullContent = true
 # Icon for the share action (sidebar widget + mobile FAB). Name an SVG you
 # place in your own assets/icons/ dir; unset falls back to a generic
 # external-link icon. The theme ships no brand-logo asset (trademarks).
-# shareIcon = "brand-x"
+# shareIcon = "your-icon"
 description = "Demo site for the Stack Liquid Glass Hugo theme."
 [params.dateFormat]
 published = "2006/01/02"
