@@ -13,10 +13,7 @@
   When the param is unset (or the named icon is missing) it falls back to the
   generic external-link icon that ships with the theme.
 */ -}}
-{{- $icon := "" -}}
-{{- with site.Params.shareIcon -}}
-  {{- $icon = partial "helper/icon" . -}}
-{{- end -}}
+{{- $icon := partial "helper/icon" (site.Params.shareIcon | default "external") -}}
 {{- if not $icon -}}
   {{- $icon = partial "helper/icon" "external" -}}
 {{- end -}}
