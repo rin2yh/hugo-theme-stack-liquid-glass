@@ -1,0 +1,37 @@
+name: pr-title-lint
+
+# Squash-merge uses the PR title as the commit subject, and release-please
+# parses those commits — so the title must follow Conventional Commits or the
+# release automation silently skips the change. This gate enforces that.
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Match the types release-please recognises (see release-please-config.json).
+          types: |
+            feat
+            fix
+            perf
+            revert
+            docs
+            refactor
+            ci
+            build
+            chore
+            test
+            style
