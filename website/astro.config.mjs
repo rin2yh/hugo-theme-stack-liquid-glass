@@ -32,6 +32,10 @@ export default defineConfig({
           translations: { ja: 'OGP 画像' },
         },
         {
+          slug: 'link-cards',
+          translations: { ja: 'リンクカード' },
+        },
+        {
           slug: 'widgets',
           translations: { ja: 'ウィジェット' },
         },

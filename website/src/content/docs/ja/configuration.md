@@ -12,6 +12,7 @@ description: params、メニュー、ソーシャルリンクのリファレン�
 | `mainSections` | `[]string` | ホームページのフィードに表示するセクション。デフォルト `["post"]`。 |
 | `rssFullContent` | `bool` | `true` のとき、RSS フィードに記事全文を含める。 |
 | `description` | `string` | `<meta>` タグおよび RSS のフォールバックに使われるサイト説明。 |
+| `ogpCard.enabled` | `bool` | 本文中の素の URL を [リンクカード](/ja/link-cards/) にするか。デフォルト `true`。`false` で通常のリンクとして描画。 |
 
 ### `[params.dateFormat]`
 
