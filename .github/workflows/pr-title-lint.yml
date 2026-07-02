@@ -3,8 +3,14 @@ name: pr-title-lint
 # Squash-merge uses the PR title as the commit subject, and release-please
 # parses those commits — so the title must follow Conventional Commits or the
 # release automation silently skips the change. This gate enforces that.
+#
+# Use `pull_request` (not `pull_request_target`): this job only reads the PR
+# title from the event payload and never checks out PR code, so it does not
+# need the base-repo context and secrets that `pull_request_target` grants to
+# code from forks — running that against untrusted PRs is a known privilege-
+# escalation footgun.
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, edited, synchronize, reopened]
 
 permissions:
