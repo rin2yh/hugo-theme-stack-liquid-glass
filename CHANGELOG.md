@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.4.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.3.0...hugo-theme-stack-liquid-glass-v0.4.0) (2026-07-02)
+
+
+### Features
+
+* **share:** align sidebar share widget with the TOC ([#58](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/issues/58)) ([39c71f2](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/39c71f2b2102f06d38e19e19ce0b6df1e4e35044))
+
+
+### Bug Fixes
+
+* **toc:** keep mobile TOC close button legible in dark theme ([#59](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/issues/59)) ([04c8619](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/04c86196af9937df8007f521c6cbbb4ef89c76ab))
+
+
+### Documentation
+
+* add Conventional Commits rules in CLAUDE.md ([eecdb70](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/eecdb70fa6356c6d94efd155bc3ac0fa950b3294))
+* add Conventional Commits rules in CLAUDE.md ([ca3c705](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/ca3c70515e7aaf8d6c51ab22fa04f10b894af8b9))
+* move Conventional Commits rules to .claude/rules ([e8297f2](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/e8297f2dcd4e9c4b1dea35c5a931a85d5da78f68))
+
+
+### Code Refactoring
+
+* **share:** drop the Twitter-named i18n key left over from genericization ([e63ed5b](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/e63ed5b1214a4ae4b4471294e2a2f412281ae1bd))
+* **share:** unblock release-please and cut the owed 0.4.0 ([8ad5c06](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/8ad5c0699b3dd6ae5ce01df6e55c4d2a3287be4a))
+
 ## [0.3.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.2.0...hugo-theme-stack-liquid-glass-v0.3.0) (2026-07-02)
 
 
