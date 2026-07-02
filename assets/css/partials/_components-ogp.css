@@ -100,7 +100,6 @@
 .ogp-card__site-icon {
   width: 14px;
   height: 14px;
-  flex-shrink: 0;
 }
 .ogp-card__site-name {
   overflow: hidden;

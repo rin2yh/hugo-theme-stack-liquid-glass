@@ -10,7 +10,7 @@
   Output: dict { ok, url, title, description, image, siteName }
 */ -}}
 {{- $url := .url -}}
-{{- $data := dict "ok" false "url" $url "title" "" "description" "" "image" "" "siteName" "" -}}
+{{- $data := dict "ok" false -}}
 
 {{- if and $url (or (hasPrefix $url "http://") (hasPrefix $url "https://")) -}}
   {{- $res := try (resources.GetRemote $url) -}}

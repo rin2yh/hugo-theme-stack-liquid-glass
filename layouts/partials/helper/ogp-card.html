@@ -11,10 +11,8 @@
 {{- $text := or .text $url -}}
 {{- $external := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
 
-{{- $enabled := true -}}
-{{- with site.Params.ogpCard -}}
-  {{- if eq .enabled false -}}{{- $enabled = false -}}{{- end -}}
-{{- end -}}
+{{- /* On by default; opt out with params.ogpCard.enabled = false. */ -}}
+{{- $enabled := ne site.Params.ogpCard.enabled false -}}
 
 {{- $ogp := dict "ok" false -}}
 {{- if and $enabled $external -}}
