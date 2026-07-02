@@ -1,10 +1,10 @@
 {{- /*
-  Share icon: the X/Twitter brand glyph, falling back to a generic external
-  link icon when the brand asset is absent. Shared by the desktop sidebar
-  widget (widgets/twitter-share.html) and the mobile FAB (mobile-actions.html)
-  so both entry points render the same icon.
+  Share icon: the X brand glyph, falling back to a generic external link icon
+  when the brand asset is absent. Shared by the desktop sidebar widget
+  (widgets/twitter-share.html) and the mobile FAB (mobile-actions.html) so both
+  entry points render the same icon.
 */ -}}
-{{- $icon := partial "helper/icon" "brand-twitter" -}}
+{{- $icon := partial "helper/icon" "brand-x" -}}
 {{- if not $icon -}}
   {{- $icon = partial "helper/icon" "external" -}}
 {{- end -}}
