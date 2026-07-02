@@ -46,3 +46,15 @@ jobs:
           extended: true
 
       - run: hugo --gc --minify
+
+      - name: Assert OGP images
+        run: |
+          set -euo pipefail
+          # A post without a cover gets a Hugo-generated title image, and the
+          # generated file is emitted under /ogp/.
+          grep -q 'ogp/base_hu_' public/post/welcome/index.html
+          ls public/ogp/base_hu_*.png >/dev/null
+          # A post with an explicit cover keeps it; no generated image is used
+          # (the generated-image step must stay below cover.image in priority).
+          grep -q 'cover.svg' public/post/svg-cover/index.html
+          ! grep -q 'base_hu_' public/post/svg-cover/index.html

@@ -28,6 +28,10 @@ export default defineConfig({
           translations: { ja: '設定' },
         },
         {
+          slug: 'og-images',
+          translations: { ja: 'OGP 画像' },
+        },
+        {
           slug: 'widgets',
           translations: { ja: 'ウィジェット' },
         },
