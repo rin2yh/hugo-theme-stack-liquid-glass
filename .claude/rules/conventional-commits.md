@@ -1,12 +1,8 @@
-# CLAUDE.md
-
-Guidance for Claude Code (and contributors) working in this repository.
-
-## Commit messages: Conventional Commits
+# Commit messages: Conventional Commits
 
 All commits **must** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. Releases and the `CHANGELOG.md` are generated automatically by [release-please](https://github.com/googleapis/release-please) from these commit messages, so the format is not optional — non-conforming commits are silently dropped from the changelog and version bumps.
 
-### Format
+## Format
 
 ```
 <type>(<scope>): <description>
@@ -20,7 +16,7 @@ All commits **must** follow the [Conventional Commits](https://www.conventionalc
 - Keep the description short; lowercase, no trailing period.
 - `scope` is optional but encouraged (e.g. `share`, `mobile`, `ogp`, `sidebar`, `search`, `docs`).
 
-### Allowed types
+## Allowed types
 
 These match the `changelog-sections` in `release-please-config.json`:
 
@@ -38,7 +34,7 @@ These match the `changelog-sections` in `release-please-config.json`:
 | `test`     | Tests                    | Hidden from changelog                  |
 | `style`    | Styles                   | Hidden from changelog (formatting)     |
 
-### Breaking changes
+## Breaking changes
 
 Signal a breaking change with a `!` after the type/scope, and/or a `BREAKING CHANGE:` footer. This triggers a major version bump (or a minor bump while the theme is pre-1.0, per `bump-minor-pre-major`).
 
@@ -48,7 +44,7 @@ feat(share)!: drop the legacy share-url param
 BREAKING CHANGE: the `shareUrl` param has been removed; use `params.shareIcon` instead.
 ```
 
-### Examples
+## Examples
 
 ```
 feat(mobile): add floating TOC + share buttons for small screens
