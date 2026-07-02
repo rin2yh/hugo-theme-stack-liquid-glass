@@ -1,12 +1,22 @@
 {{- /*
-  Share icon: the X brand glyph, falling back to a generic external link icon.
-  The theme deliberately ships no X brand asset (trademark). To show the real
-  logo, a site can drop its own assets/icons/brand-x.svg in — Hugo prefers the
-  site's copy over the theme's, so it is picked up automatically. Shared by the
-  desktop sidebar widget (widgets/twitter-share.html) and the mobile FAB
-  (mobile-actions.html) so both entry points render the same icon.
+  Share icon for the "share on X" action, shared by the desktop sidebar widget
+  (widgets/twitter-share.html) and the mobile FAB (mobile-actions.html) so both
+  render the same glyph.
+
+  The theme deliberately ships no X brand asset (trademark). Sites pick the
+  icon via the `shareIcon` param, naming an SVG they place in their own
+  assets/icons/ dir:
+
+      [params]
+      shareIcon = "brand-x"   # -> assets/icons/brand-x.svg
+
+  When the param is unset (or the named icon is missing) it falls back to the
+  generic external-link icon that ships with the theme.
 */ -}}
-{{- $icon := partial "helper/icon" "brand-x" -}}
+{{- $icon := "" -}}
+{{- with site.Params.shareIcon -}}
+  {{- $icon = partial "helper/icon" . -}}
+{{- end -}}
 {{- if not $icon -}}
   {{- $icon = partial "helper/icon" "external" -}}
 {{- end -}}
