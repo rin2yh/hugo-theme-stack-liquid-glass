@@ -16,6 +16,16 @@ Assets for generating a per-article OGP image at Hugo build time.
 CI (Hugo extended) builds the images from just this `base.png` and the bundled
 font, so the Go toolchain is not required to build the site.
 
+To brand the images with your site name without regenerating `base.png`, set
+`params.ogp.siteName` (`true` for `.Site.Title`, or a custom string). It is
+drawn in the bottom-left at build time. To brand only new posts and avoid
+regenerating existing images, also set `params.ogp.siteNameSince` to a cutoff
+date — older/undated pages then render unchanged. See the docs' *OG images*
+page. Baking branding into `base.png` with `cmd/ogp` (below) remains an option
+when you want an avatar or a fully custom background — but use one approach or
+the other, not both, since the overlay and baked branding share the bottom-left
+corner.
+
 ## Replacing the background
 
 Dropping your own `assets/ogp/base.png` in the site overrides the theme's

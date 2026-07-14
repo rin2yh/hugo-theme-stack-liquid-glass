@@ -13,6 +13,11 @@
   by cmd/ogp: the title sits below the accent bar and above the bottom-left
   branding.
 
+  When params.ogp.siteName is set the site name is drawn in that bottom-left
+  branding area as a second overlay — set it to true to use .Site.Title, or to
+  a string for a custom label. It is opt-in, so sites that don't enable it keep
+  their existing generated images unchanged.
+
   Returns an empty string when inputs are missing or the page has no title,
   so callers can fall back to other images.
 */ -}}
@@ -56,7 +61,44 @@
       "linespacing" 14
       "font" $font
     -}}
-    {{- $img := $base.Filter (images.Text $text $opts) -}}
+    {{- $filters := slice (images.Text $text $opts) -}}
+    {{- /* Optional site-name branding, bottom-left, aligned with cmd/ogp
+           (margin+pad = 120; branding band near the panel's lower-left). Opt-in
+           via params.ogp.siteName: true uses .Site.Title, a string draws itself. */ -}}
+    {{- $siteName := "" -}}
+    {{- with .Site.Params.ogp -}}
+      {{- with .siteName -}}
+        {{- /* true → site title; any string → that label (eq is false across
+               types, so a string never matches true and draws itself). */ -}}
+        {{- $siteName = cond (eq . true) $.Site.Title . -}}
+      {{- end -}}
+      {{- /* Restrict branding to pages dated on/after params.ogp.siteNameSince,
+             so turning the site name on never regenerates older, already-
+             published images — they still render byte-identically to before.
+             Undated pages are left unbranded for the same reason. */ -}}
+      {{- with .siteNameSince -}}
+        {{- if or $.Date.IsZero ($.Date.Before (time.AsTime .)) -}}
+          {{- $siteName = "" -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $siteName -}}
+      {{- /* Bottom-left branding. x 120 matches the title (margin+pad); size 30
+             and y 452 mirror cmd/ogp's baked site name (drawText centered at
+             ay+avatarSize/2 for the panel's margin+pad+avatarSize layout) — keep
+             them in sync if those constants change. (Spelled out rather than
+             merged from $opts: merge drops the font Resource and would leak the
+             title's linespacing, changing the rendered image.) */ -}}
+      {{- $brandOpts := dict
+        "color" "#ffffff"
+        "size" 30
+        "x" 120
+        "y" 452
+        "font" $font
+      -}}
+      {{- $filters = $filters | append (images.Text . $brandOpts) -}}
+    {{- end -}}
+    {{- $img := $base.Filter $filters -}}
     {{- $url = $img.Permalink -}}
   {{- end -}}
 {{- end -}}
