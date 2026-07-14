@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.5.0...v0.5.1) - 2026-07-14
+
+- ci(release): replace release-please with Songmu/tagpr by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/70
+
 ## [0.5.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.4.0...hugo-theme-stack-liquid-glass-v0.5.0) (2026-07-14)
 
 
