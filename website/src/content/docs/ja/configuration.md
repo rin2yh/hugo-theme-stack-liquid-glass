@@ -45,22 +45,53 @@ src = "image/avatar.webp"
 
 `enabled = true` でサイドバー先頭にアバターが表示されます。`local = true` の場合、`src` は Hugo のアセットパイプラインで解決されます（サイトの `assets/` 配下にファイルを置きます）。`local = false` の場合は外部 URL として扱われます。
 
-### `[params.fonts]`
+### フォント
 
-テーマが Google Fonts から読み込むウェブフォントを制御します。どちらのキーもデフォルトは `true` なので、このブロックを省略すると従来どおりすべてのフォントを読み込みます。
+**テーマはデフォルトでウェブフォントを一切読み込みません。** すべて CSS 変数（`--font-display` / `--font-ui` / `--font-body` / `--font-mono`）のシステムフォントにフォールバックします。これは最速・最もプライバシーに配慮した選択肢で、PageSpeed Insights などが Google Fonts のスタイルシートを大きな「未使用の CSS」として指摘する問題も回避できます（特に CJK のスタイルシートは数百のサブセット `@font-face` 宣言を列挙します）。
+
+フォントはサイト側で、次の 2 ステップで自由に指定します。
+
+**1. フォントファイルを読み込む** — サイトに `layouts/partials/head/custom.html` を作成します。`<head>` の末尾付近で描画されるので、任意の `<link>` / `<style>` / preload をここに置きます:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+```
+
+（このフックは汎用で、preload や認証用 `<meta>` タグなどにも使えます。）
+
+**2. 変数を指し向ける** — `[params.fonts]` で各キーが 1 つの CSS 変数を上書きします。CSS の編集は不要です:
 
 ```toml
 [params.fonts]
-googleFonts = true      # 全体のオン/オフ
-japaneseBodyFont = true # Noto Sans JP（重い CJK ウェブフォント）を含める
+display = "'Playfair Display', serif"        # 見出し / ブランド
+ui      = "'Inter', system-ui, sans-serif"
+body    = "'Inter', 'Noto Sans JP', sans-serif"
+mono    = "'Fira Code', monospace"
 ```
 
 | キー | 型 | 説明 |
 |---|---|---|
-| `googleFonts` | `bool` | テーマのウェブフォントを Google Fonts から読み込むか。`false` にするとリクエスト自体を行わず、CSS 変数に定義済みのシステムフォントにフォールバックします（最速・最もプライバシーに配慮した選択肢）。デフォルト `true`。 |
-| `japaneseBodyFont` | `bool` | リクエストに **Noto Sans JP** を含めるか。これは Google Fonts のペイロードの大部分を占めます（CJK は数百のサブセット `@font-face` 宣言に分割されるため）。日本語を使わないサイトは `false` にして除外でき、本文は `--font-body` に列挙済みのシステム日本語フォントにフォールバックします。`googleFonts = false` のときは無視されます。デフォルト `true`。 |
+| `display` | `string` | `--font-display`（見出し・ブランド・カードタイトル）を上書き。 |
+| `ui` | `string` | `--font-ui`（ボタン・タグ・ラベル）を上書き。 |
+| `body` | `string` | `--font-body`（本文）を上書き。 |
+| `mono` | `string` | `--font-mono`（コード）を上書き。 |
 
-PageSpeed Insights などは、CJK のスタイルシートが全サブセットを列挙するため、Google Fonts のスタイルシートを「未使用の CSS」として指摘します。display/mono フォントが不要なら `googleFonts = false` でリクエストを削除でき、日本語フォントだけ外したい場合は `japaneseBodyFont = false` を使います。
+#### 元のバンドルフォントに戻す
+
+上記を行わずにテーマ本来の見た目（Italiana・DM Sans・Noto Sans JP・JetBrains Mono）が欲しい場合は、バンドル済みの Google Fonts リクエストを有効にします:
+
+```toml
+[params.fonts]
+googleFonts = true       # テーマ本来のウェブフォントを有効化
+japaneseBodyFont = true  # Noto Sans JP を含める。false で重い CJK フォントを除外
+```
+
+| キー | 型 | 説明 |
+|---|---|---|
+| `googleFonts` | `bool` | テーマ本来のウェブフォント一式を Google Fonts から読み込む（非同期・非ブロッキング）。デフォルト `false`。 |
+| `japaneseBodyFont` | `bool` | `googleFonts = true` のとき、**Noto Sans JP** を含めるか。これはペイロードの大部分を占めます。日本語を使わないサイトは `false` で除外でき、本文は `--font-body` のシステム日本語フォントにフォールバックします。デフォルト `true`。 |
 
 ## ウィジェット
 

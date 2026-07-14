@@ -16,21 +16,27 @@
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}">
 
-{{- /* Fonts — load asynchronously to avoid blocking first paint.
-       Configurable via [params.fonts]:
-         googleFonts      (default true)  master toggle. false → skip the
-                          request entirely and use the system-font fallbacks
-                          baked into the CSS variables (best PageSpeed / privacy).
-         japaneseBodyFont (default true)  include the heavy Noto Sans JP CJK
-                          webfont. Non-Japanese sites can set false to drop the
-                          bulk of the Google Fonts CSS payload. */ -}}
-{{- $useGoogleFonts := true -}}
+{{- /* Fonts.
+       The theme ships NO webfonts by default — the CSS variables fall back to
+       system fonts, which is the fastest, most private option and keeps tools
+       like PageSpeed from flagging a big unused-CSS Google Fonts stylesheet.
+       Bring your own fonts entirely from the site side:
+         1. Inject the <link>/<style>/preload for your fonts via
+            layouts/partials/head/custom.html (rendered near the end of <head>).
+         2. Point the CSS variables at them with [params.fonts] —
+            display / ui / body / mono (see the block after the stylesheet).
+       Or, to restore the theme's original bundled typography with no other
+       setup, flip [params.fonts] googleFonts = true. */ -}}
+{{- $useGoogleFonts := false -}}
 {{- $useJPFont := true -}}
 {{- with .Site.Params.fonts -}}
   {{- if isset . "googlefonts" -}}{{- $useGoogleFonts = .googleFonts -}}{{- end -}}
   {{- if isset . "japanesebodyfont" -}}{{- $useJPFont = .japaneseBodyFont -}}{{- end -}}
 {{- end -}}
 {{- if $useGoogleFonts -}}
+  {{- /* Opt-in: the theme's original Google Fonts set, loaded asynchronously.
+         japaneseBodyFont (default true) drops the heavy Noto Sans JP CJK font
+         for non-Japanese sites. */ -}}
   {{- $families := slice "family=Italiana" "family=DM+Sans:wght@400;500" "family=JetBrains+Mono:wght@400;600" -}}
   {{- if $useJPFont -}}
     {{- $families = $families | append "family=Noto+Sans+JP:wght@400;500;700" -}}
@@ -84,6 +90,24 @@
   {{- end }}
 {{- end }}
 
+{{- /* Font-family overrides — point the CSS variables at your own fonts without
+       editing CSS. Emitted after the stylesheet so it wins by source order.
+         [params.fonts]
+         display = "'Playfair Display', serif"   # headings / brand
+         ui      = "'Inter', system-ui, sans-serif"
+         body    = "'Inter', 'Noto Sans JP', sans-serif"
+         mono    = "'Fira Code', monospace" */ -}}
+{{- with .Site.Params.fonts -}}
+  {{- $overrides := slice -}}
+  {{- with .display -}}{{- $overrides = $overrides | append (printf "--font-display:%s;" .) -}}{{- end -}}
+  {{- with .ui -}}{{- $overrides = $overrides | append (printf "--font-ui:%s;" .) -}}{{- end -}}
+  {{- with .body -}}{{- $overrides = $overrides | append (printf "--font-body:%s;" .) -}}{{- end -}}
+  {{- with .mono -}}{{- $overrides = $overrides | append (printf "--font-mono:%s;" .) -}}{{- end -}}
+  {{- with $overrides -}}
+    <style>{{ printf ":root{%s}" (delimit . "") | safeCSS }}</style>
+  {{- end -}}
+{{- end -}}
+
 {{- /* JS bundle */ -}}
 {{- $jsFiles := slice
   "js/liquid-glass.js"
@@ -110,3 +134,7 @@
 
 {{- /* Optional analytics */ -}}
 {{ if hugo.IsProduction }}{{ partial "google-analytics.html" . }}{{ end }}
+
+{{- /* Site-provided <head> extras (webfonts, preloads, verification meta…).
+       Create layouts/partials/head/custom.html in your own site to use it. */ -}}
+{{- if templates.Exists "partials/head/custom.html" -}}{{ partial "head/custom.html" . }}{{- end -}}

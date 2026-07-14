@@ -45,22 +45,53 @@ src = "image/avatar.webp"
 
 When `enabled = true`, the avatar appears at the top of the sidebar. With `local = true`, `src` is resolved through Hugo's asset pipeline (place the file under your site's `assets/` directory). With `local = false`, `src` is treated as an external URL.
 
-### `[params.fonts]`
+### Fonts
 
-Controls the webfonts the theme requests from Google Fonts. Both keys default to `true`, so leaving this block out keeps the full typography.
+**The theme loads no webfonts by default.** Everything falls back to the system-font stacks in the CSS variables (`--font-display`, `--font-ui`, `--font-body`, `--font-mono`), which is the fastest and most private option — and it stops tools like PageSpeed Insights from flagging a large "unused CSS" Google Fonts stylesheet (the CJK stylesheet in particular enumerates hundreds of subset `@font-face` rules).
+
+You choose the fonts from your own site, in two steps.
+
+**1. Load the font files** — create `layouts/partials/head/custom.html` in your site. It is rendered near the end of `<head>`, so put any `<link>`, `<style>`, or preload there:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+```
+
+(This hook is general-purpose — you can also use it for preloads, verification `<meta>` tags, etc.)
+
+**2. Point the variables at them** — with `[params.fonts]`. Each key overrides one CSS variable, no CSS editing required:
 
 ```toml
 [params.fonts]
-googleFonts = true      # master toggle
-japaneseBodyFont = true # include Noto Sans JP (the heavy CJK webfont)
+display = "'Playfair Display', serif"        # headings / brand
+ui      = "'Inter', system-ui, sans-serif"
+body    = "'Inter', 'Noto Sans JP', sans-serif"
+mono    = "'Fira Code', monospace"
 ```
 
 | Key | Type | Description |
 |---|---|---|
-| `googleFonts` | `bool` | Load the theme's webfonts from Google Fonts. Set `false` to skip the request entirely and fall back to the system-font stacks baked into the CSS variables — the fastest and most private option. Default: `true`. |
-| `japaneseBodyFont` | `bool` | Include **Noto Sans JP** in the request. This is by far the largest part of the Google Fonts payload (its stylesheet lists hundreds of CJK subset `@font-face` rules). Non-Japanese sites can set `false` to drop it; the body text then falls back to the system Japanese fonts already listed in `--font-body`. Ignored when `googleFonts = false`. Default: `true`. |
+| `display` | `string` | Overrides `--font-display` (headings, brand, card titles). |
+| `ui` | `string` | Overrides `--font-ui` (buttons, tags, labels). |
+| `body` | `string` | Overrides `--font-body` (body copy). |
+| `mono` | `string` | Overrides `--font-mono` (code). |
 
-Tools like PageSpeed Insights flag the Google Fonts stylesheet as "unused CSS" because the CJK stylesheet enumerates every subset. If you don't need the display/mono webfonts, `googleFonts = false` removes that request; if you only want to drop the Japanese font, use `japaneseBodyFont = false`.
+#### Restoring the original bundled typography
+
+If you just want the theme's designed look (Italiana, DM Sans, Noto Sans JP, JetBrains Mono) without any of the above, flip on the bundled Google Fonts request:
+
+```toml
+[params.fonts]
+googleFonts = true       # opt back into the theme's original webfonts
+japaneseBodyFont = true  # include Noto Sans JP; false drops the heavy CJK font
+```
+
+| Key | Type | Description |
+|---|---|---|
+| `googleFonts` | `bool` | Load the theme's original webfont set from Google Fonts (async, non-blocking). Default: `false`. |
+| `japaneseBodyFont` | `bool` | When `googleFonts = true`, include **Noto Sans JP** — by far the largest part of that payload. Non-Japanese sites can set `false` to drop it; the body text falls back to the system Japanese fonts in `--font-body`. Default: `true`. |
 
 ## Widgets
 

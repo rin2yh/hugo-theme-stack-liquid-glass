@@ -33,12 +33,15 @@ rssFullContent = true
 # shareIcon = "your-icon"
 description = "Demo site for the Stack Liquid Glass Hugo theme."
 [params.fonts]
-# Webfonts loaded from Google Fonts. Both default to true.
-#   googleFonts      — master toggle. false skips the request and uses the
-#                      system-font fallbacks (fastest, most private).
-#   japaneseBodyFont — include Noto Sans JP, the heavy CJK webfont that
-#                      dominates the Google Fonts payload. Non-Japanese
-#                      sites can set false to drop it.
+# By default the theme loads NO webfonts (system fonts → fastest, best
+# PageSpeed). Bring your own from the site side: inject them in
+# layouts/partials/head/custom.html and point the variables below at them:
+#   display = "'Playfair Display', serif"
+#   ui      = "'Inter', system-ui, sans-serif"
+#   body    = "'Inter', 'Noto Sans JP', sans-serif"
+#   mono    = "'Fira Code', monospace"
+# This demo just flips on the theme's original bundled typography so the
+# showcase looks as designed. japaneseBodyFont = false drops Noto Sans JP.
 googleFonts = true
 japaneseBodyFont = true
 [params.ogp]
