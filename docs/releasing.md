@@ -84,18 +84,14 @@ tagpr is configured by [`.tagpr`](../.tagpr):
 
 ## Automation token
 
-The workflow authenticates as a **GitHub App**, reusing the
-`RELEASE_PLEASE_APP_ID` / `RELEASE_PLEASE_PRIVATE_KEY` secrets that the previous
-release-please setup already configured (via
-[`actions/create-github-app-token`](https://github.com/actions/create-github-app-token)).
+The workflow uses the built-in `GITHUB_TOKEN` — no GitHub App or PAT needed.
 
-This is deliberate: the default `GITHUB_TOKEN` cannot open pull requests unless
-the repo's **Settings → Actions → General → "Allow GitHub Actions to create and
-approve pull requests"** toggle is enabled. Authenticating as the App sidesteps
-that, so tagpr can open its release PR without any repo setting being changed.
-The App only needs **Contents: Read & write** and **Pull requests: Read &
-write** permissions (which it already has from the release-please era).
+One repo setting is required: **Settings → Actions → General → Workflow
+permissions → "Allow GitHub Actions to create and approve pull requests"** must
+be enabled, otherwise `GITHUB_TOKEN` is not allowed to open the release PR (a
+`GitHub Actions is not permitted to create ... pull requests` error on the first
+run). Most repos already have it on; if the first tagpr run fails to open a PR,
+that toggle is why.
 
-Keep those two secrets in place — despite the `RELEASE_PLEASE_*` names, tagpr
-now depends on them. The rest of the release-please footprint (config, manifest,
-workflow) has been removed.
+The old release-please GitHub App and its `RELEASE_PLEASE_APP_ID` /
+`RELEASE_PLEASE_PRIVATE_KEY` secrets are no longer used and can be removed.

@@ -8,7 +8,9 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+  issues: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,17 +20,10 @@ jobs:
   tagpr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          client-id: ${{ secrets.RELEASE_PLEASE_APP_ID }}
-          private-key: ${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}
-
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
-          persist-credentials: false
 
       - uses: Songmu/tagpr@d1b8138b7a31075141b6cd64103de9485ced7ac9 # v1.20.1
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
