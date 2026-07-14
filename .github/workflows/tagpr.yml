@@ -1,5 +1,4 @@
 # tagpr maintains a release PR and cuts a tag + GitHub Release on merge.
-# See docs/releasing.md.
 
 name: tagpr
 
