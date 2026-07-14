@@ -1,6 +1,6 @@
 # Commit messages: Conventional Commits
 
-All commits **must** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. Releases are automated with [tagpr](https://github.com/Songmu/tagpr), which lists merged PRs in the generated `CHANGELOG.md` — so keeping titles in this format is what keeps the changelog and git history readable. PR titles are gated on this format by `.github/workflows/pr-title-lint.yml`.
+All commits **should** follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. Releases are automated with [tagpr](https://github.com/Songmu/tagpr), which lists merged PRs in the generated `CHANGELOG.md` — so keeping titles in this format is what keeps the changelog and git history readable. This is a convention, not CI-enforced.
 
 Note: the **version bump** is chosen by labelling the tagpr release PR (`minor` / `major`, default patch), not parsed from commit types — see [`docs/releasing.md`](../../docs/releasing.md). The type/scope convention below is about changelog and history hygiene, not version selection.
 
@@ -20,7 +20,7 @@ Note: the **version bump** is chosen by labelling the tagpr release PR (`minor` 
 
 ## Allowed types
 
-These are the types accepted by the PR-title lint (`.github/workflows/pr-title-lint.yml`):
+Use one of these types:
 
 | Type       | Typical use              |
 | ---------- | ------------------------ |

@@ -32,9 +32,9 @@ patch; re-label and the next push refreshes the proposed version.
 ## Commit conventions
 
 We still follow [Conventional Commits](https://www.conventionalcommits.org/)
-on `main` (enforced on PR titles by `.github/workflows/pr-title-lint.yml`).
-tagpr does not parse commit types for versioning, but the convention keeps the
-generated `CHANGELOG.md` and PR history readable. See
+on `main` as a convention (it is no longer CI-enforced). tagpr does not parse
+commit types for versioning, but keeping the format makes the generated
+`CHANGELOG.md` and PR history readable. See
 [`.claude/rules/conventional-commits.md`](../.claude/rules/conventional-commits.md).
 
 ## Cutting a release
@@ -79,9 +79,7 @@ tagpr is configured by [`.tagpr`](../.tagpr):
 The workflow uses the default `GITHUB_TOKEN`. No workflow in this repo triggers
 on tags or releases, and the release PR touches only `CHANGELOG.md` (no
 `pull_request` path filters match it), so there is no need for a GitHub App
-token to fan out downstream CI — unlike the previous release-please setup. The
-default token also keeps the tagpr release PR (whose title is not a
-Conventional Commit) from failing the `pr-title-lint` gate.
+token to fan out downstream CI — unlike the previous release-please setup.
 
 If you later add a workflow that must trigger on the release tag or the release
 PR, swap `GITHUB_TOKEN` for a GitHub App token

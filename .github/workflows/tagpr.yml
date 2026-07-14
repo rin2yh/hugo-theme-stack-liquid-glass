@@ -4,8 +4,7 @@
 # Runs with the default GITHUB_TOKEN rather than a GitHub App token: no workflow
 # in this repo triggers on tags or releases, and the release PR touches only
 # CHANGELOG.md (no path filters match), so downstream CI does not need to fire
-# on it. The default token also stops the tagpr release PR (whose title is not
-# Conventional Commits) from tripping the pr-title-lint gate.
+# on it.
 
 name: tagpr
 
