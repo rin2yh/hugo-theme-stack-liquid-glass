@@ -32,6 +32,15 @@ rssFullContent = true
 # external-link icon. The theme ships no brand-logo asset (trademarks).
 # shareIcon = "your-icon"
 description = "Demo site for the Stack Liquid Glass Hugo theme."
+[params.fonts]
+# Webfonts loaded from Google Fonts. Both default to true.
+#   googleFonts      — master toggle. false skips the request and uses the
+#                      system-font fallbacks (fastest, most private).
+#   japaneseBodyFont — include Noto Sans JP, the heavy CJK webfont that
+#                      dominates the Google Fonts payload. Non-Japanese
+#                      sites can set false to drop it.
+googleFonts = true
+japaneseBodyFont = true
 [params.ogp]
 # Draw the site name in the bottom-left of generated OGP images. `true` uses
 # the site title; a string draws a custom label. Unset = brand-neutral image.

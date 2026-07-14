@@ -45,6 +45,23 @@ src = "image/avatar.webp"
 
 `enabled = true` でサイドバー先頭にアバターが表示されます。`local = true` の場合、`src` は Hugo のアセットパイプラインで解決されます（サイトの `assets/` 配下にファイルを置きます）。`local = false` の場合は外部 URL として扱われます。
 
+### `[params.fonts]`
+
+テーマが Google Fonts から読み込むウェブフォントを制御します。どちらのキーもデフォルトは `true` なので、このブロックを省略すると従来どおりすべてのフォントを読み込みます。
+
+```toml
+[params.fonts]
+googleFonts = true      # 全体のオン/オフ
+japaneseBodyFont = true # Noto Sans JP（重い CJK ウェブフォント）を含める
+```
+
+| キー | 型 | 説明 |
+|---|---|---|
+| `googleFonts` | `bool` | テーマのウェブフォントを Google Fonts から読み込むか。`false` にするとリクエスト自体を行わず、CSS 変数に定義済みのシステムフォントにフォールバックします（最速・最もプライバシーに配慮した選択肢）。デフォルト `true`。 |
+| `japaneseBodyFont` | `bool` | リクエストに **Noto Sans JP** を含めるか。これは Google Fonts のペイロードの大部分を占めます（CJK は数百のサブセット `@font-face` 宣言に分割されるため）。日本語を使わないサイトは `false` にして除外でき、本文は `--font-body` に列挙済みのシステム日本語フォントにフォールバックします。`googleFonts = false` のときは無視されます。デフォルト `true`。 |
+
+PageSpeed Insights などは、CJK のスタイルシートが全サブセットを列挙するため、Google Fonts のスタイルシートを「未使用の CSS」として指摘します。display/mono フォントが不要なら `googleFonts = false` でリクエストを削除でき、日本語フォントだけ外したい場合は `japaneseBodyFont = false` を使います。
+
 ## ウィジェット
 
 各ウィジェットの設定は [ウィジェット](/ja/widgets/) を参照してください。ウィジェットスロットは 2 種類あります:

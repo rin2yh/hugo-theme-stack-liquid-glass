@@ -16,12 +16,31 @@
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}">
 
-{{- /* Fonts — load asynchronously to avoid blocking first paint */ -}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-{{- $fontHref := "https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" -}}
-<link rel="stylesheet" href="{{ $fontHref }}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="{{ $fontHref }}"></noscript>
+{{- /* Fonts — load asynchronously to avoid blocking first paint.
+       Configurable via [params.fonts]:
+         googleFonts      (default true)  master toggle. false → skip the
+                          request entirely and use the system-font fallbacks
+                          baked into the CSS variables (best PageSpeed / privacy).
+         japaneseBodyFont (default true)  include the heavy Noto Sans JP CJK
+                          webfont. Non-Japanese sites can set false to drop the
+                          bulk of the Google Fonts CSS payload. */ -}}
+{{- $useGoogleFonts := true -}}
+{{- $useJPFont := true -}}
+{{- with .Site.Params.fonts -}}
+  {{- if isset . "googlefonts" -}}{{- $useGoogleFonts = .googleFonts -}}{{- end -}}
+  {{- if isset . "japanesebodyfont" -}}{{- $useJPFont = .japaneseBodyFont -}}{{- end -}}
+{{- end -}}
+{{- if $useGoogleFonts -}}
+  {{- $families := slice "family=Italiana" "family=DM+Sans:wght@400;500" "family=JetBrains+Mono:wght@400;600" -}}
+  {{- if $useJPFont -}}
+    {{- $families = $families | append "family=Noto+Sans+JP:wght@400;500;700" -}}
+  {{- end -}}
+  {{- $fontHref := printf "https://fonts.googleapis.com/css2?%s&display=swap" (delimit $families "&") -}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{ $fontHref }}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{{ $fontHref }}"></noscript>
+{{- end -}}
 
 {{- /* OpenGraph + Twitter */ -}}
 {{ partial "head/opengraph.html" . }}

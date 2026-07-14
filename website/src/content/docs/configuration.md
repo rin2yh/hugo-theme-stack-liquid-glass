@@ -45,6 +45,23 @@ src = "image/avatar.webp"
 
 When `enabled = true`, the avatar appears at the top of the sidebar. With `local = true`, `src` is resolved through Hugo's asset pipeline (place the file under your site's `assets/` directory). With `local = false`, `src` is treated as an external URL.
 
+### `[params.fonts]`
+
+Controls the webfonts the theme requests from Google Fonts. Both keys default to `true`, so leaving this block out keeps the full typography.
+
+```toml
+[params.fonts]
+googleFonts = true      # master toggle
+japaneseBodyFont = true # include Noto Sans JP (the heavy CJK webfont)
+```
+
+| Key | Type | Description |
+|---|---|---|
+| `googleFonts` | `bool` | Load the theme's webfonts from Google Fonts. Set `false` to skip the request entirely and fall back to the system-font stacks baked into the CSS variables — the fastest and most private option. Default: `true`. |
+| `japaneseBodyFont` | `bool` | Include **Noto Sans JP** in the request. This is by far the largest part of the Google Fonts payload (its stylesheet lists hundreds of CJK subset `@font-face` rules). Non-Japanese sites can set `false` to drop it; the body text then falls back to the system Japanese fonts already listed in `--font-body`. Ignored when `googleFonts = false`. Default: `true`. |
+
+Tools like PageSpeed Insights flag the Google Fonts stylesheet as "unused CSS" because the CJK stylesheet enumerates every subset. If you don't need the display/mono webfonts, `googleFonts = false` removes that request; if you only want to drop the Japanese font, use `japaneseBodyFont = false`.
+
 ## Widgets
 
 See [Widgets](/widgets/) for the per-widget configuration. There are two widget slots:
