@@ -1,8 +1,10 @@
 name: pr-title-lint
 
-# Squash-merge uses the PR title as the commit subject, and release-please
-# parses those commits — so the title must follow Conventional Commits or the
-# release automation silently skips the change. This gate enforces that.
+# Squash-merge uses the PR title as the commit subject, which lands in the
+# generated CHANGELOG.md and the git history — so the title must follow
+# Conventional Commits to keep the changelog readable. This gate enforces that.
+# (Version bumps are chosen via labels on the tagpr release PR, not parsed from
+# these titles — see docs/releasing.md.)
 #
 # Use `pull_request` (not `pull_request_target`): this job only reads the PR
 # title from the event payload and never checks out PR code, so it does not
@@ -28,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # Match the types release-please recognises (see release-please-config.json).
+          # Conventional Commit types kept for changelog/history readability.
           types: |
             feat
             fix

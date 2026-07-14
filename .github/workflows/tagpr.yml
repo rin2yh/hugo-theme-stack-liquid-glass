@@ -1,0 +1,36 @@
+# tagpr keeps an open release PR up to date on every push to main, and cuts a
+# git tag + GitHub Release when that PR is merged. See docs/releasing.md.
+#
+# Unlike the previous release-please setup, this runs with the default
+# GITHUB_TOKEN rather than a GitHub App token. No workflow in this repo triggers
+# on tags or releases, and the release PR touches only CHANGELOG.md (no path
+# filters match), so downstream CI does not need to fire on it. Keeping the
+# default token also stops the tagpr release PR (whose title is not Conventional
+# Commits) from tripping the pr-title-lint gate.
+
+name: tagpr
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - uses: Songmu/tagpr@49c02dc423566b55a123beb12dc63f371032eaa3 # v1.9.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

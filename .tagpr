@@ -1,0 +1,13 @@
+[tagpr]
+    # Branch tagpr watches and cuts releases from.
+    releaseBranch = main
+    # Tag releases as vX.Y.Z (standard Hugo theme / module convention).
+    vPrefix = true
+    # The version lives solely in git tags; there is no version file to bump
+    # (theme.toml carries no version field).
+    versionFile = -
+    # Publish a GitHub Release when the release PR is merged.
+    release = true
+    # Maintain CHANGELOG.md from merged PRs.
+    changelog = true
+    changelogFile = CHANGELOG.md
