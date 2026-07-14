@@ -1,0 +1,15 @@
+[tagpr]
+    # Branch tagpr watches and cuts releases from.
+    releaseBranch = main
+    # Tag releases as vX.Y.Z (standard Hugo theme / module convention).
+    vPrefix = true
+    # Track the current version in a plain VERSION file. tagpr reads it to
+    # decide the next version and bumps it in the release PR — which also lets
+    # it bootstrap from 0.5.x without a pre-existing vX.Y.Z tag (the old
+    # release-please tags use a prefix tagpr cannot read).
+    versionFile = VERSION
+    # Publish a GitHub Release when the release PR is merged.
+    release = true
+    # Maintain CHANGELOG.md from merged PRs.
+    changelog = true
+    changelogFile = CHANGELOG.md
