@@ -68,7 +68,9 @@
     {{- $siteName := "" -}}
     {{- with .Site.Params.ogp -}}
       {{- with .siteName -}}
-        {{- $siteName = cond (eq (printf "%T" .) "bool") $.Site.Title (printf "%v" .) -}}
+        {{- /* true → site title; any string → that label (eq is false across
+               types, so a string never matches true and draws itself). */ -}}
+        {{- $siteName = cond (eq . true) $.Site.Title . -}}
       {{- end -}}
       {{- /* Restrict branding to pages dated on/after params.ogp.siteNameSince,
              so turning the site name on never regenerates older, already-
@@ -81,6 +83,12 @@
       {{- end -}}
     {{- end -}}
     {{- with $siteName -}}
+      {{- /* Bottom-left branding. x 120 matches the title (margin+pad); size 30
+             and y 452 mirror cmd/ogp's baked site name (drawText centered at
+             ay+avatarSize/2 for the panel's margin+pad+avatarSize layout) — keep
+             them in sync if those constants change. (Spelled out rather than
+             merged from $opts: merge drops the font Resource and would leak the
+             title's linespacing, changing the rendered image.) */ -}}
       {{- $brandOpts := dict
         "color" "#ffffff"
         "size" 30

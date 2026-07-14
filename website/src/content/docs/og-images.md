@@ -59,6 +59,9 @@ exactly as before. Upgrading the theme without setting it changes nothing — th
 generated images are byte-identical to previous builds, so nothing is
 regenerated.
 
+It draws at the bottom-left, so use it *instead of* baking a site name or avatar
+into `base.png` with `cmd/ogp` (below) — the two don't compose and would overlap.
+
 ### Not regenerating existing images
 
 Hugo names generated images by a content hash, so turning `siteName` on changes
