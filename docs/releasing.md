@@ -57,11 +57,17 @@ maintains the open release PR. To cut a release:
 
 Releases are tagged as plain `vX.Y.Z` (the standard Hugo theme / module
 convention). The older release-please tags used a
-`hugo-theme-stack-liquid-glass-v*` prefix that tagpr does not recognise, so the
-first time the workflow runs it **auto-seeds** a `v0.5.0` tag on the `0.5.0`
-release commit (the "Seed the initial vX.Y.Z tag" step) and tagpr continues the
-sequence from there. That step is a no-op once any `vX.Y.Z` tag exists and can
-be deleted after the first tagpr release.
+`hugo-theme-stack-liquid-glass-v*` prefix that tagpr does not recognise, so
+tagpr needs one matching tag to start from. This is a **one-time bootstrap**:
+seed a `v0.5.0` tag on the `0.5.0` release commit, once, before the first run:
+
+```sh
+git tag v0.5.0 3074d6677d6f309a2ebeac5fdd52fc2dd1a8c884
+git push origin v0.5.0
+```
+
+After that, tagpr continues the sequence on its own (`v0.5.1`, `v0.6.0`, …) —
+no further manual tagging is ever needed.
 
 ## Configuration
 
