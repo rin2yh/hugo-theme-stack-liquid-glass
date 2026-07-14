@@ -70,6 +70,15 @@
       {{- with .siteName -}}
         {{- $siteName = cond (eq (printf "%T" .) "bool") $.Site.Title (printf "%v" .) -}}
       {{- end -}}
+      {{- /* Restrict branding to pages dated on/after params.ogp.siteNameSince,
+             so turning the site name on never regenerates older, already-
+             published images — they still render byte-identically to before.
+             Undated pages are left unbranded for the same reason. */ -}}
+      {{- with .siteNameSince -}}
+        {{- if or $.Date.IsZero ($.Date.Before (time.AsTime .)) -}}
+          {{- $siteName = "" -}}
+        {{- end -}}
+      {{- end -}}
     {{- end -}}
     {{- with $siteName -}}
       {{- $brandOpts := dict

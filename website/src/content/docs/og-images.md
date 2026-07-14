@@ -55,10 +55,31 @@ siteName = true          # draw .Site.Title
 ```
 
 This is **opt-in**: while it is unset the generated images stay brand-neutral,
-exactly as before. Because Hugo names generated images by a content hash,
-enabling it produces *new* image files (with new URLs) on the next build — your
-previously generated images are not overwritten, and any social-media preview
-already scraped from an old URL keeps its cached image.
+exactly as before. Upgrading the theme without setting it changes nothing — the
+generated images are byte-identical to previous builds, so nothing is
+regenerated.
+
+### Not regenerating existing images
+
+Hugo names generated images by a content hash, so turning `siteName` on changes
+the hash of **every** generated image — the next build re-renders all of them
+with new URLs. On an established blog that means every post's OG image URL
+changes at once, which you may not want (old social-media previews already
+scraped keep their cached image, but your build regenerates the lot).
+
+To brand only new posts and leave existing images untouched, set
+`params.ogp.siteNameSince` to the day you enable branding:
+
+```toml
+[params.ogp]
+siteName = true
+siteNameSince = "2026-07-14"   # only pages dated on/after this get the name
+```
+
+Pages dated before the cutoff (and undated pages) render exactly as before —
+same content hash, same URL, **not regenerated** — while pages dated on/after it
+get the site name. Set the cutoff to today and only posts you publish from now
+on are branded.
 
 ## Customizing the background
 
@@ -122,6 +143,7 @@ site = "your-handle"         # rendered as twitter:site, "@" optional
 | Key | Type | Description |
 |---|---|---|
 | `params.ogp.siteName` | `bool` \| `string` | Draw the site name in the bottom-left of generated title images. `true` uses `.Site.Title`; a string draws that label. Unset leaves images brand-neutral. |
+| `params.ogp.siteNameSince` | `string` (date) | Only brand pages dated on/after this. Older and undated pages render unchanged (same hash, not regenerated). Set it to the day you enable branding to leave existing images untouched. |
 | `params.defaultImage.opengraph.src` | `string` | Site-wide fallback image, used only after the generated image step. Resolved with `absURL`. |
 | `params.opengraph.twitter.card` | `string` | `twitter:card` type. Defaults to `summary_large_image`. |
 | `params.opengraph.twitter.site` | `string` | Handle for `twitter:site`. A leading `@` is added if missing. |

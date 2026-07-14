@@ -36,6 +36,10 @@ description = "Demo site for the Stack Liquid Glass Hugo theme."
 # Draw the site name in the bottom-left of generated OGP images. `true` uses
 # the site title; a string draws a custom label. Unset = brand-neutral image.
 siteName = true
+# Only brand pages dated on/after this, so enabling it on an existing blog does
+# NOT regenerate older images (they stay byte-identical). Set it to the day you
+# turn branding on. Unset here so the demo brands every post.
+# siteNameSince = "2026-07-14"
 [params.dateFormat]
 published = "2006/01/02"
 lastUpdated = "2006/01/02 15:04 MST"
