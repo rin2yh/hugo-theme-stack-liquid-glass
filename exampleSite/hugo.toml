@@ -32,6 +32,10 @@ rssFullContent = true
 # external-link icon. The theme ships no brand-logo asset (trademarks).
 # shareIcon = "your-icon"
 description = "Demo site for the Stack Liquid Glass Hugo theme."
+[params.ogp]
+# Draw the site name in the bottom-left of generated OGP images. `true` uses
+# the site title; a string draws a custom label. Unset = brand-neutral image.
+siteName = true
 [params.dateFormat]
 published = "2006/01/02"
 lastUpdated = "2006/01/02 15:04 MST"

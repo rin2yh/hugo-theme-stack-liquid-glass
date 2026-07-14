@@ -42,6 +42,24 @@ No configuration is required — this works out of the box. List pages, the home
 page, and taxonomy pages are skipped; only single content pages get a generated
 image.
 
+## Adding the site name
+
+To brand the generated images with your site name, set `params.ogp.siteName`.
+The name is drawn in the bottom-left of every generated title image, at build
+time — no `base.png` regeneration and no Go toolchain needed.
+
+```toml
+[params.ogp]
+siteName = true          # draw .Site.Title
+# siteName = "My Blog"   # or a custom label
+```
+
+This is **opt-in**: while it is unset the generated images stay brand-neutral,
+exactly as before. Because Hugo names generated images by a content hash,
+enabling it produces *new* image files (with new URLs) on the next build — your
+previously generated images are not overwritten, and any social-media preview
+already scraped from an old URL keeps its cached image.
+
 ## Customizing the background
 
 The bundled `assets/ogp/base.png` is a brand-neutral default (themed gradient +
@@ -103,6 +121,7 @@ site = "your-handle"         # rendered as twitter:site, "@" optional
 
 | Key | Type | Description |
 |---|---|---|
+| `params.ogp.siteName` | `bool` \| `string` | Draw the site name in the bottom-left of generated title images. `true` uses `.Site.Title`; a string draws that label. Unset leaves images brand-neutral. |
 | `params.defaultImage.opengraph.src` | `string` | Site-wide fallback image, used only after the generated image step. Resolved with `absURL`. |
 | `params.opengraph.twitter.card` | `string` | `twitter:card` type. Defaults to `summary_large_image`. |
 | `params.opengraph.twitter.site` | `string` | Handle for `twitter:site`. A leading `@` is added if missing. |

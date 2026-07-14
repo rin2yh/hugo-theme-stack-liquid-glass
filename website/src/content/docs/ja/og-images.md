@@ -40,6 +40,22 @@ cover:
 設定は不要で、そのまま動作します。一覧ページ・ホームページ・タクソノミーページは対象外で、
 単一の記事ページだけが生成画像を持ちます。
 
+## サイト名を入れる
+
+生成画像にサイト名を入れるには `params.ogp.siteName` を設定します。名前は各生成画像の
+左下にビルド時に描画され、`base.png` の再生成も Go ツールチェインも不要です。
+
+```toml
+[params.ogp]
+siteName = true          # .Site.Title を描画
+# siteName = "My Blog"   # 任意のラベルを描画
+```
+
+これは **オプトイン** です。未設定のあいだは生成画像はこれまで通りブランド中立のままです。
+Hugo は生成画像をコンテンツハッシュでファイル名付けするため、有効化すると次回ビルドで
+*新しい* 画像ファイル（新しい URL）が作られます。**既存の生成画像は上書きされず**、古い URL で
+すでに SNS にスクレイプ済みのプレビューもキャッシュされた画像のまま残ります。
+
 ## 背景を差し替える
 
 同梱の `assets/ogp/base.png` はブランド中立なデフォルト（テーマ配色のグラデーション＋
@@ -99,6 +115,7 @@ site = "your-handle"         # twitter:site として出力（"@" は任意）
 
 | キー | 型 | 説明 |
 |---|---|---|
+| `params.ogp.siteName` | `bool` \| `string` | 生成画像の左下にサイト名を描画。`true` は `.Site.Title`、文字列はそのラベルを描画。未設定ならブランド中立のまま。 |
 | `params.defaultImage.opengraph.src` | `string` | サイト全体のフォールバック画像。生成画像の手順のあとにのみ使われる。`absURL` で解決。 |
 | `params.opengraph.twitter.card` | `string` | `twitter:card` の種類。デフォルトは `summary_large_image`。 |
 | `params.opengraph.twitter.site` | `string` | `twitter:site` のハンドル。先頭の `@` は無ければ付与される。 |

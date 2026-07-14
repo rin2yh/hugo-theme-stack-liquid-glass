@@ -13,6 +13,11 @@
   by cmd/ogp: the title sits below the accent bar and above the bottom-left
   branding.
 
+  When params.ogp.siteName is set the site name is drawn in that bottom-left
+  branding area as a second overlay — set it to true to use .Site.Title, or to
+  a string for a custom label. It is opt-in, so sites that don't enable it keep
+  their existing generated images unchanged.
+
   Returns an empty string when inputs are missing or the page has no title,
   so callers can fall back to other images.
 */ -}}
@@ -56,7 +61,27 @@
       "linespacing" 14
       "font" $font
     -}}
-    {{- $img := $base.Filter (images.Text $text $opts) -}}
+    {{- $filters := slice (images.Text $text $opts) -}}
+    {{- /* Optional site-name branding, bottom-left, aligned with cmd/ogp
+           (margin+pad = 120; branding band near the panel's lower-left). Opt-in
+           via params.ogp.siteName: true uses .Site.Title, a string draws itself. */ -}}
+    {{- $siteName := "" -}}
+    {{- with .Site.Params.ogp -}}
+      {{- with .siteName -}}
+        {{- $siteName = cond (eq (printf "%T" .) "bool") $.Site.Title (printf "%v" .) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $siteName -}}
+      {{- $brandOpts := dict
+        "color" "#ffffff"
+        "size" 30
+        "x" 120
+        "y" 452
+        "font" $font
+      -}}
+      {{- $filters = $filters | append (images.Text . $brandOpts) -}}
+    {{- end -}}
+    {{- $img := $base.Filter $filters -}}
     {{- $url = $img.Permalink -}}
   {{- end -}}
 {{- end -}}
