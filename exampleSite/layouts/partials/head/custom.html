@@ -1,0 +1,10 @@
+{{- /* Site-side font loading — this is the pattern every site uses to bring
+       its own fonts (the theme itself ships no webfonts). It loads the theme's
+       original typography; the CSS variables (--font-display etc.) already name
+       these families first, so no [params.fonts] overrides are needed.
+       Loaded async (media=print → onload) so it never blocks first paint. */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{{- $href := "https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" -}}
+<link rel="stylesheet" href="{{ $href }}" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="{{ $href }}"></noscript>

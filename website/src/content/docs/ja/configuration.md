@@ -78,20 +78,20 @@ mono    = "'Fira Code', monospace"
 | `body` | `string` | `--font-body`（本文）を上書き。 |
 | `mono` | `string` | `--font-mono`（コード）を上書き。 |
 
-#### 元のバンドルフォントに戻す
+#### テーマ本来のタイポグラフィ
 
-上記を行わずにテーマ本来の見た目（Italiana・DM Sans・Noto Sans JP・JetBrains Mono）が欲しい場合は、バンドル済みの Google Fonts リクエストを有効にします:
+CSS 変数はテーマ本来のファミリー（Italiana・DM Sans・Noto Sans JP・JetBrains Mono）を先頭に指定済みなので、本来の見た目にするにはそれらを**読み込む**だけでよく、変数の上書きは不要です。次を `layouts/partials/head/custom.html` に置きます:
 
-```toml
-[params.fonts]
-googleFonts = true       # テーマ本来のウェブフォントを有効化
-japaneseBodyFont = true  # Noto Sans JP を含める。false で重い CJK フォントを除外
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<noscript><link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"></noscript>
 ```
 
-| キー | 型 | 説明 |
-|---|---|---|
-| `googleFonts` | `bool` | テーマ本来のウェブフォント一式を Google Fonts から読み込む（非同期・非ブロッキング）。デフォルト `false`。 |
-| `japaneseBodyFont` | `bool` | `googleFonts = true` のとき、**Noto Sans JP** を含めるか。これはペイロードの大部分を占めます。日本語を使わないサイトは `false` で除外でき、本文は `--font-body` のシステム日本語フォントにフォールバックします。デフォルト `true`。 |
+`media="print"` → `onload` の切り替えで非同期に読み込むため、初回描画をブロックしません。日本語を使わないサイトは `&family=Noto+Sans+JP:…` を外せば重い CJK フォントを省けます（本文は `--font-body` のシステム日本語フォントにフォールバック）。これは [exampleSite](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/exampleSite/layouts/partials/head/custom.html) が実際に行っている内容そのものです。
 
 ## ウィジェット
 

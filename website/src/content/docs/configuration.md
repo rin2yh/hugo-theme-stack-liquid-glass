@@ -78,20 +78,20 @@ mono    = "'Fira Code', monospace"
 | `body` | `string` | Overrides `--font-body` (body copy). |
 | `mono` | `string` | Overrides `--font-mono` (code). |
 
-#### Restoring the original bundled typography
+#### The theme's original typography
 
-If you just want the theme's designed look (Italiana, DM Sans, Noto Sans JP, JetBrains Mono) without any of the above, flip on the bundled Google Fonts request:
+The CSS variables already name the theme's designed families first (Italiana, DM Sans, Noto Sans JP, JetBrains Mono), so to get the original look you only need to **load** those fonts — no variable overrides required. Drop this into `layouts/partials/head/custom.html`:
 
-```toml
-[params.fonts]
-googleFonts = true       # opt back into the theme's original webfonts
-japaneseBodyFont = true  # include Noto Sans JP; false drops the heavy CJK font
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<noscript><link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"></noscript>
 ```
 
-| Key | Type | Description |
-|---|---|---|
-| `googleFonts` | `bool` | Load the theme's original webfont set from Google Fonts (async, non-blocking). Default: `false`. |
-| `japaneseBodyFont` | `bool` | When `googleFonts = true`, include **Noto Sans JP** — by far the largest part of that payload. Non-Japanese sites can set `false` to drop it; the body text falls back to the system Japanese fonts in `--font-body`. Default: `true`. |
+The `media="print"` → `onload` swap loads it asynchronously so it never blocks first paint. Non-Japanese sites can drop `&family=Noto+Sans+JP:…` to skip the heavy CJK font (body text then falls back to the system Japanese fonts in `--font-body`). This is exactly what the [exampleSite](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/exampleSite/layouts/partials/head/custom.html) does.
 
 ## Widgets
 

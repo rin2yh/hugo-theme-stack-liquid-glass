@@ -16,37 +16,14 @@
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}">
 
-{{- /* Fonts.
-       The theme ships NO webfonts by default — the CSS variables fall back to
-       system fonts, which is the fastest, most private option and keeps tools
-       like PageSpeed from flagging a big unused-CSS Google Fonts stylesheet.
-       Bring your own fonts entirely from the site side:
-         1. Inject the <link>/<style>/preload for your fonts via
-            layouts/partials/head/custom.html (rendered near the end of <head>).
+{{- /* Fonts — the theme loads NO webfonts. The CSS variables fall back to
+       system fonts (fastest, most private, and no unused-CSS Google Fonts
+       stylesheet for tools like PageSpeed to flag). Bring your own fonts from
+       the site side:
+         1. Load the font files in layouts/partials/head/custom.html
+            (rendered near the end of <head>).
          2. Point the CSS variables at them with [params.fonts] —
-            display / ui / body / mono (see the block after the stylesheet).
-       Or, to restore the theme's original bundled typography with no other
-       setup, flip [params.fonts] googleFonts = true. */ -}}
-{{- $useGoogleFonts := false -}}
-{{- $useJPFont := true -}}
-{{- with .Site.Params.fonts -}}
-  {{- $useGoogleFonts = cond (isset . "googlefonts") .googleFonts $useGoogleFonts -}}
-  {{- $useJPFont = cond (isset . "japanesebodyfont") .japaneseBodyFont $useJPFont -}}
-{{- end -}}
-{{- if $useGoogleFonts -}}
-  {{- /* Opt-in: the theme's original Google Fonts set, loaded asynchronously.
-         japaneseBodyFont (default true) drops the heavy Noto Sans JP CJK font
-         for non-Japanese sites. */ -}}
-  {{- $families := slice "family=Italiana" "family=DM+Sans:wght@400;500" "family=JetBrains+Mono:wght@400;600" -}}
-  {{- if $useJPFont -}}
-    {{- $families = $families | append "family=Noto+Sans+JP:wght@400;500;700" -}}
-  {{- end -}}
-  {{- $fontHref := printf "https://fonts.googleapis.com/css2?%s&display=swap" (delimit $families "&") -}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="{{ $fontHref }}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{{ $fontHref }}"></noscript>
-{{- end -}}
+            display / ui / body / mono (see the block after the stylesheet). */ -}}
 
 {{- /* OpenGraph + Twitter */ -}}
 {{ partial "head/opengraph.html" . }}
