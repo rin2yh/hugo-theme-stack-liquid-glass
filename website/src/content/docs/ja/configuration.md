@@ -45,6 +45,54 @@ src = "image/avatar.webp"
 
 `enabled = true` でサイドバー先頭にアバターが表示されます。`local = true` の場合、`src` は Hugo のアセットパイプラインで解決されます（サイトの `assets/` 配下にファイルを置きます）。`local = false` の場合は外部 URL として扱われます。
 
+### フォント
+
+**テーマはデフォルトでウェブフォントを一切読み込みません。** すべて CSS 変数（`--font-display` / `--font-ui` / `--font-body` / `--font-mono`）のシステムフォントにフォールバックします。これは最速・最もプライバシーに配慮した選択肢で、PageSpeed Insights などが Google Fonts のスタイルシートを大きな「未使用の CSS」として指摘する問題も回避できます（特に CJK のスタイルシートは数百のサブセット `@font-face` 宣言を列挙します）。
+
+フォントはサイト側で、次の 2 ステップで自由に指定します。
+
+**1. フォントファイルを読み込む** — サイトに `layouts/partials/head/custom.html` を作成します。`<head>` の末尾付近で描画されるので、任意の `<link>` / `<style>` / preload をここに置きます:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+```
+
+（このフックは汎用で、preload や認証用 `<meta>` タグなどにも使えます。）
+
+**2. 変数を指し向ける** — `[params.fonts]` で各キーが 1 つの CSS 変数を上書きします。CSS の編集は不要です:
+
+```toml
+[params.fonts]
+display = "'Playfair Display', serif"        # 見出し / ブランド
+ui      = "'Inter', system-ui, sans-serif"
+body    = "'Inter', 'Noto Sans JP', sans-serif"
+mono    = "'Fira Code', monospace"
+```
+
+| キー | 型 | 説明 |
+|---|---|---|
+| `display` | `string` | `--font-display`（見出し・ブランド・カードタイトル）を上書き。 |
+| `ui` | `string` | `--font-ui`（ボタン・タグ・ラベル）を上書き。 |
+| `body` | `string` | `--font-body`（本文）を上書き。 |
+| `mono` | `string` | `--font-mono`（コード）を上書き。 |
+
+#### テーマ本来のタイポグラフィ
+
+CSS 変数はテーマ本来のファミリー（Italiana・DM Sans・Noto Sans JP・JetBrains Mono）を先頭に指定済みなので、本来の見た目にするにはそれらを**読み込む**だけでよく、変数の上書きは不要です。次を `layouts/partials/head/custom.html` に置きます:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<noscript><link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"></noscript>
+```
+
+`media="print"` → `onload` の切り替えで非同期に読み込むため、初回描画をブロックしません。日本語を使わないサイトは `&family=Noto+Sans+JP:…` を外せば重い CJK フォントを省けます（本文は `--font-body` のシステム日本語フォントにフォールバック）。これは [exampleSite](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/exampleSite/layouts/partials/head/custom.html) が実際に行っている内容そのものです。
+
 ## ウィジェット
 
 各ウィジェットの設定は [ウィジェット](/ja/widgets/) を参照してください。ウィジェットスロットは 2 種類あります:

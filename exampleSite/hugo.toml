@@ -32,6 +32,13 @@ rssFullContent = true
 # external-link icon. The theme ships no brand-logo asset (trademarks).
 # shareIcon = "your-icon"
 description = "Demo site for the Stack Liquid Glass Hugo theme."
+# Fonts: the theme ships no webfonts. This demo loads its typography from the
+# site side in layouts/partials/head/custom.html — the pattern any site uses to
+# bring its own fonts. To restyle without touching CSS, override the font
+# variables here, e.g.:
+#   [params.fonts]
+#   display = "'Playfair Display', serif"
+#   body    = "'Inter', 'Noto Sans JP', sans-serif"
 [params.ogp]
 # Draw the site name in the bottom-left of generated OGP images. `true` uses
 # the site title; a string draws a custom label. Unset = brand-neutral image.

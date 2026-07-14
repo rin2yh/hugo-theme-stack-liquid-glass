@@ -16,12 +16,14 @@
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}">
 
-{{- /* Fonts — load asynchronously to avoid blocking first paint */ -}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-{{- $fontHref := "https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" -}}
-<link rel="stylesheet" href="{{ $fontHref }}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="{{ $fontHref }}"></noscript>
+{{- /* Fonts — the theme loads NO webfonts. The CSS variables fall back to
+       system fonts (fastest, most private, and no unused-CSS Google Fonts
+       stylesheet for tools like PageSpeed to flag). Bring your own fonts from
+       the site side:
+         1. Load the font files in layouts/partials/head/custom.html
+            (rendered near the end of <head>).
+         2. Point the CSS variables at them with [params.fonts] —
+            display / ui / body / mono (see the block after the stylesheet). */ -}}
 
 {{- /* OpenGraph + Twitter */ -}}
 {{ partial "head/opengraph.html" . }}
@@ -65,6 +67,24 @@
   {{- end }}
 {{- end }}
 
+{{- /* Font-family overrides — point the CSS variables at your own fonts without
+       editing CSS. Emitted after the stylesheet so it wins by source order.
+         [params.fonts]
+         display = "'Playfair Display', serif"   # headings / brand
+         ui      = "'Inter', system-ui, sans-serif"
+         body    = "'Inter', 'Noto Sans JP', sans-serif"
+         mono    = "'Fira Code', monospace" */ -}}
+{{- with .Site.Params.fonts -}}
+  {{- $fonts := . -}}
+  {{- $overrides := slice -}}
+  {{- range $key := slice "display" "ui" "body" "mono" -}}
+    {{- with index $fonts $key -}}{{- $overrides = $overrides | append (printf "--font-%s:%s;" $key .) -}}{{- end -}}
+  {{- end -}}
+  {{- with $overrides -}}
+    <style>{{ printf ":root{%s}" (delimit . "") | safeCSS }}</style>
+  {{- end -}}
+{{- end -}}
+
 {{- /* JS bundle */ -}}
 {{- $jsFiles := slice
   "js/liquid-glass.js"
@@ -91,3 +111,7 @@
 
 {{- /* Optional analytics */ -}}
 {{ if hugo.IsProduction }}{{ partial "google-analytics.html" . }}{{ end }}
+
+{{- /* Site-provided <head> extras (webfonts, preloads, verification meta…).
+       Create layouts/partials/head/custom.html in your own site to use it. */ -}}
+{{- if templates.Exists "partials/head/custom.html" -}}{{ partial "head/custom.html" . }}{{- end -}}

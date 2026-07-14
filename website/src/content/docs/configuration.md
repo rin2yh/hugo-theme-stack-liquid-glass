@@ -45,6 +45,54 @@ src = "image/avatar.webp"
 
 When `enabled = true`, the avatar appears at the top of the sidebar. With `local = true`, `src` is resolved through Hugo's asset pipeline (place the file under your site's `assets/` directory). With `local = false`, `src` is treated as an external URL.
 
+### Fonts
+
+**The theme loads no webfonts by default.** Everything falls back to the system-font stacks in the CSS variables (`--font-display`, `--font-ui`, `--font-body`, `--font-mono`), which is the fastest and most private option — and it stops tools like PageSpeed Insights from flagging a large "unused CSS" Google Fonts stylesheet (the CJK stylesheet in particular enumerates hundreds of subset `@font-face` rules).
+
+You choose the fonts from your own site, in two steps.
+
+**1. Load the font files** — create `layouts/partials/head/custom.html` in your site. It is rendered near the end of `<head>`, so put any `<link>`, `<style>`, or preload there:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+```
+
+(This hook is general-purpose — you can also use it for preloads, verification `<meta>` tags, etc.)
+
+**2. Point the variables at them** — with `[params.fonts]`. Each key overrides one CSS variable, no CSS editing required:
+
+```toml
+[params.fonts]
+display = "'Playfair Display', serif"        # headings / brand
+ui      = "'Inter', system-ui, sans-serif"
+body    = "'Inter', 'Noto Sans JP', sans-serif"
+mono    = "'Fira Code', monospace"
+```
+
+| Key | Type | Description |
+|---|---|---|
+| `display` | `string` | Overrides `--font-display` (headings, brand, card titles). |
+| `ui` | `string` | Overrides `--font-ui` (buttons, tags, labels). |
+| `body` | `string` | Overrides `--font-body` (body copy). |
+| `mono` | `string` | Overrides `--font-mono` (code). |
+
+#### The theme's original typography
+
+The CSS variables already name the theme's designed families first (Italiana, DM Sans, Noto Sans JP, JetBrains Mono), so to get the original look you only need to **load** those fonts — no variable overrides required. Drop this into `layouts/partials/head/custom.html`:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<noscript><link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"></noscript>
+```
+
+The `media="print"` → `onload` swap loads it asynchronously so it never blocks first paint. Non-Japanese sites can drop `&family=Noto+Sans+JP:…` to skip the heavy CJK font (body text then falls back to the system Japanese fonts in `--font-body`). This is exactly what the [exampleSite](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/blob/main/exampleSite/layouts/partials/head/custom.html) does.
+
 ## Widgets
 
 See [Widgets](/widgets/) for the per-widget configuration. There are two widget slots:
