@@ -30,8 +30,8 @@
 {{- $useGoogleFonts := false -}}
 {{- $useJPFont := true -}}
 {{- with .Site.Params.fonts -}}
-  {{- if isset . "googlefonts" -}}{{- $useGoogleFonts = .googleFonts -}}{{- end -}}
-  {{- if isset . "japanesebodyfont" -}}{{- $useJPFont = .japaneseBodyFont -}}{{- end -}}
+  {{- $useGoogleFonts = cond (isset . "googlefonts") .googleFonts $useGoogleFonts -}}
+  {{- $useJPFont = cond (isset . "japanesebodyfont") .japaneseBodyFont $useJPFont -}}
 {{- end -}}
 {{- if $useGoogleFonts -}}
   {{- /* Opt-in: the theme's original Google Fonts set, loaded asynchronously.
@@ -98,11 +98,11 @@
          body    = "'Inter', 'Noto Sans JP', sans-serif"
          mono    = "'Fira Code', monospace" */ -}}
 {{- with .Site.Params.fonts -}}
+  {{- $fonts := . -}}
   {{- $overrides := slice -}}
-  {{- with .display -}}{{- $overrides = $overrides | append (printf "--font-display:%s;" .) -}}{{- end -}}
-  {{- with .ui -}}{{- $overrides = $overrides | append (printf "--font-ui:%s;" .) -}}{{- end -}}
-  {{- with .body -}}{{- $overrides = $overrides | append (printf "--font-body:%s;" .) -}}{{- end -}}
-  {{- with .mono -}}{{- $overrides = $overrides | append (printf "--font-mono:%s;" .) -}}{{- end -}}
+  {{- range $key := slice "display" "ui" "body" "mono" -}}
+    {{- with index $fonts $key -}}{{- $overrides = $overrides | append (printf "--font-%s:%s;" $key .) -}}{{- end -}}
+  {{- end -}}
   {{- with $overrides -}}
     <style>{{ printf ":root{%s}" (delimit . "") | safeCSS }}</style>
   {{- end -}}
