@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.2](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.1...v0.5.2) - 2026-07-14
+
+- feat(fonts)!: ship no webfonts by default, own them from the site side by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/72
+
 ## [v0.5.1](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.5.0...v0.5.1) - 2026-07-14
 
 - ci(release): replace release-please with Songmu/tagpr by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/70
