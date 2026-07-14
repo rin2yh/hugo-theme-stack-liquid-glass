@@ -10,9 +10,10 @@ cutting a release is just merging that PR — no manual `git tag` or
 
 ## How versions are chosen
 
-tagpr computes the next version from the **latest `vX.Y.Z` git tag**, not from
-commit messages. By default it bumps the **patch** version. To bump minor or
-major instead, label the open release PR:
+tagpr tracks the current version in the [`VERSION`](../VERSION) file (kept in
+sync with the latest `vX.Y.Z` git tag) and does **not** parse commit messages.
+By default it bumps the **patch** version. To bump minor or major instead,
+label the open release PR:
 
 | Label on the release PR | Effect                                 |
 | ----------------------- | -------------------------------------- |
@@ -53,21 +54,22 @@ maintains the open release PR. To cut a release:
    - publishes the GitHub Release with the changelog excerpt,
    - closes the release PR.
 
-### Tag format
+### Tag format and the first release
 
 Releases are tagged as plain `vX.Y.Z` (the standard Hugo theme / module
 convention). The older release-please tags used a
-`hugo-theme-stack-liquid-glass-v*` prefix that tagpr does not recognise, so
-tagpr needs one matching tag to start from. This is a **one-time bootstrap**:
-seed a `v0.5.0` tag on the `0.5.0` release commit, once, before the first run:
+`hugo-theme-stack-liquid-glass-v*` prefix that tagpr cannot read, so there is
+no `vX.Y.Z` tag for tagpr to start from. Rather than hand-seed one, the
+[`VERSION`](../VERSION) file carries the current version (`0.5.1`), which tagpr
+uses to propose the first release — so the first release PR is **`v0.5.1`** and
+every release after it continues from the tag tagpr just cut. No manual tagging
+is ever needed.
 
-```sh
-git tag v0.5.0 3074d6677d6f309a2ebeac5fdd52fc2dd1a8c884
-git push origin v0.5.0
-```
-
-After that, tagpr continues the sequence on its own (`v0.5.1`, `v0.6.0`, …) —
-no further manual tagging is ever needed.
+> **One-time caveat.** Because no `vX.Y.Z` tag exists yet, the *first* release
+> PR's generated changelog spans the whole history (tagpr has no earlier tag to
+> diff against). Just trim that first `CHANGELOG.md` entry down to the relevant
+> changes in the release PR before merging; from the second release on, each
+> changelog covers only the commits since the previous tag.
 
 ## Configuration
 
@@ -75,19 +77,25 @@ tagpr is configured by [`.tagpr`](../.tagpr):
 
 - `releaseBranch = main` — the branch tagpr watches.
 - `vPrefix = true` — tag releases as `vX.Y.Z`.
-- `versionFile = -` — the version lives only in git tags; there is no
-  in-repo version file to bump (`theme.toml` has no version field).
+- `versionFile = VERSION` — the current version is stored in the `VERSION`
+  file; tagpr reads it to pick the next version and bumps it in the release PR.
 - `release = true` — publish a GitHub Release on merge.
 - `changelog = true`, `changelogFile = CHANGELOG.md` — maintain the changelog.
 
 ## Automation token
 
-The workflow uses the default `GITHUB_TOKEN`. No workflow in this repo triggers
-on tags or releases, and the release PR touches only `CHANGELOG.md` (no
-`pull_request` path filters match it), so there is no need for a GitHub App
-token to fan out downstream CI — unlike the previous release-please setup.
+The workflow authenticates as a **GitHub App**, reusing the
+`RELEASE_PLEASE_APP_ID` / `RELEASE_PLEASE_PRIVATE_KEY` secrets that the previous
+release-please setup already configured (via
+[`actions/create-github-app-token`](https://github.com/actions/create-github-app-token)).
 
-If you later add a workflow that must trigger on the release tag or the release
-PR, swap `GITHUB_TOKEN` for a GitHub App token
-([`actions/create-github-app-token`](https://github.com/actions/create-github-app-token)),
-since events raised by the default token do not trigger further workflow runs.
+This is deliberate: the default `GITHUB_TOKEN` cannot open pull requests unless
+the repo's **Settings → Actions → General → "Allow GitHub Actions to create and
+approve pull requests"** toggle is enabled. Authenticating as the App sidesteps
+that, so tagpr can open its release PR without any repo setting being changed.
+The App only needs **Contents: Read & write** and **Pull requests: Read &
+write** permissions (which it already has from the release-please era).
+
+Keep those two secrets in place — despite the `RELEASE_PLEASE_*` names, tagpr
+now depends on them. The rest of the release-please footprint (config, manifest,
+workflow) has been removed.
