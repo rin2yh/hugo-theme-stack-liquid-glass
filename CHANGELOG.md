@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.4.0...hugo-theme-stack-liquid-glass-v0.5.0) (2026-07-14)
+
+
+### Features
+
+* **ogp:** draw site name on generated OGP images ([#68](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/issues/68)) ([d3bb5ec](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/commit/d3bb5ece3495ac28d300182b5208d97246616197))
+
 ## [0.4.0](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/hugo-theme-stack-liquid-glass-v0.3.0...hugo-theme-stack-liquid-glass-v0.4.0) (2026-07-02)
 
 
