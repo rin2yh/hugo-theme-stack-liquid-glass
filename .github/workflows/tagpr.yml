@@ -1,11 +1,5 @@
-# tagpr keeps an open release PR up to date on every push to main, and cuts a
-# git tag + GitHub Release when that PR is merged. See docs/releasing.md.
-#
-# Authenticates as a GitHub App (reusing the secrets the old release-please
-# setup already configured) rather than the default GITHUB_TOKEN. That token
-# cannot open pull requests unless the repo's "Allow GitHub Actions to create
-# and approve pull requests" setting is enabled; the App token sidesteps that,
-# so no repo setting has to be toggled.
+# tagpr maintains a release PR and cuts a tag + GitHub Release on merge.
+# See docs/releasing.md.
 
 name: tagpr
 
@@ -30,9 +24,6 @@ jobs:
           client-id: ${{ secrets.RELEASE_PLEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}
 
-      # fetch-depth: 0 — tagpr needs full history (changelog) and all tags
-      # (version detection). persist-credentials: false — tagpr authenticates
-      # git and the API itself via the App token below.
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
