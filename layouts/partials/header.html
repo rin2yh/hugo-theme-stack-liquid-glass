@@ -1,4 +1,4 @@
-<header class="site-header site-header--mobile">
+<header class="site-header site-header--mobile{{ if not .IsHome }} site-header--has-back{{ end }}">
   <div class="site-header__inner">
     <div class="site-header__brand">
       {{- if not .IsHome -}}

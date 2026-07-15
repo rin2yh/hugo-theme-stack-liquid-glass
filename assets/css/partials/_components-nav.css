@@ -90,17 +90,22 @@
   color: var(--color-text);
   text-decoration: none;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-md);
   border-radius: var(--radius-full);
-  min-width: 0;
 }
 .site-brand:hover {
   color: var(--color-text);
+}
+
+/* When the back button is present the row is tighter, so let the title
+   truncate instead of pushing the menu toggle onto a second line. */
+.site-header--has-back .site-brand {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .site-header__actions {
@@ -139,8 +144,12 @@
 
 @media (max-width: 768px) {
   .site-header__inner {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: var(--space-xs);
+  }
+  /* With a back button the title truncates, so keep everything on one row. */
+  .site-header--has-back .site-header__inner {
+    flex-wrap: nowrap;
   }
 }
 
