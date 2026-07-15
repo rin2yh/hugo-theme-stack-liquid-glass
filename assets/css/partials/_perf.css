@@ -1,0 +1,38 @@
+/* Rendering-cost hints — skip off-screen work, no visual change.
+
+   Every .glass surface carries a backdrop-filter: blur() that re-samples the
+   blurred scene blobs (blur(80px)) beneath it, so each one is comparatively
+   expensive to composite on mobile GPUs. A list/home page stacks many of them
+   (article cards + sidebar widgets), and the browser rasterizes the off-screen
+   ones at first paint too — inflating Speed Index / TBT.
+
+   content-visibility: auto lets the browser skip the internal rendering
+   (backdrop-filter included) of elements outside the viewport until the user
+   scrolls near them, limiting first paint to what is actually visible. The look
+   is unchanged: paint containment clips a descendant's overflow, not the
+   element's own outer box-shadow, so the glass shadow/frost stays intact, and
+   the element remains in the DOM (querySelector, in-page find still work).
+
+   contain-intrinsic-size gives skipped elements a placeholder height so the
+   scrollbar and layout stay stable (no CLS); the `auto` keyword makes the
+   browser remember each element's real size once rendered.
+
+   Scoped to @media screen: when printing, everything is treated as off-screen,
+   and content-visibility: auto would drop the skipped content from the printed
+   output — so the hint must not apply to print. */
+@media screen {
+  /* Article cards on home / list / taxonomy / archives (stacked vertically). */
+  .article-item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 200px;
+  }
+
+  /* Sidebar widgets (search / archives / categories / tags / TOC …). On mobile
+     they wrap below the content and start fully off-screen. The sticky element
+     is the parent wrapper (.layout-grid__sidebar, desktop widths only), not
+     .widget itself, so this does not conflict with sticky positioning. */
+  .widget {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 240px;
+  }
+}
