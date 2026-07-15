@@ -1,0 +1,25 @@
+/* Skip rendering off-screen .glass surfaces (list cards, sidebar widgets,
+   related-post cards, taxonomy tiles) until scrolled near. Each .glass carries a
+   backdrop-filter that re-samples the blurred scene blobs, so painting the
+   off-screen ones at first load needlessly inflates Speed Index / TBT on mobile.
+   No visual change (paint containment leaves the element's own box-shadow) and no
+   layout shift (contain-intrinsic-size holds a placeholder height; `auto` then
+   remembers the real one). Scoped to @media screen: when printing everything
+   counts as off-screen, and content-visibility:auto would drop the skipped
+   content from the printed output. Deliberately per-component, not a blanket
+   .glass rule — the header, brand, and above-the-fold article body are also
+   .glass and must keep painting. */
+@media screen {
+  .article-item,
+  .article-card,
+  .widget {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 220px;
+  }
+
+  /* Taxonomy index tiles are single-row pills — much shorter. */
+  .term-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 64px;
+  }
+}
