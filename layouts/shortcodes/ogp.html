@@ -10,7 +10,7 @@
 */ -}}
 {{- $url := or (.Get "url") (.Get 0) -}}
 {{- with $url -}}
-  {{- partial "helper/ogp-card.html" (dict "url" (trim . " ") "page" $.Page) -}}
+  {{- partial "helper/ogp-card.html" (dict "url" (trim . " ")) -}}
 {{- else -}}
   {{- errorf "ogp shortcode: a URL is required (%s)" .Position -}}
 {{- end -}}

@@ -20,7 +20,7 @@
          a high priority, while every later card stays lazy. */ -}}
   {{- $seen := .Page.Store.Get "ogpCardSeen" -}}
   {{- .Page.Store.Set "ogpCardSeen" true -}}
-  {{- partial "helper/ogp-card.html" (dict "url" $dest "text" .Text "eager" (not $seen) "page" .Page) -}}
+  {{- partial "helper/ogp-card.html" (dict "url" $dest "text" .Text "eager" (not $seen)) -}}
 {{- else -}}
   <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
 {{- end -}}

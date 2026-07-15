@@ -28,21 +28,6 @@
 {{- /* OpenGraph + Twitter */ -}}
 {{ partial "head/opengraph.html" . }}
 
-{{- /* Preconnect to the eager OGP card's image origin.
-       The card's image URL is only known after the content render hooks run,
-       so evaluate .Content here to populate .Store. Only single pages render
-       .Content in their body, so gating on .IsPage keeps this free — the body
-       reuses Hugo's memoized render — and avoids forcing an otherwise-skipped
-       render (and its build-time OGP fetches) on list/home/taxonomy pages,
-       which never show a card. Emitting the hint inside <head>, before the
-       render-blocking stylesheet, lets the browser open the connection while
-       CSS downloads — moving the DNS/TCP/TLS handshake off the LCP critical
-       path. Nothing is emitted when there is no eager card. */ -}}
-{{- if .IsPage -}}{{- $_ := .Content -}}{{- end -}}
-{{- with .Store.Get "ogpPreconnect" -}}
-<link rel="preconnect" href="{{ . }}">
-{{- end -}}
-
 {{- /* Stylesheet pipeline — plain CSS concat */ -}}
 {{- $cssFiles := slice
   "css/partials/_tokens.css"
