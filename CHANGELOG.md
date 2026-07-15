@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.4](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.3...v0.5.4) - 2026-07-15
+
+- perf(ogp): eager-load the first card image and downsize twimg sources by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/76
+
 ## [v0.5.3](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.2...v0.5.3) - 2026-07-15
 
 - perf: skip off-screen glass surfaces with content-visibility by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/74
