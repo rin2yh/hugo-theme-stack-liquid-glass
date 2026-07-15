@@ -57,16 +57,6 @@
           {{- end -}}
         {{- end -}}
 
-        {{- /* Downsize oversized CDN images to a variant that suits the card
-               (displayed only a few hundred px wide). Twitter/X media exposes
-               :thumb/:small/:medium/:large/:orig suffixes (and the equivalent
-               name=… query); :large is 2048px, :medium 1200px — a large byte
-               saving on what is often the LCP image. Other origins pass through. */ -}}
-        {{- if and $image (in $image "pbs.twimg.com") -}}
-          {{- $image = $image | replaceRE ":(large|orig)$" ":medium" -}}
-          {{- $image = $image | replaceRE "([?&]name=)(large|orig)(&|$)" "${1}medium${3}" -}}
-        {{- end -}}
-
         {{- if not $siteName -}}{{- $siteName = $base.Host -}}{{- end -}}
 
         {{- if $title -}}
