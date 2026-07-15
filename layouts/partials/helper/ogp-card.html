@@ -11,6 +11,10 @@
 {{- $text := or .text $url -}}
 {{- $external := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
 
+{{- /* The first card on a page is loaded eagerly with a high fetch priority
+       (it is the likely LCP element); every other card stays lazy. */ -}}
+{{- $eager := .eager -}}
+
 {{- /* On by default; opt out with params.ogpCard.enabled = false. */ -}}
 {{- $enabled := ne site.Params.ogpCard.enabled false -}}
 
@@ -23,7 +27,7 @@
 <a class="ogp-card" href="{{ $url }}" target="_blank" rel="noopener noreferrer">
   {{- with $ogp.image }}
   <span class="ogp-card__image">
-    <img src="{{ . }}" loading="lazy" decoding="async" alt="">
+    <img src="{{ . }}" decoding="async"{{ if $eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} alt="">
   </span>
   {{- end }}
   <span class="ogp-card__body">

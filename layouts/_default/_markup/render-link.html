@@ -14,7 +14,13 @@
 {{- $external := or (hasPrefix $dest "http://") (hasPrefix $dest "https://") -}}
 {{- $isBareURL := and $external (eq (trim $plain " ") (trim $dest " ")) -}}
 {{- if $isBareURL -}}
-  {{- partial "helper/ogp-card.html" (dict "url" $dest "text" .Text) -}}
+  {{- /* Mark only the first OGP card on the page as eager. Hugo renders (and
+         memoizes) a page's content once, so the first card is reliably the one
+         nearest the top and the likely LCP element: it is fetched eagerly with
+         a high priority, while every later card stays lazy. */ -}}
+  {{- $seen := .Page.Store.Get "ogpCardSeen" -}}
+  {{- .Page.Store.Set "ogpCardSeen" true -}}
+  {{- partial "helper/ogp-card.html" (dict "url" $dest "text" .Text "eager" (not $seen)) -}}
 {{- else -}}
   <a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
 {{- end -}}
