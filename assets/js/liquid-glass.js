@@ -92,6 +92,26 @@
     }
   };
 
+  var BackButton = {
+    init: function () {
+      var btn = document.querySelector("[data-back-button]");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        var home = btn.getAttribute("data-back-home") || "/";
+        // Prefer the browser's history when the user arrived from another
+        // in-site page; otherwise fall back to the site home.
+        var sameOriginRef =
+          document.referrer &&
+          document.referrer.indexOf(window.location.origin) === 0;
+        if (window.history.length > 1 && sameOriginRef) {
+          window.history.back();
+        } else {
+          window.location.href = home;
+        }
+      });
+    }
+  };
+
   var ScrollHoverGuard = {
     init: function () {
       var root = document.documentElement;
@@ -163,6 +183,7 @@
     GlassTheme.init();
     GlassRipple.init();
     MobileNav.init();
+    BackButton.init();
     ScrollHoverGuard.init();
     ClipboardCopy.init();
   }
