@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.3](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.2...v0.5.3) - 2026-07-15
+
+- perf: skip off-screen glass surfaces with content-visibility by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/74
+
 ## [v0.5.2](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.1...v0.5.2) - 2026-07-14
 
 - feat(fonts)!: ship no webfonts by default, own them from the site side by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/72
