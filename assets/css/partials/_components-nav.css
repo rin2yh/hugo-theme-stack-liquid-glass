@@ -16,19 +16,24 @@
   }
 }
 
-.site-header__menu-toggle {
+/* Round 40px icon buttons in the mobile header (hamburger + back). */
+.site-header__menu-toggle,
+.site-header__back {
   display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   flex-shrink: 0;
   width: 40px;
   height: 40px;
+  padding: 0;
   border: none;
   border-radius: var(--radius-full);
+  color: var(--color-text);
   cursor: pointer;
-  padding: 0;
+}
+.site-header__menu-toggle {
+  flex-direction: column;
+  gap: 4px;
 }
 .site-header__menu-toggle span {
   display: block;
@@ -65,19 +70,6 @@
   min-width: 0;
 }
 
-.site-header__back {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: var(--radius-full);
-  color: var(--color-text);
-  cursor: pointer;
-}
 .site-header__back svg {
   width: 20px;
   height: 20px;

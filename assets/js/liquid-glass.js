@@ -99,9 +99,9 @@
       btn.addEventListener("click", function () {
         var home = btn.getAttribute("data-back-home") || "/";
         // Prefer the browser's history when the user arrived from another
-        // in-site page; otherwise fall back to the site home.
+        // in-site page; otherwise fall back to the site home. document.referrer
+        // is "" when absent, so indexOf === 0 is false without a null guard.
         var sameOriginRef =
-          document.referrer &&
           document.referrer.indexOf(window.location.origin) === 0;
         if (window.history.length > 1 && sameOriginRef) {
           window.history.back();
