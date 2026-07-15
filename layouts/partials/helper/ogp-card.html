@@ -4,8 +4,10 @@
   Falls back to a plain anchor when OGP fetching is disabled or the target
   exposes no usable metadata, so content always renders something clickable.
 
-  Input: dict { url, text }
+  Input: dict { url, text, eager, page }
          text = anchor label used for the fallback link (defaults to url)
+         page = the owning Page, used to record a preconnect hint for the
+                eager card's image origin (optional)
 */ -}}
 {{- $url := .url -}}
 {{- $text := or .text $url -}}
@@ -14,6 +16,7 @@
 {{- /* The first card on a page is loaded eagerly with a high fetch priority
        (it is the likely LCP element); every other card stays lazy. */ -}}
 {{- $eager := .eager -}}
+{{- $page := .page -}}
 
 {{- /* On by default; opt out with params.ogpCard.enabled = false. */ -}}
 {{- $enabled := ne site.Params.ogpCard.enabled false -}}
@@ -24,6 +27,17 @@
 {{- end -}}
 
 {{- if $ogp.ok -}}
+  {{- /* Record the eager card's image origin so <head> can emit a
+         <link rel="preconnect"> before the render-blocking stylesheet, pulling
+         the DNS/TCP/TLS handshake off the LCP critical path. Plain <img>
+         (no crossorigin attr) uses a credentialed connection, so the hint is
+         emitted without crossorigin to match. */ -}}
+  {{- if and $eager $page $ogp.image -}}
+    {{- $u := urls.Parse $ogp.image -}}
+    {{- with $u.Host -}}
+      {{- $page.Store.Set "ogpPreconnect" (printf "%s://%s" $u.Scheme .) -}}
+    {{- end -}}
+  {{- end -}}
 <a class="ogp-card" href="{{ $url }}" target="_blank" rel="noopener noreferrer">
   {{- with $ogp.image }}
   <span class="ogp-card__image">

@@ -28,6 +28,18 @@
 {{- /* OpenGraph + Twitter */ -}}
 {{ partial "head/opengraph.html" . }}
 
+{{- /* Preconnect to the eager OGP card's image origin.
+       The card's image URL is only known after the content render hooks run,
+       so evaluate .Content here to populate .Store. Hugo memoizes .Content, so
+       the body reuses this render at no extra cost. Emitting the hint inside
+       <head>, before the render-blocking stylesheet, lets the browser open the
+       connection while CSS downloads — moving the DNS/TCP/TLS handshake off
+       the LCP critical path. Nothing is emitted when there is no eager card. */ -}}
+{{- $_ := .Content -}}
+{{- with .Store.Get "ogpPreconnect" -}}
+<link rel="preconnect" href="{{ . }}">
+{{- end -}}
+
 {{- /* Stylesheet pipeline — plain CSS concat */ -}}
 {{- $cssFiles := slice
   "css/partials/_tokens.css"
