@@ -11,6 +11,10 @@
 {{- $text := or .text $url -}}
 {{- $external := or (hasPrefix $url "http://") (hasPrefix $url "https://") -}}
 
+{{- /* The first card on a page is loaded eagerly with a high fetch priority
+       (it is the likely LCP element); every other card stays lazy. */ -}}
+{{- $eager := .eager -}}
+
 {{- /* On by default; opt out with params.ogpCard.enabled = false. */ -}}
 {{- $enabled := ne site.Params.ogpCard.enabled false -}}
 
@@ -22,8 +26,19 @@
 {{- if $ogp.ok -}}
 <a class="ogp-card" href="{{ $url }}" target="_blank" rel="noopener noreferrer">
   {{- with $ogp.image }}
+    {{- /* The card displays the image only a few hundred px wide, so request a
+           smaller variant when the source is a known CDN that serves oversized
+           files. Twitter/X media exposes :thumb/:small/:medium/:large/:orig
+           suffixes (and the equivalent name=… query); :large is 2048px wide,
+           :medium 1200px — ample for this card and a large byte saving on what
+           is often the LCP image. */ -}}
+    {{- $src := . -}}
+    {{- if in $src "pbs.twimg.com" -}}
+      {{- $src = $src | replaceRE ":(large|orig)$" ":medium" -}}
+      {{- $src = $src | replaceRE "([?&]name=)(large|orig)(&|$)" "${1}medium${3}" -}}
+    {{- end }}
   <span class="ogp-card__image">
-    <img src="{{ . }}" loading="lazy" decoding="async" alt="">
+    <img src="{{ $src }}" decoding="async"{{ if $eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} alt="">
   </span>
   {{- end }}
   <span class="ogp-card__body">
