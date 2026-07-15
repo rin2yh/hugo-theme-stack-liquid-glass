@@ -1,4 +1,4 @@
-<header class="site-header site-header--mobile{{ if not .IsHome }} site-header--has-back{{ end }}">
+<header class="site-header site-header--mobile">
   <div class="site-header__inner">
     <div class="site-header__brand">
       {{- if not .IsHome -}}
@@ -7,7 +7,7 @@
         </button>
       {{- end -}}
       <a class="glass site-brand" href="{{ .Site.Home.RelPermalink }}">
-        {{ .Site.Title }}
+        <span class="site-brand__text">{{ .Site.Title }}</span>
       </a>
     </div>
     <button class="glass site-header__menu-toggle" type="button" data-mobile-nav-toggle aria-label="{{ T "toggleMenu" }}" aria-expanded="false">

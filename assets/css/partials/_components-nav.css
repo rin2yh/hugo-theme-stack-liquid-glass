@@ -95,14 +95,15 @@
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-md);
   border-radius: var(--radius-full);
+  min-width: 0;
 }
 .site-brand:hover {
   color: var(--color-text);
 }
 
-/* When the back button is present the row is tighter, so let the title
-   truncate instead of pushing the menu toggle onto a second line. */
-.site-header--has-back .site-brand {
+/* text-overflow needs a block-ish element, so truncate the inner span
+   rather than the inline-flex anchor (where ellipsis never renders). */
+.site-brand__text {
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
@@ -143,13 +144,11 @@
 }
 
 @media (max-width: 768px) {
+  /* Keep the row intact and let the title truncate instead of wrapping the
+     menu toggle onto a second line. */
   .site-header__inner {
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-  /* With a back button the title truncates, so keep everything on one row. */
-  .site-header--has-back .site-header__inner {
     flex-wrap: nowrap;
+    gap: var(--space-xs);
   }
 }
 
