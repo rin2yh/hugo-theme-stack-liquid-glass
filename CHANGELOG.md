@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.5](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.4...v0.5.5) - 2026-07-15
+
+- perf(ogp): preconnect to the eager card image origin on mobile by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/78
+
 ## [v0.5.4](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.3...v0.5.4) - 2026-07-15
 
 - perf(ogp): eager-load the first card image and downsize twimg sources by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/76
