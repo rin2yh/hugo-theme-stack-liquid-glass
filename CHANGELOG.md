@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.5.7](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.6...v0.5.7) - 2026-07-16
+
+- feat(mobile): add back button left of site name on non-home pages by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/82
+
 ## [v0.5.6](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.5...v0.5.6) - 2026-07-15
 
 - revert(ogp): drop the per-service eager/preconnect/twimg card tweaks by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/80
