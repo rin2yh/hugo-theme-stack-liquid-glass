@@ -1,7 +1,8 @@
 <header class="site-header site-header--mobile">
   <div class="site-header__inner">
     <div class="site-header__brand">
-      {{- if not .IsHome -}}
+      {{- /* Back button: on by default, opt out with params.mobileBackButton = false. */ -}}
+      {{- if and (not .IsHome) (ne .Site.Params.mobileBackButton false) -}}
         <button class="glass site-header__back" type="button" data-back-button data-back-home="{{ .Site.Home.RelPermalink }}" aria-label="{{ T "back" }}">
           {{ partial "helper/icon" "arrow-left" }}
         </button>
