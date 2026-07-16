@@ -27,6 +27,9 @@ tabWidth = 2
 [params]
 mainSections = ["post"]
 rssFullContent = true
+# Mobile header back button — shown to the left of the site name on every page
+# except the home page. On by default; set to false to hide it.
+# mobileBackButton = false
 # Icon for the share action (sidebar widget + mobile FAB). Name an SVG you
 # place in your own assets/icons/ dir; unset falls back to a generic
 # external-link icon. The theme ships no brand-logo asset (trademarks).

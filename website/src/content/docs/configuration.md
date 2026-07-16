@@ -11,6 +11,7 @@ This page lists the configuration knobs the theme understands. All keys are opti
 |---|---|---|
 | `mainSections` | `[]string` | Sections shown on the homepage feed. Default: `["post"]`. |
 | `rssFullContent` | `bool` | If `true`, the RSS feed includes full post bodies. |
+| `mobileBackButton` | `bool` | Whether the mobile header shows a back button left of the site name on non-home pages. Default: `true`; set to `false` to hide it. |
 | `description` | `string` | Site description used in `<meta>` tags and as a fallback for RSS. |
 | `ogpCard.enabled` | `bool` | Whether bare URLs in content become [link cards](/link-cards/). Default: `true`; set to `false` to render plain links instead. |
 

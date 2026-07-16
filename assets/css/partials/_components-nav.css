@@ -16,18 +16,24 @@
   }
 }
 
-.site-header__menu-toggle {
+/* Round 40px icon buttons in the mobile header (hamburger + back). */
+.site-header__menu-toggle,
+.site-header__back {
   display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
+  padding: 0;
   border: none;
   border-radius: var(--radius-full);
+  color: var(--color-text);
   cursor: pointer;
-  padding: 0;
+}
+.site-header__menu-toggle {
+  flex-direction: column;
+  gap: 4px;
 }
 .site-header__menu-toggle span {
   display: block;
@@ -56,6 +62,19 @@
   justify-content: space-between;
 }
 
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.site-header__back svg {
+  width: 20px;
+  height: 20px;
+}
+
 .site-brand {
   font-family: var(--font-display);
   font-size: var(--text-xl);
@@ -68,9 +87,18 @@
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-md);
   border-radius: var(--radius-full);
+  min-width: 0;
 }
 .site-brand:hover {
   color: var(--color-text);
+}
+
+/* text-overflow needs a block-ish element, so truncate the inner span
+   rather than the inline-flex anchor (where ellipsis never renders). */
+.site-brand__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .site-header__actions {
@@ -108,8 +136,10 @@
 }
 
 @media (max-width: 768px) {
+  /* Keep the row intact and let the title truncate instead of wrapping the
+     menu toggle onto a second line. */
   .site-header__inner {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-xs);
   }
 }

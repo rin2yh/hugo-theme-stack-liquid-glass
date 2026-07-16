@@ -1,6 +1,9 @@
 [home]
 other = "ホーム"
 
+[back]
+other = "戻る"
+
 [search]
 other = "検索"
 

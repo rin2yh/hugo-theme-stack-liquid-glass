@@ -1,6 +1,9 @@
 [home]
 other = "Home"
 
+[back]
+other = "Back"
+
 [search]
 other = "Search"
 

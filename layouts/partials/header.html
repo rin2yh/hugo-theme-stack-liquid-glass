@@ -1,8 +1,16 @@
 <header class="site-header site-header--mobile">
   <div class="site-header__inner">
-    <a class="glass site-brand" href="{{ .Site.Home.RelPermalink }}">
-      {{ .Site.Title }}
-    </a>
+    <div class="site-header__brand">
+      {{- /* Back button: on by default, opt out with params.mobileBackButton = false. */ -}}
+      {{- if and (not .IsHome) (ne .Site.Params.mobileBackButton false) -}}
+        <button class="glass site-header__back" type="button" data-back-button data-back-home="{{ .Site.Home.RelPermalink }}" aria-label="{{ T "back" }}">
+          {{ partial "helper/icon" "arrow-left" }}
+        </button>
+      {{- end -}}
+      <a class="glass site-brand" href="{{ .Site.Home.RelPermalink }}">
+        <span class="site-brand__text">{{ .Site.Title }}</span>
+      </a>
+    </div>
     <button class="glass site-header__menu-toggle" type="button" data-mobile-nav-toggle aria-label="{{ T "toggleMenu" }}" aria-expanded="false">
       <span></span>
       <span></span>
