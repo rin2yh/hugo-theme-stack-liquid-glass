@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.5.8](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.7...v0.5.8) - 2026-09-25
+
+- chore(deps): bump actions/setup-go from 6.5.0 to 7.0.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/84
+- chore(deps): bump actions/checkout from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/89
+- chore(deps): bump Songmu/tagpr from 1.20.1 to 1.20.3 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/98
+- chore(deps): bump actions/setup-node from 6.4.0 to 7.0.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/85
+- chore(deps): bump actions/deploy-pages from 5.0.0 to 5.0.1 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/97
+- chore(deps): bump js-yaml from 4.2.0 to 4.3.2 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/103
+- chore(deps): bump devalue from 5.8.1 to 5.9.2 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/104
+- chore(deps): bump sharp, @astrojs/starlight and astro in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/102
+- chore(deps-dev): bump fast-uri from 3.1.2 to 3.1.7 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/96
+- chore(deps): bump smol-toml from 1.7.0 to 1.8.0 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/101
+- chore(deps): bump svgo from 4.0.1 to 4.1.0 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/99
+
 ## [v0.5.7](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.6...v0.5.7) - 2026-07-16
 
 - feat(mobile): add back button left of site name on non-home pages by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/82
