@@ -42,47 +42,33 @@ No configuration is required — this works out of the box. List pages, the home
 page, and taxonomy pages are skipped; only single content pages get a generated
 image.
 
-## Adding the site name
+## The site name
 
-To brand the generated images with your site name, set `params.ogp.siteName`.
-The name is drawn in the bottom-left of every generated title image, at build
-time — no `base.png` regeneration and no Go toolchain needed.
-
-```toml
-[params.ogp]
-siteName = true          # draw .Site.Title
-# siteName = "My Blog"   # or a custom label
-```
-
-This is **opt-in**: while it is unset the generated images stay brand-neutral,
-exactly as before. Upgrading the theme without setting it changes nothing — the
-generated images are byte-identical to previous builds, so nothing is
-regenerated.
-
-It draws at the bottom-left, so use it *instead of* baking a site name or avatar
-into `base.png` with `cmd/ogp` (below) — the two don't compose and would overlap.
-
-### Not regenerating existing images
-
-Hugo names generated images by a content hash, so turning `siteName` on changes
-the hash of **every** generated image — the next build re-renders all of them
-with new URLs. On an established blog that means every post's OG image URL
-changes at once, which you may not want (old social-media previews already
-scraped keep their cached image, but your build regenerates the lot).
-
-To brand only new posts and leave existing images untouched, set
-`params.ogp.siteNameSince` to the day you enable branding:
+Generated title images include the site name by default, using `.Site.Title`.
+To use a different label, set `params.ogp.siteName`:
 
 ```toml
 [params.ogp]
-siteName = true
-siteNameSince = "2026-07-14"   # only pages dated on/after this get the name
+siteName = "My Blog"   # optional custom label; true uses .Site.Title
 ```
 
-Pages dated before the cutoff (and undated pages) render exactly as before —
-same content hash, same URL, **not regenerated** — while pages dated on/after it
-get the site name. Set the cutoff to today and only posts you publish from now
-on are branded.
+To preserve a page's existing brand-neutral image, set `ogpSiteName = false`
+in that page's front matter:
+
+```yaml
+---
+ogpSiteName: false
+---
+```
+
+This setting is independent of the page date and other metadata. Add it to
+existing pages that should remain brand-neutral when upgrading; pages without
+it include the site name. New pages need no setting. Editing the title changes
+the image, while editing the date, tags, categories, or body does not.
+
+The site name is drawn in the bottom-left. Use this overlay instead of baking a
+site name or avatar into `base.png` with `cmd/ogp` (below), since they would
+overlap. Changes to the site name, background, font, or title change the image.
 
 ## Customizing the background
 
@@ -145,8 +131,8 @@ site = "your-handle"         # rendered as twitter:site, "@" optional
 
 | Key | Type | Description |
 |---|---|---|
-| `params.ogp.siteName` | `bool` \| `string` | Draw the site name in the bottom-left of generated title images. `true` uses `.Site.Title`; a string draws that label. Unset leaves images brand-neutral. |
-| `params.ogp.siteNameSince` | `string` (date) | Only brand pages dated on/after this. Older and undated pages render unchanged (same hash, not regenerated). Set it to the day you enable branding to leave existing images untouched. |
+| `params.ogp.siteName` | `string` \| `true` | Optional custom label for generated title images. `true` uses `.Site.Title`; when unset, `.Site.Title` is used. |
+| Page front matter `ogpSiteName` | `false` | Omit the site name for this page to preserve its existing brand-neutral image. Unset pages include the site name. |
 | `params.defaultImage.opengraph.src` | `string` | Site-wide fallback image, used only after the generated image step. Resolved with `absURL`. |
 | `params.opengraph.twitter.card` | `string` | `twitter:card` type. Defaults to `summary_large_image`. |
 | `params.opengraph.twitter.site` | `string` | Handle for `twitter:site`. A leading `@` is added if missing. |
