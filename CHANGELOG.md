@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.5.9](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.8...v0.5.9) - 2026-09-30
+
+- chore(deps): bump Songmu/tagpr from 1.20.3 to 1.21.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/107
+- fix(ogp): デフォルトでサイト名を描画し記事単位で除外する by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/109
+
 ## [v0.5.8](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.7...v0.5.8) - 2026-09-25
 
 - chore(deps): bump actions/setup-go from 6.5.0 to 7.0.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/84
