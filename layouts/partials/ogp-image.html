@@ -13,10 +13,9 @@
   by cmd/ogp: the title sits below the accent bar and above the bottom-left
   branding.
 
-  When params.ogp.siteName is set the site name is drawn in that bottom-left
-  branding area as a second overlay — set it to true to use .Site.Title, or to
-  a string for a custom label. It is opt-in, so sites that don't enable it keep
-  their existing generated images unchanged.
+  The site name is drawn in the bottom-left branding area by default. Set
+  params.ogp.siteName to a string for a custom label; set page front matter
+  ogpSiteName = false to preserve a page's brand-neutral image.
 
   Returns an empty string when inputs are missing or the page has no title,
   so callers can fall back to other images.
@@ -62,25 +61,16 @@
       "font" $font
     -}}
     {{- $filters := slice (images.Text $text $opts) -}}
-    {{- /* Optional site-name branding, bottom-left, aligned with cmd/ogp
-           (margin+pad = 120; branding band near the panel's lower-left). Opt-in
-           via params.ogp.siteName: true uses .Site.Title, a string draws itself. */ -}}
-    {{- $siteName := "" -}}
+    {{- /* Site-name branding, bottom-left, aligned with cmd/ogp
+           (margin+pad = 120; branding band near the panel's lower-left). */ -}}
+    {{- $siteName := .Site.Title -}}
     {{- with .Site.Params.ogp -}}
       {{- with .siteName -}}
-        {{- /* true → site title; any string → that label (eq is false across
-               types, so a string never matches true and draws itself). */ -}}
         {{- $siteName = cond (eq . true) $.Site.Title . -}}
       {{- end -}}
-      {{- /* Restrict branding to pages dated on/after params.ogp.siteNameSince,
-             so turning the site name on never regenerates older, already-
-             published images — they still render byte-identically to before.
-             Undated pages are left unbranded for the same reason. */ -}}
-      {{- with .siteNameSince -}}
-        {{- if or $.Date.IsZero ($.Date.Before (time.AsTime .)) -}}
-          {{- $siteName = "" -}}
-        {{- end -}}
-      {{- end -}}
+    {{- end -}}
+    {{- if and (isset .Params "ogpsitename") (eq (index .Params "ogpsitename") false) -}}
+      {{- $siteName = "" -}}
     {{- end -}}
     {{- with $siteName -}}
       {{- /* Bottom-left branding. x 120 matches the title (margin+pad); size 30
