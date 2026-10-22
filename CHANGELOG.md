@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.5.10](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.9...v0.5.10) - 2026-10-22
+
+- chore(deps): bump vite from 8.3.0 to 8.3.4 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/116
+- chore(deps): bump devalue from 5.9.2 to 5.9.4 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/112
+- chore(deps): bump actions/setup-node from 7.0.0 to 7.1.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/114
+- chore(deps): bump Songmu/tagpr from 1.21.0 to 1.21.2 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/113
+- chore: migrate dependency updates to Renovate by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/121
+
 ## [v0.5.9](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.8...v0.5.9) - 2026-09-30
 
 - chore(deps): bump Songmu/tagpr from 1.20.3 to 1.21.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/107
