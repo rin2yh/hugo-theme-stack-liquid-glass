@@ -6,10 +6,8 @@ on:
     paths:
       - 'website/**'
       - '.github/workflows/website.yml'
+  # Required for every PR so auto-merge always waits for validation.
   pull_request:
-    paths:
-      - 'website/**'
-      - '.github/workflows/website.yml'
 
 permissions:
   contents: read

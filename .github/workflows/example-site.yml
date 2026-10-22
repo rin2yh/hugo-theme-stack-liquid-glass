@@ -12,16 +12,8 @@ on:
       - 'exampleSite/**'
       - 'theme.toml'
       - '.github/workflows/example-site.yml'
+  # Validate every PR, including shared action and dependency updates.
   pull_request:
-    paths:
-      - 'archetypes/**'
-      - 'assets/**'
-      - 'i18n/**'
-      - 'images/**'
-      - 'layouts/**'
-      - 'exampleSite/**'
-      - 'theme.toml'
-      - '.github/workflows/example-site.yml'
 
 permissions:
   contents: read
