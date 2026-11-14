@@ -1,5 +1,26 @@
 # Changelog
 
+## [v0.5.10](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.9...v0.5.10) - 2026-11-14
+
+- chore(deps): bump vite from 8.3.0 to 8.3.4 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/116
+- chore(deps): bump devalue from 5.9.2 to 5.9.4 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/112
+- chore(deps): bump actions/setup-node from 7.0.0 to 7.1.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/114
+- chore(deps): bump Songmu/tagpr from 1.21.0 to 1.21.2 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/113
+- chore: migrate dependency updates to Renovate by @rin2yh in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/121
+- chore(deps): update dependency hugo to v0.168.0 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/125
+- chore(deps): update astro monorepo by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/124
+- fix(deps): update dependency @astrojs/starlight to ^0.42.0 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/126
+- fix(deps): update module golang.org/x/image to v0.47.0 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/127
+- chore(deps): update songmu/tagpr action to v1.21.3 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/133
+- chore(deps): update dependency @astrojs/starlight to v0.42.7 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/135
+- chore(deps): update astro monorepo by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/134
+- chore(deps): update dependency @astrojs/starlight to v0.42.8 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/137
+- chore(deps): update dependency astro to v7.4.5 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/138
+- chore(deps): update dependency ubuntu to v26 by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/130
+- chore(deps): bump undici from 8.10.2 to 8.12.3 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/131
+- chore(deps-dev): bump fast-uri from 3.1.8 to 3.1.9 in /website by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/132
+- chore(deps): update dependency astro to v7.4.7 [security] by @renovate[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/140
+
 ## [v0.5.9](https://github.com/rin2yh/hugo-theme-stack-liquid-glass/compare/v0.5.8...v0.5.9) - 2026-09-30
 
 - chore(deps): bump Songmu/tagpr from 1.20.3 to 1.21.0 by @dependabot[bot] in https://github.com/rin2yh/hugo-theme-stack-liquid-glass/pull/107
